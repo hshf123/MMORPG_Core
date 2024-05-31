@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <shared_mutex>
+#include <thread>
+#include <functional>
+#include <atomic>
 
 #include <vector>
 #include <stack>
@@ -13,6 +16,7 @@
 #include <unordered_set>
 
 #include "Macro.h"
+#include "Types.h"
 
 void HelloWorld()
 {
