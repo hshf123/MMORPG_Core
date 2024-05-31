@@ -4,16 +4,31 @@
     <ClInclude Include="pch.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkCore_pch.h">
+    <ClInclude Include="CorePch.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkCore_pch.cpp">
+    <ClCompile Include="CorePch.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryPool.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -22,6 +37,9 @@
     </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{685ad146-a6a4-4ee4-805a-f87e83e122a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{d03a18fd-f2a3-465d-a247-0ffdde996bf1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

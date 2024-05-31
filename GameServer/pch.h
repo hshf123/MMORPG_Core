@@ -1,3 +1,3 @@
 #pragma once
 
-#pragma comment(lib, "NetworkCore.lib")
+#pragma comment(lib, "ServerCore.lib")
