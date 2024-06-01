@@ -25,7 +25,7 @@ LogManager::~LogManager()
 		while (_logs[FileLog].empty() == false)
 		{
 			std::pair<LogType, std::string> p = q.front();
-			Write(p.second);
+			Write(p.first, p.second);
 			q.pop();
 		}
 	}
@@ -60,17 +60,34 @@ void LogManager::Launch()
 				{
 					WRITE_LOCKS(FileLog);
 					const auto& log = _logs[FileLog].front();
-					Write(log.second);
+					Write(log.first, log.second);
 					_logs[FileLog].pop();
 				}
+
+				std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			}
 		});
 }
 
-void LogManager::Write(const std::string& fmt)
+void LogManager::Write(const LogType& type, const std::string& log)
 {
-	if (_logger != nullptr)
-		_logger->info(fmt);
+	if (_logger == nullptr)
+		return;
+
+	switch (type)
+	{
+	case LogType::Info:
+		_logger->info(log);
+		break;
+	case LogType::Warning:
+		_logger->warn(log);
+		break;
+	case LogType::Error:
+		_logger->error(log);
+		break;
+	default:
+		break;
+	}
 }
 
 void LogManager::View(const LogType& type, const std::string& log)

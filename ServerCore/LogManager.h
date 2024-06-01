@@ -29,7 +29,7 @@ public:
 	void Log(const LogType& type, const bool& view, const bool& write, const std::string& fmt, Args&&... args);
 
 private:
-	void Write(const std::string& fmt);
+	void Write(const LogType& type, const std::string& log);
 	void View(const LogType& type, const std::string& log);
 
 public:
