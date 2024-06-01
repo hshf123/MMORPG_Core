@@ -30,3 +30,4 @@
 #include "TLS.h"
 #include "MemoryPool.h"
 #include "SendBuffer.h"
+#include "LogManager.h"
