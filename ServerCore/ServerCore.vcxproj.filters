@@ -13,6 +13,12 @@
     <Filter Include="Thread">
       <UniqueIdentifier>{360ca51d-d997-4c47-9cec-94c2f737b736}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{5f157428-7e76-48e2-87b9-fbe7bda16b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{a05dae78-d679-4e6e-bbb6-bfff80705014}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -39,6 +45,12 @@
     <ClInclude Include="TLS.h">
       <Filter>Thread</Filter>
     </ClInclude>
+    <ClInclude Include="LogManager.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -52,6 +64,12 @@
     </ClCompile>
     <ClCompile Include="ThreadManager.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="LogManager.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

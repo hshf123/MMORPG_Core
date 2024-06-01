@@ -2,9 +2,6 @@
 #include "CorePch.h"
 #include "LogManager.h"
 
-#define Log(fmt, ...)			LogManager::GetInstance().Log(LogType::Error, true, true, fmt, __VA_ARGS__);
-
-
 int main()
 {
 	LogManager::GetInstance().Initialize();
