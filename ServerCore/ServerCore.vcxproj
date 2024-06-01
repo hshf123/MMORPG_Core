@@ -166,6 +166,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CorePch.h" />
+    <ClInclude Include="IOCP.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="MemoryPool.h" />
@@ -178,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CorePch.cpp" />
+    <ClCompile Include="IOCP.cpp" />
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="pch.cpp">

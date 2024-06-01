@@ -51,6 +51,9 @@
     <ClInclude Include="Socket.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="IOCP.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -69,6 +72,9 @@
       <Filter>Log</Filter>
     </ClCompile>
     <ClCompile Include="Socket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="IOCP.cpp">
       <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>

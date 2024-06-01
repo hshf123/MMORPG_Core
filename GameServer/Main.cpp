@@ -10,7 +10,7 @@ int main()
 	LogManager::GetInstance().Launch();
 
 	for (int i = 0; i < 100; i++)
-		Log("Hello World {}", i);
+		VIEW_WRITE_INFO("Hello World {}", i);
 
 	return 0;
 }
