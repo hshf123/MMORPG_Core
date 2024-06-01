@@ -23,6 +23,10 @@
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
+#include <array>
 
 #include "Macro.h"
 #include "Types.h"
+#include "TLS.h"
+#include "MemoryPool.h"
+#include "SendBuffer.h"

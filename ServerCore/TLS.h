@@ -1,4 +1,5 @@
 #pragma once
 #include "pch.h"
 
-thread_local uint32 LThreadId = 0;
+extern thread_local uint32 LThreadId;
+extern thread_local std::shared_ptr <class SendBufferChunk> LSendBufferChunk;

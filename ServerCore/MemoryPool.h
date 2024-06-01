@@ -4,62 +4,59 @@
 constexpr int PoolSize = 4096;
 
 template<class T, class... Args>
-class MemoryPool
+class MemoryPool : public RefSingleton<MemoryPool<T>>
 {
-private:
+public:
 	MemoryPool() = default;
 	~MemoryPool()
 	{
-		WRITE_LOCK;
+		std::lock_guard<std::mutex> lock(_memoryLock);
 		while (_pools.empty() == false)
 		{
-			T* memory = _pools.top();
+			void* memory = _pools.top();
 			if (memory != nullptr)
-				delete memory;
+				::free(memory);
 			_pools.pop();
 		}
-
-		_pools.clear();
 	}
 
-public:
-	static T* New(Args&&... args)
+	void* New(Args&&... args)
 	{
-		WRITE_LOCK;
+		std::lock_guard<std::mutex> lock(_memoryLock);
 		if (_pools.empty())
-			return new T();
-
-		T* memory = _pools.top();
+			return ::malloc(sizeof(T));
+		void* memory = _pools.top();
 		_pools.pop();
-
 		return memory;
 	}
 
-	static void Delete(T* memory)
+	void Delete(T* memory)
 	{
 		if (memory == nullptr)
 			return;
 
-		WRITE_LOCK;
-		memory->Reset();
+		std::lock_guard<std::mutex> lock(_memoryLock);
 		_pools.push(memory);
 	}
 
 private:
-	USE_LOCK;
-	std::stack<T> _pools;
+	std::mutex _memoryLock;
+	std::stack<void*> _pools;
 };
 
 template<class Type, class... Args>
 Type* xnew(Args&&... args)
 {
-	return MemoryPool::New(std::forward<Args>(args)...);
+	Type* mem = static_cast<Type*>(MemoryPool<Type>::GetInstance().New());
+	new(mem)Type(std::forward<Args>(args)...);
+	return mem;
 }
 
 template<class Type>
 void xdelete(Type* ptr)
 {
-	MemoryPool::Delete(ptr);
+	ptr->~Type();
+	MemoryPool<Type>::GetInstance().Delete(ptr);
 }
 
 template<class T, class... Args>
