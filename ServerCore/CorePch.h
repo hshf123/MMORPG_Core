@@ -1,10 +1,14 @@
 #pragma once
 
+#pragma warning(disable : 26498)	  // SPD Log
+#pragma warning(disable : 4819)		  // SPD Log
+
 #include <iostream>
 #include <shared_mutex>
 #include <thread>
 #include <functional>
 #include <atomic>
+#include <format>
 
 #include <vector>
 #include <stack>
@@ -17,8 +21,3 @@
 
 #include "Macro.h"
 #include "Types.h"
-
-void HelloWorld()
-{
-	std::cout << "Hello World" << std::endl;
-}

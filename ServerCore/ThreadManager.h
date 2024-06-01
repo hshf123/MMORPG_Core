@@ -1,9 +1,9 @@
 #pragma once
 #include "Singleton.h"
 
-class ThreadManager : RefSingleton<ThreadManager>
+class ThreadManager : public RefSingleton<ThreadManager>
 {
-private:
+public:
 	ThreadManager();
 	~ThreadManager();
 
