@@ -31,3 +31,4 @@
 #include "MemoryPool.h"
 #include "SendBuffer.h"
 #include "LogManager.h"
+#include "StrUtils.h"

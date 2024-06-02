@@ -44,7 +44,7 @@ void Session::Disconnect(const WCHAR* cause)
 	if (_connected.exchange(false) == false)
 		return;
 
-	//VIEW_WRITE_WARNING("Disconnected {}", cause);
+	VIEW_WRITE_WARNING("Disconnected {}", StrUtils::ToString(cause));
 	RegisterDisconnect();
 }
 

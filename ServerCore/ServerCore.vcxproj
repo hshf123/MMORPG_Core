@@ -178,6 +178,7 @@
     <ClInclude Include="Session.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Socket.h" />
+    <ClInclude Include="StrUtils.h" />
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="TLS.h" />
     <ClInclude Include="Types.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Service.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Socket.cpp" />
+    <ClCompile Include="StrUtils.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="TLS.cpp" />
   </ItemGroup>
