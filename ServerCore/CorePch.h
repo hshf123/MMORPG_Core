@@ -15,6 +15,10 @@
 #include <ws2tcpip.h>
 #pragma comment(lib, "ws2_32.lib")
 
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+
 #include <vector>
 #include <stack>
 #include <queue>
