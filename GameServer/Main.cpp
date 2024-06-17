@@ -30,6 +30,6 @@ int main()
 	d.Accept(writer);
 
 	VIEW_INFO("{}", buffer.GetString());
-
+	//"Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Test;Trusted_Connection=Yes;"
 	return 0;
 }
