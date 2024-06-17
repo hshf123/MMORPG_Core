@@ -32,12 +32,6 @@ public:
 		JobTimer::GetInstance().Reserve(tickAfter, shared_from_this(), job);
 	}
 
-	void DoUpdate(uint64 tickAfter, CallbackType&& callback)
-	{
-		std::shared_ptr<Job> job = PoolAlloc<Job>(std::move(callback));
-		JobTimer::GetInstance().UpdateReserve(tickAfter, shared_from_this(), job);
-	}
-
 	template<typename T, typename Ret, typename... Args>
 	void DoUpdate(uint64 tickAfter, Ret(T::* memFunc)(Args...), Args... args)
 	{
