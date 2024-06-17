@@ -23,9 +23,9 @@
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
-#pragma comment(lib, "Poco/PocoDatamd.lib")
-#pragma comment(lib, "Poco/PocoDataODBCmd.lib")
-#pragma comment(lib, "Poco/PocoFoundationmd.lib")
+#pragma comment(lib, "Poco\\PocoDatamd.lib")
+#pragma comment(lib, "Poco\\PocoDataODBCmd.lib")
+#pragma comment(lib, "Poco\\PocoFoundationmd.lib")
 
 #include <vector>
 #include <stack>

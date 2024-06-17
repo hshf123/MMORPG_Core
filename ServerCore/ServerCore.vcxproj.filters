@@ -102,6 +102,12 @@
     <ClInclude Include="TimeUtils.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="DBHandler.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="DBLoadBalancer.h">
+      <Filter>DB</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -169,6 +175,12 @@
     </ClCompile>
     <ClCompile Include="TimeUtils.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="DBHandler.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="DBLoadBalancer.cpp">
+      <Filter>DB</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

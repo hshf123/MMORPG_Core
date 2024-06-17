@@ -170,6 +170,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CorePch.h" />
+    <ClInclude Include="DBHandler.h" />
+    <ClInclude Include="DBLoadBalancer.h" />
     <ClInclude Include="DBService.h" />
     <ClInclude Include="GlobalQueue.h" />
     <ClInclude Include="IOCP.h" />
@@ -197,6 +199,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CorePch.cpp" />
+    <ClCompile Include="DBHandler.cpp" />
+    <ClCompile Include="DBLoadBalancer.cpp" />
     <ClCompile Include="DBService.cpp" />
     <ClCompile Include="GlobalQueue.cpp" />
     <ClCompile Include="IOCP.cpp" />
