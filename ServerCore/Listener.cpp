@@ -107,7 +107,6 @@ void Listener::ProcessAccept(AcceptEvent* acceptEvent)
 	}
 
 	session->SetNetAddr(NetAddress(sockAddress));
-	session->SetHostId(peerName);
 	session->ProcessConnect();
 	RegisterAccept(acceptEvent);
 }

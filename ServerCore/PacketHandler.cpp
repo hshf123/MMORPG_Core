@@ -2,8 +2,9 @@
 #include "PacketHandler.h"
 
 PacketHandlerFunc PacketHandler::_packetHandler[UINT16_MAX];
+#ifdef _DEBUG
 std::unordered_set<uint16> PacketHandler::_useProtocol;
-
+#endif
 void PacketHandler::Init()
 {
 	_useProtocol.clear();
@@ -21,13 +22,13 @@ bool PacketHandler::RegisterHandler(const uint16& protocol, PacketHandlerFunc fn
 {
 	if (fn == nullptr)
 		return false;
-
+#ifdef _DEBUG
 	if (_useProtocol.insert(protocol).second == false)
 	{
 		VIEW_WRITE_ERROR("Duplicated Protocol Detected! Check Protocol ID({})", protocol);
 		return false;
 	}
-
+#endif
 	_packetHandler[protocol] = fn;
 	return true;
 }

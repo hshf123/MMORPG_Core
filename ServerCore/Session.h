@@ -34,7 +34,7 @@ public:
 	NetAddress GetAddress() { return _netAddress; }
 	SOCKET GetSocket() { return _socket; }
 	bool IsConnected() { return _connected; }
-	int32 GetHostId() { return _hostId; }
+	int32 GetWorkId() { return _workId; }	// 패킷 흐름의 순서 보장을 위해 사용 다른 용도로 사용하지 말 것
 	std::shared_ptr<Session> GetSession() { return std::static_pointer_cast<Session>(shared_from_this()); }
 
 private:
@@ -42,7 +42,7 @@ private:
 	virtual void Dispatch(IocpEvent* iocpEvent, int32 numOfBytes = 0) override;
 
 private:
-	void SetHostId(const int32& hostId);
+	void SetWorkId();
 
 	bool RegisterConnect();
 	bool RegisterDisconnect();
@@ -67,7 +67,7 @@ private:
 	SOCKET _socket = INVALID_SOCKET;
 	NetAddress _netAddress = {};
 	std::atomic_bool _connected = false;
-	int32 _hostId = 0;
+	int32 _workId;
 
 private:
 	USE_LOCK;

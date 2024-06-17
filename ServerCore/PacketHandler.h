@@ -40,5 +40,7 @@ private:
 
 private:
 	static PacketHandlerFunc _packetHandler[UINT16_MAX];
+#ifdef _DEBUG
 	static std::unordered_set<uint16> _useProtocol;
+#endif
 };

@@ -36,6 +36,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <array>
+#include <atomic>
 
 #include "Macro.h"
 #include "Types.h"

@@ -74,9 +74,10 @@ void Session::Dispatch(IocpEvent* iocpEvent, int32 numOfBytes /*= 0*/)
 	}
 }
 
-void Session::SetHostId(const int32& hostId)
+void Session::SetWorkId()
 {
-	_hostId = hostId;
+	static std::atomic_int32_t SWorkId = 1;
+	_workId = SWorkId.fetch_add(1);
 }
 
 bool Session::RegisterConnect()
@@ -204,6 +205,7 @@ void Session::ProcessConnect()
 	_connected.store(true);
 	GetService()->AddSession(GetSession());
 	OnConnected(GetService()->GetNetAddress());
+	SetWorkId();
 	RegisterRecv();
 }
 
