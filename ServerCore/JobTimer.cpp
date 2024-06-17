@@ -4,7 +4,7 @@
 
 void JobTimer::Reserve(uint64 tickAfter, std::weak_ptr<JobQueue> owner, std::shared_ptr<Job> job)
 {
-	const uint64 executeTick = ::GetTickCount64() + tickAfter;
+	const uint64 executeTick = TimeUtils::GetTick64() + tickAfter;
 	JobData* jobData = xnew<JobData>(owner, job);
 
 	WRITE_LOCK;
@@ -14,7 +14,7 @@ void JobTimer::Reserve(uint64 tickAfter, std::weak_ptr<JobQueue> owner, std::sha
 
 void JobTimer::UpdateReserve(uint64 tickAfter, std::weak_ptr<JobQueue> owner, std::shared_ptr<Job> job)
 {
-	const uint64 executeTick = ::GetTickCount64() + tickAfter;
+	const uint64 executeTick = TimeUtils::GetTick64() + tickAfter;
 	JobData* jobData = xnew<JobData>(owner, job);
 
 	WRITE_LOCK;

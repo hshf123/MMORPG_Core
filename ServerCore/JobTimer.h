@@ -4,8 +4,9 @@
 class Job;
 class JobData;
 
-struct JobData
+class JobData
 {
+public:
 	JobData(std::weak_ptr<JobQueue> owner, std::shared_ptr<Job> job) : owner(owner), job(job)
 	{
 

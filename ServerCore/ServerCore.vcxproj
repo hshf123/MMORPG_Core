@@ -191,6 +191,7 @@
     <ClInclude Include="Socket.h" />
     <ClInclude Include="StrUtils.h" />
     <ClInclude Include="ThreadManager.h" />
+    <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="TLS.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
@@ -220,6 +221,7 @@
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="StrUtils.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
+    <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="TLS.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
