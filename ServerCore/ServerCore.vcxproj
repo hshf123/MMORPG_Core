@@ -171,8 +171,13 @@
   <ItemGroup>
     <ClInclude Include="CorePch.h" />
     <ClInclude Include="DBService.h" />
+    <ClInclude Include="GlobalQueue.h" />
     <ClInclude Include="IOCP.h" />
+    <ClInclude Include="Job.h" />
+    <ClInclude Include="JobQueue.h" />
+    <ClInclude Include="JobTimer.h" />
     <ClInclude Include="Listener.h" />
+    <ClInclude Include="LockQueue.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="MemoryPool.h" />
@@ -192,8 +197,13 @@
   <ItemGroup>
     <ClCompile Include="CorePch.cpp" />
     <ClCompile Include="DBService.cpp" />
+    <ClCompile Include="GlobalQueue.cpp" />
     <ClCompile Include="IOCP.cpp" />
+    <ClCompile Include="Job.cpp" />
+    <ClCompile Include="JobQueue.cpp" />
+    <ClCompile Include="JobTimer.cpp" />
     <ClCompile Include="Listener.cpp" />
+    <ClCompile Include="LockQueue.cpp" />
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
