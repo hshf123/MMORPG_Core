@@ -168,6 +168,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CommonPch.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Protobuf\bin\Enum.pb.h" />
     <ClInclude Include="Protobuf\bin\Protocol.pb.h" />

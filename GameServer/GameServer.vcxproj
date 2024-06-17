@@ -72,22 +72,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Common\;$(SolutionDir)Common\Protobuf\include\;$(SolutionDir)Common\Protobuf\bin\;$(SolutionDir)Include\;$(SolutionDir)Include\Protobuf\;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)Lib\$(Configuration)\;$(SolutionDir)Lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Common\;$(SolutionDir)Common\Protobuf\include\;$(SolutionDir)Common\Protobuf\bin\;$(SolutionDir)Include\;$(SolutionDir)Include\Protobuf\;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)Lib\$(Configuration)\;$(SolutionDir)Lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Common\;$(SolutionDir)Common\Protobuf\include\;$(SolutionDir)Common\Protobuf\bin\;$(SolutionDir)Include\;$(SolutionDir)Include\Protobuf\;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)Lib\$(Configuration)\;$(SolutionDir)Lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Common\;$(SolutionDir)Common\Protobuf\include\;$(SolutionDir)Common\Protobuf\bin\;$(SolutionDir)Include\;$(SolutionDir)Include\Protobuf\;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)Lib\$(Configuration)\;$(SolutionDir)Lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -172,6 +172,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ClientPacketHandler.cpp" />
+    <ClCompile Include="ClientSession.cpp" />
+    <ClCompile Include="ClientSessionManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -186,6 +188,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientPacketHandler.h" />
+    <ClInclude Include="ClientSession.h" />
+    <ClInclude Include="ClientSessionManager.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

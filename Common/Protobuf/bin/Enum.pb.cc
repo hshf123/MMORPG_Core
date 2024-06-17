@@ -29,13 +29,13 @@ static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
 static constexpr ::_pb::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nEnum.proto\022\010Protocol*<\n\017EPacketProtoco"
-  "l\022\023\n\017CS_LoginRequest\020\000\022\024\n\020SC_LoginRespon"
-  "se\020\001b\006proto3"
+  "\n\nEnum.proto\022\010Protocol*:\n\017EPacketProtoco"
+  "l\022\022\n\016CS_ChatRequest\020\000\022\023\n\017SC_ChatResponse"
+  "\020\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 92, descriptor_table_protodef_Enum_2eproto,
+    false, false, 90, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,

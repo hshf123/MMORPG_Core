@@ -26,8 +26,10 @@
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/metadata_lite.h>
 #include <google/protobuf/generated_message_reflection.h>
+#include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/unknown_field_set.h>
 #include <google/protobuf/timestamp.pb.h>
 #include "Enum.pb.h"
 #include "Struct.pb.h"
@@ -45,13 +47,370 @@ struct TableStruct_Protocol_2eproto {
   static const uint32_t offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Protocol_2eproto;
+namespace Protocol {
+class CSChatRequest;
+struct CSChatRequestDefaultTypeInternal;
+extern CSChatRequestDefaultTypeInternal _CSChatRequest_default_instance_;
+class CSChatResponse;
+struct CSChatResponseDefaultTypeInternal;
+extern CSChatResponseDefaultTypeInternal _CSChatResponse_default_instance_;
+}  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
+template<> ::Protocol::CSChatRequest* Arena::CreateMaybeMessage<::Protocol::CSChatRequest>(Arena*);
+template<> ::Protocol::CSChatResponse* Arena::CreateMaybeMessage<::Protocol::CSChatResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 // ===================================================================
 
+class CSChatRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CSChatRequest) */ {
+ public:
+  inline CSChatRequest() : CSChatRequest(nullptr) {}
+  ~CSChatRequest() override;
+  explicit PROTOBUF_CONSTEXPR CSChatRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
+  CSChatRequest(const CSChatRequest& from);
+  CSChatRequest(CSChatRequest&& from) noexcept
+    : CSChatRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CSChatRequest& operator=(const CSChatRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CSChatRequest& operator=(CSChatRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CSChatRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CSChatRequest* internal_default_instance() {
+    return reinterpret_cast<const CSChatRequest*>(
+               &_CSChatRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(CSChatRequest& a, CSChatRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CSChatRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CSChatRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CSChatRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CSChatRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CSChatRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const CSChatRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CSChatRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CSChatRequest";
+  }
+  protected:
+  explicit CSChatRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 2,
+    kMsgFieldNumber = 3,
+    kMessageidFieldNumber = 1,
+  };
+  // string Name = 2;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string Msg = 3;
+  void clear_msg();
+  const std::string& msg() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_msg(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_msg();
+  PROTOBUF_NODISCARD std::string* release_msg();
+  void set_allocated_msg(std::string* msg);
+  private:
+  const std::string& _internal_msg() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_msg(const std::string& value);
+  std::string* _internal_mutable_msg();
+  public:
+
+  // .Protocol.EPacketProtocol messageid = 1;
+  void clear_messageid();
+  ::Protocol::EPacketProtocol messageid() const;
+  void set_messageid(::Protocol::EPacketProtocol value);
+  private:
+  ::Protocol::EPacketProtocol _internal_messageid() const;
+  void _internal_set_messageid(::Protocol::EPacketProtocol value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CSChatRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
+  int messageid_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CSChatResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CSChatResponse) */ {
+ public:
+  inline CSChatResponse() : CSChatResponse(nullptr) {}
+  ~CSChatResponse() override;
+  explicit PROTOBUF_CONSTEXPR CSChatResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CSChatResponse(const CSChatResponse& from);
+  CSChatResponse(CSChatResponse&& from) noexcept
+    : CSChatResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline CSChatResponse& operator=(const CSChatResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CSChatResponse& operator=(CSChatResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CSChatResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CSChatResponse* internal_default_instance() {
+    return reinterpret_cast<const CSChatResponse*>(
+               &_CSChatResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(CSChatResponse& a, CSChatResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CSChatResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CSChatResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CSChatResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CSChatResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CSChatResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const CSChatResponse& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CSChatResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CSChatResponse";
+  }
+  protected:
+  explicit CSChatResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 2,
+    kMsgFieldNumber = 3,
+    kMessageidFieldNumber = 1,
+  };
+  // string Name = 2;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string Msg = 3;
+  void clear_msg();
+  const std::string& msg() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_msg(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_msg();
+  PROTOBUF_NODISCARD std::string* release_msg();
+  void set_allocated_msg(std::string* msg);
+  private:
+  const std::string& _internal_msg() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_msg(const std::string& value);
+  std::string* _internal_mutable_msg();
+  public:
+
+  // .Protocol.EPacketProtocol messageid = 1;
+  void clear_messageid();
+  ::Protocol::EPacketProtocol messageid() const;
+  void set_messageid(::Protocol::EPacketProtocol value);
+  private:
+  ::Protocol::EPacketProtocol _internal_messageid() const;
+  void _internal_set_messageid(::Protocol::EPacketProtocol value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CSChatResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
+  int messageid_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
 // ===================================================================
 
 
@@ -61,9 +420,257 @@ namespace Protocol {
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// CSChatRequest
+
+// .Protocol.EPacketProtocol messageid = 1;
+inline void CSChatRequest::clear_messageid() {
+  messageid_ = 0;
+}
+inline ::Protocol::EPacketProtocol CSChatRequest::_internal_messageid() const {
+  return static_cast< ::Protocol::EPacketProtocol >(messageid_);
+}
+inline ::Protocol::EPacketProtocol CSChatRequest::messageid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSChatRequest.messageid)
+  return _internal_messageid();
+}
+inline void CSChatRequest::_internal_set_messageid(::Protocol::EPacketProtocol value) {
+  
+  messageid_ = value;
+}
+inline void CSChatRequest::set_messageid(::Protocol::EPacketProtocol value) {
+  _internal_set_messageid(value);
+  // @@protoc_insertion_point(field_set:Protocol.CSChatRequest.messageid)
+}
+
+// string Name = 2;
+inline void CSChatRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& CSChatRequest::name() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSChatRequest.Name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CSChatRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.CSChatRequest.Name)
+}
+inline std::string* CSChatRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:Protocol.CSChatRequest.Name)
+  return _s;
+}
+inline const std::string& CSChatRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void CSChatRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CSChatRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CSChatRequest::release_name() {
+  // @@protoc_insertion_point(field_release:Protocol.CSChatRequest.Name)
+  return name_.Release();
+}
+inline void CSChatRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CSChatRequest.Name)
+}
+
+// string Msg = 3;
+inline void CSChatRequest::clear_msg() {
+  msg_.ClearToEmpty();
+}
+inline const std::string& CSChatRequest::msg() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSChatRequest.Msg)
+  return _internal_msg();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CSChatRequest::set_msg(ArgT0&& arg0, ArgT... args) {
+ 
+ msg_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.CSChatRequest.Msg)
+}
+inline std::string* CSChatRequest::mutable_msg() {
+  std::string* _s = _internal_mutable_msg();
+  // @@protoc_insertion_point(field_mutable:Protocol.CSChatRequest.Msg)
+  return _s;
+}
+inline const std::string& CSChatRequest::_internal_msg() const {
+  return msg_.Get();
+}
+inline void CSChatRequest::_internal_set_msg(const std::string& value) {
+  
+  msg_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CSChatRequest::_internal_mutable_msg() {
+  
+  return msg_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CSChatRequest::release_msg() {
+  // @@protoc_insertion_point(field_release:Protocol.CSChatRequest.Msg)
+  return msg_.Release();
+}
+inline void CSChatRequest::set_allocated_msg(std::string* msg) {
+  if (msg != nullptr) {
+    
+  } else {
+    
+  }
+  msg_.SetAllocated(msg, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (msg_.IsDefault()) {
+    msg_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CSChatRequest.Msg)
+}
+
+// -------------------------------------------------------------------
+
+// CSChatResponse
+
+// .Protocol.EPacketProtocol messageid = 1;
+inline void CSChatResponse::clear_messageid() {
+  messageid_ = 0;
+}
+inline ::Protocol::EPacketProtocol CSChatResponse::_internal_messageid() const {
+  return static_cast< ::Protocol::EPacketProtocol >(messageid_);
+}
+inline ::Protocol::EPacketProtocol CSChatResponse::messageid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSChatResponse.messageid)
+  return _internal_messageid();
+}
+inline void CSChatResponse::_internal_set_messageid(::Protocol::EPacketProtocol value) {
+  
+  messageid_ = value;
+}
+inline void CSChatResponse::set_messageid(::Protocol::EPacketProtocol value) {
+  _internal_set_messageid(value);
+  // @@protoc_insertion_point(field_set:Protocol.CSChatResponse.messageid)
+}
+
+// string Name = 2;
+inline void CSChatResponse::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& CSChatResponse::name() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSChatResponse.Name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CSChatResponse::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.CSChatResponse.Name)
+}
+inline std::string* CSChatResponse::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:Protocol.CSChatResponse.Name)
+  return _s;
+}
+inline const std::string& CSChatResponse::_internal_name() const {
+  return name_.Get();
+}
+inline void CSChatResponse::_internal_set_name(const std::string& value) {
+  
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CSChatResponse::_internal_mutable_name() {
+  
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CSChatResponse::release_name() {
+  // @@protoc_insertion_point(field_release:Protocol.CSChatResponse.Name)
+  return name_.Release();
+}
+inline void CSChatResponse::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CSChatResponse.Name)
+}
+
+// string Msg = 3;
+inline void CSChatResponse::clear_msg() {
+  msg_.ClearToEmpty();
+}
+inline const std::string& CSChatResponse::msg() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSChatResponse.Msg)
+  return _internal_msg();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CSChatResponse::set_msg(ArgT0&& arg0, ArgT... args) {
+ 
+ msg_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.CSChatResponse.Msg)
+}
+inline std::string* CSChatResponse::mutable_msg() {
+  std::string* _s = _internal_mutable_msg();
+  // @@protoc_insertion_point(field_mutable:Protocol.CSChatResponse.Msg)
+  return _s;
+}
+inline const std::string& CSChatResponse::_internal_msg() const {
+  return msg_.Get();
+}
+inline void CSChatResponse::_internal_set_msg(const std::string& value) {
+  
+  msg_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CSChatResponse::_internal_mutable_msg() {
+  
+  return msg_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CSChatResponse::release_msg() {
+  // @@protoc_insertion_point(field_release:Protocol.CSChatResponse.Msg)
+  return msg_.Release();
+}
+inline void CSChatResponse::set_allocated_msg(std::string* msg) {
+  if (msg != nullptr) {
+    
+  } else {
+    
+  }
+  msg_.SetAllocated(msg, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (msg_.IsDefault()) {
+    msg_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CSChatResponse.Msg)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

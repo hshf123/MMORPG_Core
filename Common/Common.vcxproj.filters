@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Protobuf\bin\PasreProto.bat">
-      <Filter>Protobuf</Filter>
-    </None>
     <None Include="Protobuf\bin\Enum.proto">
       <Filter>Protobuf\Proto</Filter>
     </None>
@@ -27,6 +24,7 @@
     <None Include="Protobuf\bin\Struct.proto">
       <Filter>Protobuf\Proto</Filter>
     </None>
+    <None Include="Protobuf\bin\ParseProto.bat" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -40,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="Protobuf\bin\Struct.pb.h">
       <Filter>Protobuf\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonPch.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

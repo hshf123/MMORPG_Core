@@ -5,3 +5,16 @@ option csharp_namespace = "Google.Protobuf.Protocol";
 import "Enum.proto";
 import "Struct.proto";
 
+message CSChatRequest
+{
+	EPacketProtocol messageid = 1;
+	string Name = 2;
+	string Msg = 3;
+}
+
+message CSChatResponse
+{
+	EPacketProtocol messageid = 1;
+	string Name = 2;
+	string Msg = 3;
+}

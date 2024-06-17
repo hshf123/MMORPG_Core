@@ -11,7 +11,7 @@ public:
 	bool HandlePacket(std::shared_ptr<PacketSession>& session, BYTE* buffer, uint32 len);
 	bool RegisterHandler(const uint16& protocol, PacketHandlerFunc fn);
 
-private:
+protected:
 	template<class PacketType, class ProcessFunc>
 	bool HandlePacket(ProcessFunc func, std::shared_ptr<PacketSession>& session, BYTE* buffer, int32 len)
 	{

@@ -3,6 +3,6 @@ package Protocol;
 
 enum EPacketProtocol
 {
-	CS_LoginRequest					= 0;
-	SC_LoginResponse				= 1;
+	CS_ChatRequest = 0;
+	SC_ChatResponse = 1;
 }

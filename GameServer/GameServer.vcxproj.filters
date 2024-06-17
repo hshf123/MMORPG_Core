@@ -4,6 +4,9 @@
     <Filter Include="Main">
       <UniqueIdentifier>{c21e1d9d-7fce-430c-8cf8-3d3bb9fe0cc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client">
+      <UniqueIdentifier>{c0e4b9aa-b756-4ce9-8731-7f5db45e109e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -12,12 +15,28 @@
     <ClCompile Include="pch.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="ClientPacketHandler.cpp" />
+    <ClCompile Include="ClientPacketHandler.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSession.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSessionManager.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="ClientPacketHandler.h" />
+    <ClInclude Include="ClientSession.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientPacketHandler.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSessionManager.h">
+      <Filter>Client</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -48,14 +48,14 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 enum EPacketProtocol : int {
-  CS_LoginRequest = 0,
-  SC_LoginResponse = 1,
+  CS_ChatRequest = 0,
+  SC_ChatResponse = 1,
   EPacketProtocol_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   EPacketProtocol_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool EPacketProtocol_IsValid(int value);
-constexpr EPacketProtocol EPacketProtocol_MIN = CS_LoginRequest;
-constexpr EPacketProtocol EPacketProtocol_MAX = SC_LoginResponse;
+constexpr EPacketProtocol EPacketProtocol_MIN = CS_ChatRequest;
+constexpr EPacketProtocol EPacketProtocol_MAX = SC_ChatResponse;
 constexpr int EPacketProtocol_ARRAYSIZE = EPacketProtocol_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EPacketProtocol_descriptor();
