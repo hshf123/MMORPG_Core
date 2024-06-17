@@ -84,6 +84,7 @@ void LogManager::Write(const LogType& type, const std::string& log)
 		break;
 	case LogType::Error:
 		_logger->error(log);
+		_logger->flush();
 		break;
 	default:
 		break;
@@ -102,6 +103,7 @@ void LogManager::View(const LogType& type, const std::string& log)
 		break;
 	case LogType::Error:
 		spdlog::error(log);
+		_logger->flush();
 		break;
 	default:
 		break;
