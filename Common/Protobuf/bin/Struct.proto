@@ -2,8 +2,3 @@ syntax = "proto3";
 package Protocol;
 
 import "Enum.proto";
-
-message CSLoginRequest
-{
-	EPacketProtocol ProtocolID = 1;
-}

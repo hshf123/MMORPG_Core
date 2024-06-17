@@ -36,21 +36,21 @@ struct CSChatRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSChatRequestDefaultTypeInternal _CSChatRequest_default_instance_;
-PROTOBUF_CONSTEXPR CSChatResponse::CSChatResponse(
+PROTOBUF_CONSTEXPR SCChatResponse::SCChatResponse(
     ::_pbi::ConstantInitialized)
   : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , msg_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , messageid_(0)
 {}
-struct CSChatResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CSChatResponseDefaultTypeInternal()
+struct SCChatResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SCChatResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~CSChatResponseDefaultTypeInternal() {}
+  ~SCChatResponseDefaultTypeInternal() {}
   union {
-    CSChatResponse _instance;
+    SCChatResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSChatResponseDefaultTypeInternal _CSChatResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCChatResponseDefaultTypeInternal _SCChatResponse_default_instance_;
 }  // namespace Protocol
 static ::_pb::Metadata file_level_metadata_Protocol_2eproto[2];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Protocol_2eproto = nullptr;
@@ -67,23 +67,23 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   PROTOBUF_FIELD_OFFSET(::Protocol::CSChatRequest, name_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CSChatRequest, msg_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CSChatResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CSChatResponse, messageid_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::CSChatResponse, name_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::CSChatResponse, msg_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, messageid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, name_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, msg_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::CSChatRequest)},
-  { 9, -1, -1, sizeof(::Protocol::CSChatResponse)},
+  { 9, -1, -1, sizeof(::Protocol::SCChatResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_CSChatRequest_default_instance_._instance,
-  &::Protocol::_CSChatResponse_default_instance_._instance,
+  &::Protocol::_SCChatResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -91,7 +91,7 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "buf/timestamp.proto\032\nEnum.proto\032\014Struct."
   "proto\"X\n\rCSChatRequest\022,\n\tmessageid\030\001 \001("
   "\0162\031.Protocol.EPacketProtocol\022\014\n\004Name\030\002 \001"
-  "(\t\022\013\n\003Msg\030\003 \001(\t\"Y\n\016CSChatResponse\022,\n\tmes"
+  "(\t\022\013\n\003Msg\030\003 \001(\t\"Y\n\016SCChatResponse\022,\n\tmes"
   "sageid\030\001 \001(\0162\031.Protocol.EPacketProtocol\022"
   "\014\n\004Name\030\002 \001(\t\022\013\n\003Msg\030\003 \001(\tB\033\252\002\030Google.Pr"
   "otobuf.Protocolb\006proto3"
@@ -392,17 +392,17 @@ void CSChatRequest::InternalSwap(CSChatRequest* other) {
 
 // ===================================================================
 
-class CSChatResponse::_Internal {
+class SCChatResponse::_Internal {
  public:
 };
 
-CSChatResponse::CSChatResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SCChatResponse::SCChatResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:Protocol.CSChatResponse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SCChatResponse)
 }
-CSChatResponse::CSChatResponse(const CSChatResponse& from)
+SCChatResponse::SCChatResponse(const SCChatResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.InitDefault();
@@ -422,10 +422,10 @@ CSChatResponse::CSChatResponse(const CSChatResponse& from)
       GetArenaForAllocation());
   }
   messageid_ = from.messageid_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.CSChatResponse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SCChatResponse)
 }
 
-inline void CSChatResponse::SharedCtor() {
+inline void SCChatResponse::SharedCtor() {
 name_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   name_.Set("", GetArenaForAllocation());
@@ -437,8 +437,8 @@ msg_.InitDefault();
 messageid_ = 0;
 }
 
-CSChatResponse::~CSChatResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.CSChatResponse)
+SCChatResponse::~SCChatResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SCChatResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -446,18 +446,18 @@ CSChatResponse::~CSChatResponse() {
   SharedDtor();
 }
 
-inline void CSChatResponse::SharedDtor() {
+inline void SCChatResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.Destroy();
   msg_.Destroy();
 }
 
-void CSChatResponse::SetCachedSize(int size) const {
+void SCChatResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void CSChatResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.CSChatResponse)
+void SCChatResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SCChatResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -468,7 +468,7 @@ void CSChatResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* CSChatResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SCChatResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -489,7 +489,7 @@ const char* CSChatResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.CSChatResponse.Name"));
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SCChatResponse.Name"));
         } else
           goto handle_unusual;
         continue;
@@ -499,7 +499,7 @@ const char* CSChatResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext
           auto str = _internal_mutable_msg();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.CSChatResponse.Msg"));
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SCChatResponse.Msg"));
         } else
           goto handle_unusual;
         continue;
@@ -526,9 +526,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CSChatResponse::_InternalSerialize(
+uint8_t* SCChatResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CSChatResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SCChatResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -544,7 +544,7 @@ uint8_t* CSChatResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.CSChatResponse.Name");
+      "Protocol.SCChatResponse.Name");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_name(), target);
   }
@@ -554,7 +554,7 @@ uint8_t* CSChatResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_msg().data(), static_cast<int>(this->_internal_msg().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.CSChatResponse.Msg");
+      "Protocol.SCChatResponse.Msg");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_msg(), target);
   }
@@ -563,12 +563,12 @@ uint8_t* CSChatResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CSChatResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SCChatResponse)
   return target;
 }
 
-size_t CSChatResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.CSChatResponse)
+size_t SCChatResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SCChatResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -598,21 +598,21 @@ size_t CSChatResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CSChatResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SCChatResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    CSChatResponse::MergeImpl
+    SCChatResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CSChatResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SCChatResponse::GetClassData() const { return &_class_data_; }
 
-void CSChatResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void SCChatResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<CSChatResponse *>(to)->MergeFrom(
-      static_cast<const CSChatResponse &>(from));
+  static_cast<SCChatResponse *>(to)->MergeFrom(
+      static_cast<const SCChatResponse &>(from));
 }
 
 
-void CSChatResponse::MergeFrom(const CSChatResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CSChatResponse)
+void SCChatResponse::MergeFrom(const SCChatResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SCChatResponse)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -629,18 +629,18 @@ void CSChatResponse::MergeFrom(const CSChatResponse& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void CSChatResponse::CopyFrom(const CSChatResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CSChatResponse)
+void SCChatResponse::CopyFrom(const SCChatResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SCChatResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool CSChatResponse::IsInitialized() const {
+bool SCChatResponse::IsInitialized() const {
   return true;
 }
 
-void CSChatResponse::InternalSwap(CSChatResponse* other) {
+void SCChatResponse::InternalSwap(SCChatResponse* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -656,7 +656,7 @@ void CSChatResponse::InternalSwap(CSChatResponse* other) {
   swap(messageid_, other->messageid_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CSChatResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SCChatResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Protocol_2eproto_getter, &descriptor_table_Protocol_2eproto_once,
       file_level_metadata_Protocol_2eproto[1]);
@@ -669,9 +669,9 @@ template<> PROTOBUF_NOINLINE ::Protocol::CSChatRequest*
 Arena::CreateMaybeMessage< ::Protocol::CSChatRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::CSChatRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::CSChatResponse*
-Arena::CreateMaybeMessage< ::Protocol::CSChatResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::CSChatResponse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SCChatResponse*
+Arena::CreateMaybeMessage< ::Protocol::SCChatResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SCChatResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -12,7 +12,7 @@ message CSChatRequest
 	string Msg = 3;
 }
 
-message CSChatResponse
+message SCChatResponse
 {
 	EPacketProtocol messageid = 1;
 	string Name = 2;

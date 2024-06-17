@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "ClientPacketHandler.h"
-#include "ClientSession.h"
+#include "ClientSessionManager.h"
 
 void ClientPacketHandler::Init()
 {
@@ -13,6 +13,12 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	std::shared_ptr<ClientSession> cs = static_pointer_cast<ClientSession>(session);
 	if (cs == nullptr)
 		return false;
+
+	Protocol::SCChatResponse packet;
+	packet.set_messageid(Protocol::EPacketProtocol::SC_ChatResponse);
+	packet.set_name(pkt.name());
+	packet.set_msg(pkt.msg());
+	ClientSessionManager::GetInstance().Broadcast(packet);
 
 	return true;
 }
