@@ -10,6 +10,18 @@ public:
 	virtual void Init();
 	bool HandlePacket(std::shared_ptr<PacketSession>& session, BYTE* buffer, uint32 len);
 	bool RegisterHandler(const uint16& protocol, PacketHandlerFunc fn);
+	template<class HandlerType, class PacketType, typename = typename std::enable_if<std::is_base_of<PacketHandler, HandlerType>::value>::type>
+	bool RegisterHandler(const uint16& protocol, bool (HandlerType::* handler)(std::shared_ptr<PacketSession>&, PacketType&))
+	{
+		return RegisterHandler(protocol, [=](std::shared_ptr<PacketSession>& session, BYTE* buffer, int32 len)
+			{
+				PacketType pkt;
+				if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)) == false)
+					return false;
+
+				return (static_cast<HandlerType*>(this)->*handler)(session, pkt);
+			});
+	}
 
 protected:
 	template<class PacketType, class ProcessFunc>
