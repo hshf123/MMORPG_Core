@@ -1,0 +1,7 @@
+syntax = "proto3";
+package Protocol;
+import "google/protobuf/timestamp.proto";
+option csharp_namespace = "Google.Protobuf.Protocol";
+import "Enum.proto";
+import "Struct.proto";
+
