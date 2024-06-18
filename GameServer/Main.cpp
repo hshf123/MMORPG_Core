@@ -7,6 +7,13 @@
 #include "TestDBLoadBalancer.h"
 #include "TestDBHandler.h"
 
+/*
+	1. 서버 뜰 때 초기화
+	2. DB 연결 데이터 로딩
+	3. 리슨, 타 서버 커넥트(있으면)
+	4. 데이터 로딩 끝난 후 초기화
+*/
+
 int main()
 {
 	Socket::Init();
@@ -45,7 +52,6 @@ int main()
 	d.Accept(writer);
 
 	VIEW_INFO("{}", buffer.GetString());
-	//""
 
 	TimeUtils::Init(0);
 	Poco::DateTime time = TimeUtils::GetPocoTime();
