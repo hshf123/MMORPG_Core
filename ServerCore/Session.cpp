@@ -259,6 +259,15 @@ void Session::ProcessSend(int32 numOfBytes)
 
 	WRITE_LOCK;
 
+	if (_sendQueue.size() >= WARN_SENDQUEUE_SIZE)
+		VIEW_WRITE_WARNING("WorkId({}) SendQueueSize Over {}!! QueueSize({})", GetWorkId(), WARN_SENDQUEUE_SIZE, _sendQueue.size());
+	if (_sendQueue.size() >= WARN_SENDQUEUE_SIZE)
+	{
+		VIEW_WRITE_WARNING("WorkId({}) Kick By SendQueueSize Over {}!! QueueSize({})", GetWorkId(), KICK_SENDQUEUE_SIZE, _sendQueue.size());
+		Disconnect(L"SendQueue Size Over");
+		return;
+	}
+
 	if (_sendQueue.empty())
 		_sendRegistered.store(false);
 	else

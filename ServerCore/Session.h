@@ -4,6 +4,9 @@
 #include "Socket.h"
 #include "RecvBuffer.h"
 
+constexpr int32 WARN_SENDQUEUE_SIZE = 500;
+constexpr int32 KICK_SENDQUEUE_SIZE = 1000;
+
 class Service;
 
 class Session : public IocpObject
