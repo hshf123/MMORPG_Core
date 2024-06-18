@@ -69,7 +69,7 @@ public:
 
 	Optional(C&& value):
 		/// Creates a Optional by moving the given value.
-		_value(value),
+		_value(std::forward<C>(value)),
 		_isSpecified(true)
 	{
 	}
@@ -141,10 +141,11 @@ public:
 		return *this;
 	}
 
-	void swap(Optional& other)
+	void swap(Optional& other) noexcept
 	{
-		std::swap(_value, other._value);
-		std::swap(_isSpecified, other._isSpecified);
+		using std::swap;
+		swap(_value, other._value);
+		swap(_isSpecified, other._isSpecified);
 	}
 
 	const C& value() const
@@ -185,7 +186,7 @@ private:
 
 
 template <typename C>
-inline void swap(Optional<C>& n1, Optional<C>& n2)
+inline void swap(Optional<C>& n1, Optional<C>& n2) noexcept
 {
 	n1.swap(n2);
 }

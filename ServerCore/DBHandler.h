@@ -26,7 +26,7 @@ private:
 
 private:
 	DBHandlerFunc _dbHandler[UINT16_MAX];
-#ifdef _DEBUG
+#ifdef DEV_TEST
 	std::unordered_set<uint16> _useProtocol;
 #endif
 };

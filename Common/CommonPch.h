@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef _DEBUG
+#ifdef DEV_TEST
 #pragma comment(lib, "Protobuf\\Debug\\libprotobufd.lib")
 #else
 #pragma comment(lib, "Protobuf\\Release\\libprotobuf.lib")

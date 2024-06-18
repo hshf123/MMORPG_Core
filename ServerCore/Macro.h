@@ -19,7 +19,7 @@
 #define WRITE_ERROR(fmt, ...)			LogManager::GetInstance().Log(LogType::Error, false, true, fmt, __VA_ARGS__)
 #define VIEW_WRITE_ERROR(fmt, ...)		LogManager::GetInstance().Log(LogType::Error, true, true, fmt, __VA_ARGS__)
 
-#ifdef _DEBUG
+#ifdef DEV_TEST
 #define VIEW_INFOD(fmt, ...)
 #define VIEW_WARNINGD(fmt, ...)
 #define VIEW_ERRORD(fmt, ...)

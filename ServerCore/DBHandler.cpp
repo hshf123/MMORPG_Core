@@ -3,7 +3,9 @@
 
 void DBHandler::Init()
 {
+#ifdef DEV_TEST
 	_useProtocol.clear();
+#endif
 	for (int32 i = 0; i < UINT16_MAX; i++)
 		_dbHandler[i] = Handle_INVALID;
 }
@@ -17,7 +19,7 @@ bool DBHandler::RegisterHandler(const uint16& protocol, DBHandlerFunc fn)
 {
 	if (fn == nullptr)
 		return false;
-#ifdef _DEBUG
+#ifdef DEV_TEST
 	if (_useProtocol.insert(protocol).second == false)
 	{
 		VIEW_WRITE_ERROR("Duplicated Protocol Detected! Check Protocol ID({})", protocol);

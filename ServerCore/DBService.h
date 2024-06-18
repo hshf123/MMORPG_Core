@@ -1,17 +1,12 @@
 #pragma once
 #include "LockQueue.h"
 #include "DBHandler.h"
+#include "TimeUtils.h"
 
-#ifndef POCO_STATIC
-#define POCO_STATIC 1
-#endif
-
-#include <Poco/DateTime.h>
 #include <Poco/Data/RecordSet.h>
 #include <Poco/Data/ODBC/ODBCException.h>
 #include <Poco/Data/ODBC/ODBCStatementImpl.h>
 
-#pragma warning (pop)
 #pragma comment (lib, "iphlpapi.lib")	// GetAdaptersInfo()
 using namespace Poco::Data::Keywords;		// in() out()
 

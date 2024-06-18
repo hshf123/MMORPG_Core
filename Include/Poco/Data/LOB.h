@@ -109,7 +109,7 @@ public:
 		return *_pContent != *other._pContent;
 	}
 
-	void swap(LOB& other)
+	void swap(LOB& other) noexcept
 		/// Swaps the LOB with another one.
 	{
 		using std::swap;
@@ -130,7 +130,18 @@ public:
 		if (_pContent->empty())
 			return 0;
 		else
-			return &(*_pContent)[0];
+			return _pContent->data();
+	}
+
+	T* rawContent()
+		/// Returns the raw content.
+		///
+		/// If the LOB is empty, returns NULL.
+	{
+		if (_pContent->empty())
+			return 0;
+		else
+			return _pContent->data();
 	}
 
 	void assignVal(std::size_t count, const T& val)
@@ -153,6 +164,18 @@ public:
 	{
 		poco_assert_dbg (pChar);
 		_pContent->insert(_pContent->end(), pChar, pChar+count);
+	}
+
+	void reserve(std::size_t size)
+		/// Sets the capacity of the internal buffer.
+	{
+		_pContent->reserve(size);
+	}
+
+	void resize(std::size_t size)
+		/// Resizes the internal buffer.
+	{
+		_pContent->resize(size);
 	}
 
 	void clear(bool doCompact = false)
@@ -185,6 +208,12 @@ public:
 		return static_cast<std::size_t>(_pContent->size());
 	}
 
+	std::size_t capacity() const
+		/// Returns the capacity of the underlying buffer.
+	{
+		return static_cast<std::size_t>(_pContent->capacity());
+	}
+
 private:
 	ContentPtr _pContent;
 };
@@ -192,14 +221,14 @@ private:
 
 using BLOB = LOB<unsigned char>;
 using CLOB = LOB<char>;
-
+using JSON = std::string;
 
 //
 // inlines
 //
 
 template <typename T>
-inline void swap(LOB<T>& b1, LOB<T>& b2)
+inline void swap(LOB<T>& b1, LOB<T>& b2) noexcept
 {
 	b1.swap(b2);
 }

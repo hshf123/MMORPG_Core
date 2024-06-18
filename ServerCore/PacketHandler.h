@@ -54,7 +54,7 @@ protected:
 
 private:
 	static PacketHandlerFunc _packetHandler[UINT16_MAX];
-#ifdef _DEBUG
+#ifdef DEV_TEST
 	static std::unordered_set<uint16> _useProtocol;
 #endif
 };

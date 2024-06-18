@@ -11,6 +11,9 @@ public:
 
 	static void InitTLS();
 
+	static void DoGlobalQueueWork();
+	static void DistributeReservedJobs();
+
 private:
 	USE_LOCK;
 	std::vector<std::jthread> _threads;

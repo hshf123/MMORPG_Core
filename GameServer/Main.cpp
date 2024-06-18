@@ -2,21 +2,35 @@
 #include "LogManager.h"
 #include "Service.h"
 #include "IOCP.h"
+#include "ClientSession.h"
+#include "ThreadManager.h"
+
+#include <Poco/TimeZone.h>
 
 int main()
 {
 	LogManager::GetInstance().Initialize();
 	LogManager::GetInstance().Launch();
 
-	/*for (int i = 0; i < 100; i++)
-		VIEW_WRITE_INFO("Hello World {}", i);
-
-	std::shared_ptr<ServerService> loginService = PoolAlloc<ServerService>(
+	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
 		NetAddress(L"127.0.0.1", 9999),
 		PoolAlloc<IocpCore>(),
-		nullptr,
+		PoolAlloc<ClientSession>,
 		10);
-	ASSERT_CRASH(loginService->Start());*/
+	ASSERT_CRASH(clientService->Start());
+	for (uint64 i = INT64_C(0); i < 10; i++)
+	{
+		ThreadManager::GetInstance().Launch([&]()
+			{
+				while (true)
+				{
+					LEndTickCount = ::GetTickCount64() + 64;
+					clientService->GetIocpCore()->Dispatch(10);
+					ThreadManager::DistributeReservedJobs();
+					ThreadManager::DoGlobalQueueWork();
+				}
+			});
+	}
 
 	const std::string json = "{\"project\":\"rapidjson\",\"stars\":10}";
 	rapidjson::Document d;
@@ -31,5 +45,9 @@ int main()
 
 	VIEW_INFO("{}", buffer.GetString());
 	//"Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Test;Trusted_Connection=Yes;"
+
+	Poco::DateTime time;
+	time.makeLocal(Poco::Timezone::tzd());
+
 	return 0;
 }

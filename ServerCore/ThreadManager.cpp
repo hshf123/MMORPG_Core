@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "ThreadManager.h"
 #include "TLS.h"
+#include "GlobalQueue.h"
+#include "JobQueue.h"
 
 ThreadManager::ThreadManager()
 {
@@ -25,4 +27,29 @@ void ThreadManager::InitTLS()
 {
 	static std::atomic_uint SThreadId = 1;
 	LThreadId = SThreadId++;
+}
+
+void ThreadManager::DoGlobalQueueWork()
+{
+	while (true)
+	{
+		uint64 now = ::GetTickCount64();
+		if (now > LEndTickCount)
+			break;
+
+		std::shared_ptr<JobQueue> jobQueue = GlobalQueue::GetInstance().Pop();
+		if (jobQueue == nullptr)
+			break;
+
+		jobQueue->Execute();
+	}
+}
+
+void ThreadManager::DistributeReservedJobs()
+{
+	while (true)
+	{
+		const uint64 now = ::GetTickCount64();
+		JobTimer::GetInstance().Distribute(now);
+	}
 }
