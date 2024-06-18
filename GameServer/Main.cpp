@@ -5,10 +5,9 @@
 #include "ClientSession.h"
 #include "ThreadManager.h"
 
-#include <Poco/TimeZone.h>
-
 int main()
 {
+	Socket::Init();
 	LogManager::GetInstance().Initialize();
 	LogManager::GetInstance().Launch();
 
@@ -24,7 +23,7 @@ int main()
 			{
 				while (true)
 				{
-					LEndTickCount = ::GetTickCount64() + 64;
+					LEndTickCount = TimeUtils::GetTick64() + 64;
 					clientService->GetIocpCore()->Dispatch(10);
 					ThreadManager::DistributeReservedJobs();
 					ThreadManager::DoGlobalQueueWork();
@@ -46,8 +45,10 @@ int main()
 	VIEW_INFO("{}", buffer.GetString());
 	//"Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Test;Trusted_Connection=Yes;"
 
-	Poco::DateTime time;
-	time.makeLocal(Poco::Timezone::tzd());
+	TimeUtils::Init(0);
+	Poco::DateTime time = TimeUtils::GetPocoTime();
+	int64 tick = TimeUtils::GetTick64();
+	Poco::DateTime tick2 = TimeUtils::TickToPocoTime(tick);
 
 	return 0;
 }
