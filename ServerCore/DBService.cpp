@@ -5,6 +5,7 @@ bool DBService::Connect(const std::string& connectionString)
 {
 	try
 	{
+		_connectionString = connectionString;
 		_session = new Poco::Data::Session(Poco::Data::ODBC::Connector::KEY, _connectionString, 5);
 	}
 	catch (Poco::Data::ConnectionFailedException& ex)
@@ -34,7 +35,7 @@ void DBService::Execute()
 
 		const int32 queueCount = static_cast<int32>(jobs.size());
 		for (int32 i = 0; i < queueCount; i++)
-			jobs[i]->handler.HandlePacket(jobs[i]->ProtocolId, jobs[i]->data);
+			jobs[i]->handler.HandlePacket(jobs[i]->ProtocolId, jobs[i]->data, this);
 
 		// 남은 일감이 0개라면 종료
 		if (_queueCount.fetch_sub(queueCount) == queueCount)

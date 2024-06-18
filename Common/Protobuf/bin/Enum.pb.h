@@ -72,6 +72,30 @@ inline bool EPacketProtocol_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EPacketProtocol>(
     EPacketProtocol_descriptor(), name, value);
 }
+enum EDBProtocol : int {
+  STDB_ServerStart = 0,
+  EDBProtocol_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  EDBProtocol_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool EDBProtocol_IsValid(int value);
+constexpr EDBProtocol EDBProtocol_MIN = STDB_ServerStart;
+constexpr EDBProtocol EDBProtocol_MAX = STDB_ServerStart;
+constexpr int EDBProtocol_ARRAYSIZE = EDBProtocol_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EDBProtocol_descriptor();
+template<typename T>
+inline const std::string& EDBProtocol_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EDBProtocol>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EDBProtocol_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EDBProtocol_descriptor(), enum_t_value);
+}
+inline bool EDBProtocol_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EDBProtocol* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EDBProtocol>(
+    EDBProtocol_descriptor(), name, value);
+}
 // ===================================================================
 
 
@@ -98,6 +122,11 @@ template <> struct is_proto_enum< ::Protocol::EPacketProtocol> : ::std::true_typ
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EPacketProtocol>() {
   return ::Protocol::EPacketProtocol_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EDBProtocol> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EDBProtocol>() {
+  return ::Protocol::EDBProtocol_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "DBHandler.h"
+#include "DBService.h"
 
 void DBHandler::Init()
 {
@@ -10,9 +11,9 @@ void DBHandler::Init()
 		_dbHandler[i] = Handle_INVALID;
 }
 
-bool DBHandler::HandlePacket(uint16 protocolId, std::shared_ptr<DBData> data)
+bool DBHandler::HandlePacket(uint16 protocolId, std::shared_ptr<DBData> data, DBService* service)
 {
-	return _dbHandler[protocolId](data);
+	return _dbHandler[protocolId](data, service);
 }
 
 bool DBHandler::RegisterHandler(const uint16& protocol, DBHandlerFunc fn)
@@ -28,4 +29,12 @@ bool DBHandler::RegisterHandler(const uint16& protocol, DBHandlerFunc fn)
 #endif
 	_dbHandler[protocol] = fn;
 	return true;
+}
+
+bool Handle_INVALID(std::shared_ptr<DBData> data, DBService* service)
+{
+	if (data == nullptr)
+		return false;
+	VIEW_WRITE_ERROR("Invalid Inner Data dected ProtocolID({}), WorkID({})", data->ProtocolID, data->WorkID);
+	return false;
 }

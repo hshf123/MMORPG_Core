@@ -4,6 +4,8 @@
 #include "IOCP.h"
 #include "ClientSession.h"
 #include "ThreadManager.h"
+#include "TestDBLoadBalancer.h"
+#include "TestDBHandler.h"
 
 int main()
 {
@@ -43,12 +45,18 @@ int main()
 	d.Accept(writer);
 
 	VIEW_INFO("{}", buffer.GetString());
-	//"Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Test;Trusted_Connection=Yes;"
+	//""
 
 	TimeUtils::Init(0);
 	Poco::DateTime time = TimeUtils::GetPocoTime();
 	int64 tick = TimeUtils::GetTick64();
 	Poco::DateTime tick2 = TimeUtils::TickToPocoTime(tick);
+
+	TestDBLoadBalancer* tdbBalancer = new TestDBLoadBalancer();
+	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Test;Trusted_Connection=Yes;", 4);
+	tdbBalancer->Launch();
+	
+	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::STDB_ServerStart, 0), TestDBHandler::GetInstance());
 
 	return 0;
 }

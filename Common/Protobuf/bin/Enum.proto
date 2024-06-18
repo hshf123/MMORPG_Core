@@ -6,3 +6,8 @@ enum EPacketProtocol
 	CS_ChatRequest = 0;
 	SC_ChatResponse = 1;
 }
+
+enum EDBProtocol
+{
+	STDB_ServerStart = 0;
+}

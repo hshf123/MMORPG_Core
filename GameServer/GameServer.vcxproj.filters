@@ -7,6 +7,9 @@
     <Filter Include="Client">
       <UniqueIdentifier>{c0e4b9aa-b756-4ce9-8731-7f5db45e109e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{ad8e42cc-3bab-49f3-95d0-afe686baae47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -24,6 +27,12 @@
     <ClCompile Include="ClientSessionManager.cpp">
       <Filter>Client</Filter>
     </ClCompile>
+    <ClCompile Include="TestDBHandler.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDBLoadBalancer.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -37,6 +46,12 @@
     </ClInclude>
     <ClInclude Include="ClientSessionManager.h">
       <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDBLoadBalancer.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDBHandler.h">
+      <Filter>DB</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

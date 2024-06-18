@@ -24,6 +24,8 @@ public:
 	bool Push(const uint16& protocolId, std::shared_ptr<DBData> data, DBHandler& handler);
 	void Execute();
 
+	Poco::Data::Session* GetDBSession() { return _session; }
+
 private:
 	std::string _connectionString = "";
 	Poco::Data::Session* _session = nullptr;
@@ -31,4 +33,3 @@ private:
 	std::atomic_int32_t _queueCount = 0;
 	LockQueue<std::shared_ptr<DBQueueData>> _dbQueue;
 };
-
