@@ -58,11 +58,15 @@ int main()
 	int64 tick = TimeUtils::GetTick64();
 	Poco::DateTime tick2 = TimeUtils::TickToPocoTime(tick);
 
+	TestDBHandler::GetInstance().Init();
+
 	TestDBLoadBalancer* tdbBalancer = new TestDBLoadBalancer();
-	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Test;Trusted_Connection=Yes;", 4);
+	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Test;Trusted_Connection=Yes;", 1);
 	tdbBalancer->Launch();
 	
 	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::STDB_ServerStart, 0), TestDBHandler::GetInstance());
+
+	while (true);
 
 	return 0;
 }
