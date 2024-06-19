@@ -18,12 +18,12 @@ bool TestDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* s
 		return false;
 	Poco::Data::Session& session = *dbSession;
 
-	int32 result = -3;
+	int serverId = 1;
 	int64 dbTick = INT64_C(0);
 	try
 	{
-		session << "{CALL spServerStart(?, ?)}",
-			io(result),
+		session << "{CALL spServerStart(?,?)}",
+			in(serverId),
 			io(dbTick),
 			now;
 	}

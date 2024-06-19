@@ -7,7 +7,9 @@ std::unordered_set<uint16> PacketHandler::_useProtocol;
 #endif
 void PacketHandler::Init()
 {
+#ifdef DEV_TEST
 	_useProtocol.clear();
+#endif
 	for (int32 i = 0; i < UINT16_MAX; i++)
 		_packetHandler[i] = Handle_INVALID;
 }

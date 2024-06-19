@@ -61,7 +61,7 @@ int main()
 	TestDBHandler::GetInstance().Init();
 
 	TestDBLoadBalancer* tdbBalancer = new TestDBLoadBalancer();
-	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Test;Trusted_Connection=Yes;", 1);
+	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 1);
 	tdbBalancer->Launch();
 	
 	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::STDB_ServerStart, 0), TestDBHandler::GetInstance());
