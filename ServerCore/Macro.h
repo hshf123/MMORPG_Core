@@ -1,11 +1,12 @@
 #pragma once
 
-#define USE_LOCK			std::shared_mutex _lock
-#define USE_LOCKS(idx)		std::shared_mutex _locks[idx]
-#define READ_LOCK			std::shared_lock readLock(_lock)
-#define WRITE_LOCK			std::unique_lock writeLock(_lock)
-#define READ_LOCKS(idx)		std::shared_lock readLock##idx(_locks[idx])
-#define WRITE_LOCKS(idx)	std::unique_lock writeLock##idx(_locks[idx])
+#define USE_LOCKS(idx)		Lock _lock[idx]
+#define READ_LOCKS(idx)		ReadLockGuard readLockGuard_##idx(_lock[idx], typeid(this).name())
+#define WRITE_LOCKS(idx)	WriteLockGuard writeLockGuard_##idx(_lock[idx], typeid(this).name())
+#define USE_LOCK			USE_LOCKS(1)
+#define READ_LOCK			READ_LOCKS(0)
+#define WRITE_LOCK			WRITE_LOCKS(0)
+
 
 #define VIEW_INFO(fmt, ...)				LogManager::GetInstance().Log(LogType::Info, true, false, fmt, __VA_ARGS__)
 #define WRITE_INFO(fmt, ...)			LogManager::GetInstance().Log(LogType::Info, false, true, fmt, __VA_ARGS__)

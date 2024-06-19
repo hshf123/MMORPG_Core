@@ -41,6 +41,7 @@
 #include "Macro.h"
 #include "Types.h"
 #include "TLS.h"
+#include "Lock.h"
 #include "MemoryPool.h"
 #include "SendBuffer.h"
 #include "LogManager.h"
