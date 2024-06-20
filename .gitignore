@@ -37,6 +37,14 @@
 .vs
 Output
 x64
-Lib
 DummyClient/obj
 DummyClient/bin
+Lib/Release
+Lib/Debug
+
+#필수 라이브러리 제외
+!PocoDatamd.lib
+!PocoDataODBCmd.lib
+!PocoFoundationmd.lib
+!libprotobuf.lib
+!libprotobufd.lib
