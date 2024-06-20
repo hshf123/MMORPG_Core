@@ -30,6 +30,10 @@
 *.exe
 *.out
 *.app
+
+# protoc.exe는 제외하지 않음
+!protoc.exe
+
 .vs
 Output
 x64
