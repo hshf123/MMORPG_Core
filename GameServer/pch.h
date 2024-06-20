@@ -1,8 +1,14 @@
 #pragma once
 
 #include "CorePch.h"
-#include "CommonPch.h"
 
 #pragma comment(lib, "ServerCore.lib")
-#pragma comment(lib, "Common.lib")
+#ifdef DEV_TEST
+#pragma comment(lib, "Protobuf\\Debug\\libprotobufd.lib")
+#else
+#pragma comment(lib, "Protobuf\\Release\\libprotobuf.lib")
+#endif
 
+#include "Enum.pb.h"
+#include "Struct.pb.h"
+#include "Protocol.pb.h"

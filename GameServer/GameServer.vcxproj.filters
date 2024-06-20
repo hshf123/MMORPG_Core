@@ -10,6 +10,12 @@
     <Filter Include="DB">
       <UniqueIdentifier>{ad8e42cc-3bab-49f3-95d0-afe686baae47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Packet">
+      <UniqueIdentifier>{84459225-0396-49f4-8cac-f71a967c6023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\proto">
+      <UniqueIdentifier>{f5afaee3-7be6-4096-ad5d-1c56b0c8143a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -33,6 +39,15 @@
     <ClCompile Include="TestDBLoadBalancer.cpp">
       <Filter>DB</Filter>
     </ClCompile>
+    <ClCompile Include="Enum.pb.cc">
+      <Filter>Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol.pb.cc">
+      <Filter>Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="Struct.pb.cc">
+      <Filter>Packet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -53,5 +68,28 @@
     <ClInclude Include="TestDBHandler.h">
       <Filter>DB</Filter>
     </ClInclude>
+    <ClInclude Include="Enum.pb.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.pb.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.pb.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Struct.proto">
+      <Filter>Packet\proto</Filter>
+    </None>
+    <None Include="Enum.proto">
+      <Filter>Packet\proto</Filter>
+    </None>
+    <None Include="ParseProto.bat">
+      <Filter>Packet\proto</Filter>
+    </None>
+    <None Include="Protocol.proto">
+      <Filter>Packet\proto</Filter>
+    </None>
   </ItemGroup>
 </Project>
