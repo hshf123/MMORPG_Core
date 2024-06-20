@@ -51,12 +51,9 @@ int main()
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 	d.Accept(writer);
 
-	VIEW_INFO("{}", buffer.GetString());
-
-	TimeUtils::Init(0);
-	Poco::DateTime time = TimeUtils::GetPocoTime();
-	int64 tick = TimeUtils::GetTick64();
-	Poco::DateTime tick2 = TimeUtils::TickToPocoTime(tick);
+	//Poco::DateTime time = TimeUtils::GetPocoTime();
+	//int64 tick = TimeUtils::GetTick64();
+	//Poco::DateTime tick2 = TimeUtils::TickToPocoTime(tick);
 
 	TestDBHandler::GetInstance().Init();
 

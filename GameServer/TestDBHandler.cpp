@@ -44,5 +44,7 @@ bool TestDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* s
 		}
 	}*/
 
+	TimeUtils::Init(dbTick);
+
 	return true;
 }
