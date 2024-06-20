@@ -49,6 +49,25 @@ void LogManager::Launch()
 		{
 			while (true)
 			{
+				{
+					WRITE_LOCKS(ConsoleLog);
+					while (_directLogs[ConsoleLog].empty() == false)
+					{
+						const auto& log = _directLogs[ConsoleLog].front();
+						View(log.first, log.second);
+						_directLogs[ConsoleLog].pop();
+					}
+				}
+				{
+					WRITE_LOCKS(FileLog);
+					while (_directLogs[FileLog].empty() == false)
+					{
+						const auto& log = _directLogs[FileLog].front();
+						Write(log.first, log.second);
+						_directLogs[FileLog].pop();
+					}
+				}
+
 				if (_logs[ConsoleLog].empty() == false)
 				{
 					WRITE_LOCKS(ConsoleLog);

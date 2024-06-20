@@ -36,6 +36,7 @@ public:
 	USE_LOCKS(LogMax);
 	std::shared_ptr<spdlog::logger> _logger = nullptr;
 	std::queue<std::pair<LogType, std::string>> _logs[LogMax];
+	std::queue<std::pair<LogType, std::string>> _directLogs[LogMax];
 };
 
 template <class... Args>
@@ -46,11 +47,17 @@ void LogManager::Log(const LogType& type, const bool& view, const bool& write, c
 	if (write)
 	{
 		WRITE_LOCKS(FileLog);
-		_logs[FileLog].push({ type, log });
+		if (type == LogType::Error)
+			_directLogs[FileLog].push({ type, log });
+		else
+			_logs[FileLog].push({ type, log });
 	}
 	if (view)
 	{
 		WRITE_LOCKS(ConsoleLog);
-		_logs[ConsoleLog].push({ type, log });
+		if (type == LogType::Error)
+			_directLogs[ConsoleLog].push({ type, log });
+		else
+			_logs[ConsoleLog].push({ type, log });
 	}
 }
