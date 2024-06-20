@@ -19,6 +19,7 @@ void ThreadManager::Launch(std::function<void(void)> fn)
 	WRITE_LOCK;
 	_threads.push_back(std::jthread([=]()
 		{
+			InitTLS();
 			fn();
 		}));
 }
