@@ -3,6 +3,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include <spdlog/common.h>
+#include <format>
 
 #define ConsoleLog		0
 #define FileLog			1
@@ -42,7 +43,7 @@ public:
 template <class... Args>
 void LogManager::Log(const LogType& type, const bool& view, const bool& write, const std::string& fmt, Args&&... args)
 {
-	std::string log = std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...));
+	std::string log = std::vformat(fmt, std::make_format_args(args...));
 
 	if (write)
 	{

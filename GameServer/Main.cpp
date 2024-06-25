@@ -63,7 +63,8 @@ int main()
 	
 	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::STDB_ServerStart, 0), TestDBHandler::GetInstance());
 
+#ifdef DEV_TEST
 	while (true);
-
+#endif
 	return 0;
 }
