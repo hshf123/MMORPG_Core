@@ -2,7 +2,7 @@
 #include "DBHandler.h"
 #include "Singleton.h"
 
-class TestDBHandler : public DBHandler, public RefSingleton<TestDBHandler>
+class GameDBHandler : public DBHandler, public RefSingleton<GameDBHandler>
 {
 public:
 	void Init() override;

@@ -33,10 +33,10 @@
     <ClCompile Include="ClientSessionManager.cpp">
       <Filter>Client</Filter>
     </ClCompile>
-    <ClCompile Include="TestDBHandler.cpp">
+    <ClCompile Include="GameDBHandler.cpp">
       <Filter>DB</Filter>
     </ClCompile>
-    <ClCompile Include="TestDBLoadBalancer.cpp">
+    <ClCompile Include="GameDBLoadBalancer.cpp">
       <Filter>DB</Filter>
     </ClCompile>
     <ClCompile Include="Enum.pb.cc">
@@ -62,10 +62,10 @@
     <ClInclude Include="ClientSessionManager.h">
       <Filter>Client</Filter>
     </ClInclude>
-    <ClInclude Include="TestDBLoadBalancer.h">
+    <ClInclude Include="GameDBLoadBalancer.h">
       <Filter>DB</Filter>
     </ClInclude>
-    <ClInclude Include="TestDBHandler.h">
+    <ClInclude Include="GameDBHandler.h">
       <Filter>DB</Filter>
     </ClInclude>
     <ClInclude Include="Enum.pb.h">

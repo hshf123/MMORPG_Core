@@ -31,11 +31,13 @@ LogManager::~LogManager()
 	}
 }
 
-void LogManager::Initialize(const std::string& loggerName /*= "basic_logger"*/, const std::string& filepath /*= "logs/basic-log.txt"*/)
+void LogManager::Initialize(const std::string& loggerName /*= "basic_logger"*/, const std::string& filepath /*= "../logs/"*/)
 {
 	try
 	{
-		_logger = spdlog::basic_logger_mt(loggerName, filepath);
+		Poco::DateTime now = TimeUtils::GetPocoTime();
+		std::string formattedDate = Poco::DateTimeFormatter::format(now, "%Y-%m-%d") + ".txt";
+		_logger = spdlog::basic_logger_mt(loggerName, filepath + formattedDate);
 	}
 	catch (const spdlog::spdlog_ex& ex)
 	{

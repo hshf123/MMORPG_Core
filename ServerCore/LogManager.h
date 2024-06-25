@@ -23,7 +23,7 @@ public:
 	~LogManager();
 
 public:
-	void Initialize(const std::string& loggerName = "basic_logger", const std::string& filepath = "logs/basic-log.txt");
+	void Initialize(const std::string& loggerName = "basic_logger", const std::string& filepath = "../logs/");
 	void Launch();
 
 	template <class... Args>

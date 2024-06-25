@@ -1,14 +1,14 @@
 #include "pch.h"
-#include "TestDBHandler.h"
+#include "GameDBHandler.h"
 #include "DBService.h"
 
-void TestDBHandler::Init()
+void GameDBHandler::Init()
 {
 	DBHandler::Init();
-	RegisterHandler(Protocol::EDBProtocol::STDB_ServerStart, &TestDBHandler::OnSTDBServerStart);
+	RegisterHandler(Protocol::EDBProtocol::STDB_ServerStart, &GameDBHandler::OnSTDBServerStart);
 }
 
-bool TestDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* service)
+bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* service)
 {
 	if (data == nullptr || service == nullptr)
 		return false;
