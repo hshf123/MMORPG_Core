@@ -67,7 +67,7 @@ int main()
 
 	LogManager::GetInstance().Launch();
 	tdbBalancer->Launch();
-	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::STDB_ServerStart, 0), GameDBHandler::GetInstance());
+	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::STDB_ServerStart, 0));
 
 #ifdef DEV_TEST
 	while (true);
