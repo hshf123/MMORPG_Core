@@ -67,22 +67,24 @@ void LogManager::Launch()
 						_directLogs[FileLog].pop();
 					}
 				}
-
-				if (_logs[ConsoleLog].empty() == false)
 				{
 					WRITE_LOCKS(ConsoleLog);
-					const auto& log = _logs[ConsoleLog].front();
-					View(log.first, log.second);
-					_logs[ConsoleLog].pop();
+					if (_logs[ConsoleLog].empty() == false)
+					{
+						const auto& log = _logs[ConsoleLog].front();
+						View(log.first, log.second);
+						_logs[ConsoleLog].pop();
+					}
 				}
-				if (_logs[FileLog].empty() == false)
 				{
 					WRITE_LOCKS(FileLog);
-					const auto& log = _logs[FileLog].front();
-					Write(log.first, log.second);
-					_logs[FileLog].pop();
+					if (_logs[FileLog].empty() == false)
+					{
+						const auto& log = _logs[FileLog].front();
+						Write(log.first, log.second);
+						_logs[FileLog].pop();
+					}
 				}
-
 				std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			}
 		});
