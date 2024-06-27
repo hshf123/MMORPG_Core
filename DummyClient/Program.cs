@@ -9,10 +9,16 @@ namespace DummyClient
     {
         static async Task Main(string[] args)
         {
-            Thread.Sleep(5000);
-
             Connector connector = new Connector();
-            connector.Connect("127.0.0.1", 9999, async () => { return await ServerSessionManager.Instance.CreateSessionAsync(); }, 1);
+            connector.Connect(
+                "127.0.0.1",                                                            // IP
+                9999,                                                                   // Port
+                async () =>
+                {
+                    return await ServerSessionManager.Instance.CreateSessionAsync();    // Session Create Func Ptr
+                },
+                500                                                                     // Dummy Client Count
+            );
 
             while (true)
             {
