@@ -37,6 +37,7 @@ public class Connector
         catch (SocketException e)
         {
             //Debug.Log(e.ToString());
+            Console.WriteLine($"{e}");
             return;
         }
         await OnConnectCompletedAsync(args);
@@ -53,6 +54,7 @@ public class Connector
         else
         {
             //Debug.Log($"OnConnectCompleted Fail: {args.SocketError}");
+            Console.WriteLine($"OnConnectCompleted Fail: {args.SocketError}");
         }
     }
 }

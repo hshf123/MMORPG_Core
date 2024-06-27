@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 public class ServerSessionManager
 {
     List<ServerSession> _sessions = new List<ServerSession>();
-    object _lock = new object();
+    //object _lock = new object();
+    AsyncLock _lock = new AsyncLock();
 
     public void Add(ServerSession session)
     {
-        lock (_lock)
+        using (_lock.LockAsync())
         {
             _sessions.Add(session);
         }
@@ -20,19 +21,19 @@ public class ServerSessionManager
 
     public void Remove(ServerSession session)
     {
-        lock (_lock)
+        using (_lock.LockAsync())
         {
             _sessions.Remove(session);
         }
     }
 
-    public void Broadcast(IMessage packet)
+    public async Task BroadcastAsync(IMessage packet)
     {
-        lock (_lock)
+        using (_lock.LockAsync())
         {
             foreach (ServerSession session in _sessions)
             {
-                session.Send(packet);
+                await session.SendAsync(packet);
             }
         }
     }

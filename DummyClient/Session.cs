@@ -23,15 +23,15 @@ public abstract class PacketSession : Session
                 break;
 
             // 패킷이 완전체로 도착했는지 확인
-            ushort dataSize = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+            ushort dataSize = BitConverter.ToUInt16(buffer.Array!, buffer.Offset);
             if (buffer.Count < dataSize)
                 break;
 
             // 여기까지 왔으면 패킷 조립 가능
-            OnRecvPacket(new ArraySegment<byte>(buffer.Array, buffer.Offset, dataSize));
+            OnRecvPacket(new ArraySegment<byte>(buffer.Array!, buffer.Offset, dataSize));
 
             processLen += dataSize;
-            buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize);
+            buffer = new ArraySegment<byte>(buffer.Array!, buffer.Offset + dataSize, buffer.Count - dataSize);
         }
 
         return processLen;
@@ -39,7 +39,7 @@ public abstract class PacketSession : Session
 
     public abstract void OnRecvPacket(ArraySegment<byte> buffer);
 
-    public void Send(IMessage packet)
+    public async Task SendAsync(IMessage packet)
     {
         string msgName = "PKT_" + packet.Descriptor.Name;
         MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
@@ -48,7 +48,7 @@ public abstract class PacketSession : Session
         Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
         Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
         Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
-        SendAsync(new ArraySegment<byte>(sendBuffer));
+        await SendAsync(new ArraySegment<byte>(sendBuffer));
     }
 }
 
@@ -116,7 +116,7 @@ public abstract class Session
         if (Interlocked.Exchange(ref _disconnected, 1) == 1)
             return;
 
-        OnDisconnected(_socket.RemoteEndPoint);
+        OnDisconnected(_socket!.RemoteEndPoint!);
         _socket.Shutdown(SocketShutdown.Both);
         _socket.Close();
         Clear();
@@ -138,11 +138,12 @@ public abstract class Session
         int sendLen = 0;
         try
         {
-            sendLen = await _socket.SendAsync(_pendingList, SocketFlags.None);
+            sendLen = await _socket!.SendAsync(_pendingList, SocketFlags.None);
         }
         catch (Exception e)
         {
             //Debug.Log($"RegisterSend Failed {e}");
+            Console.WriteLine($"RegisterSend Failed {e}");
             return;
         }
 
@@ -162,11 +163,12 @@ public abstract class Session
                     OnSend(sendLen);
 
                     if (_sendQueue.Count > 0)
-                        RegisterSend();
+                        await RegisterSend();
                 }
                 catch (Exception e)
                 {
                     //Debug.Log($"OnSendCompleted Failed {e}");
+                    Console.WriteLine($"OnSendCompleted Failed {e}");
                 }
             }
             else
@@ -186,18 +188,19 @@ public abstract class Session
         int recvLen;
         try
         {
-            recvLen = await _socket.ReceiveAsync(segment.Array, SocketFlags.None);
+            recvLen = await _socket!.ReceiveAsync(segment.Array!, SocketFlags.None);
         }
         catch (Exception e)
         {
             //Debug.Log($"RegisterRecv Failed {e}");
+            Console.WriteLine($"RegisterRecv Failed {e}");
             return;
         }
 
-        OnRecvCompleted(recvLen);
+        await OnRecvCompletedAsync(recvLen);
     }
 
-    void OnRecvCompleted(int recvLen)
+    async Task OnRecvCompletedAsync(int recvLen)
     {
         if (recvLen > 0)
         {
@@ -225,11 +228,12 @@ public abstract class Session
                     return;
                 }
 
-                RegisterRecv();
+                await RegisterRecv();
             }
             catch (Exception e)
             {
                 //Debug.Log($"OnRecvCompleted Failed {e}");
+                Console.WriteLine($"OnRecvCompleted Failed {e}");
             }
         }
         else
