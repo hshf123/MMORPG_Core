@@ -41,9 +41,13 @@ void DBLoadBalancer::Launch()
 			{
 				while (true)
 				{
-					if (_serviceList[i].GetDBSession() != nullptr && _serviceList[i].GetDBSession()->isConnected() == false)
+					if (_serviceList[i].GetDBSession() == nullptr)
+						continue;
+
+					if (_serviceList[i].GetDBSession()->isConnected() == false && LEndTickCount < TimeUtils::GetTick64())
 					{
 						_serviceList[i].Connect(_connectionString);
+						LEndTickCount = TimeUtils::GetTick64() + DBRECONNECTTIME;
 						continue;
 					}
 

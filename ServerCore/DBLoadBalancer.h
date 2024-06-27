@@ -1,6 +1,8 @@
 #pragma once
 #include "DBService.h"
 
+constexpr uint64 DBRECONNECTTIME = UINT64_C(5000);	// DB 재연결 시간
+
 class DBLoadBalancer
 {
 public:
