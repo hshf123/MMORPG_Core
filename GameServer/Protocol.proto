@@ -5,16 +5,18 @@ option csharp_namespace = "Google.Protobuf.Protocol";
 import "Enum.proto";
 import "Struct.proto";
 
+// Protobuffer 3 부터는 기본값 세팅을 지원하지 않음. 패킷의 첫 인자는 무조건 EPacketProtocol로 사용하되 패킷 사용할 때 messageid를 채우는 것을 잊지 말 것
+
 message CSChatRequest
 {
-	EPacketProtocol messageid = 1;
-	string Name = 2;
-	string Msg = 3;
+	EPacketProtocol messageid			= 1;
+	string Name							= 2;
+	string Msg							= 3;
 }
 
 message SCChatResponse
 {
-	EPacketProtocol messageid = 1;
-	string Name = 2;
-	string Msg = 3;
+	EPacketProtocol messageid			= 1;
+	string Name							= 2;
+	string Msg							= 3;
 }

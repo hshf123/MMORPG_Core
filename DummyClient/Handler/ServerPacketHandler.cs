@@ -1,13 +1,9 @@
 ﻿using DummyClient;
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Protocol;
 using System;
 using System.Collections.Generic;
-
-public enum MsgId : ushort
-{
-  
-};
 
 class PacketManager
 {
@@ -28,8 +24,8 @@ class PacketManager
 
     public void Register()
     {
-        //_onRecv.Add((ushort)MsgId.PKT_S_PING, MakePacket<S_PING>);
-        //_handler.Add((ushort)MsgId.PKT_S_PING, PacketHandler.S_PINGHandler);
+        _onRecv.Add((ushort)EPacketProtocol.ScChatResponse, MakePacket<SCChatResponse>);
+        _handler.Add((ushort)EPacketProtocol.ScChatResponse, PacketHandler.OnSCChatResponse);
     }
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

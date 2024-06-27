@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf;
+using Protocol;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,6 @@ public abstract class PacketSession : Session
 {
     public static readonly int HeaderSize = 2;
 
-    // [size(2)][packetId(2)][ ... ][size(2)][packetId(2)][ ... ]
     public sealed override int OnRecv(ArraySegment<byte> buffer)
     {
         int processLen = 0;
@@ -39,14 +39,12 @@ public abstract class PacketSession : Session
 
     public abstract void OnRecvPacket(ArraySegment<byte> buffer);
 
-    public async Task SendAsync(IMessage packet)
+    public async Task SendAsync(EPacketProtocol protocol, IMessage packet)
     {
-        string msgName = "PKT_" + packet.Descriptor.Name;
-        MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
         ushort size = (ushort)packet.CalculateSize();
         byte[] sendBuffer = new byte[size + 4];
         Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
-        Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
+        Array.Copy(BitConverter.GetBytes((ushort)protocol), 0, sendBuffer, 2, sizeof(ushort));
         Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
         await SendAsync(new ArraySegment<byte>(sendBuffer));
     }
@@ -80,7 +78,7 @@ public abstract class Session
 
     public async Task Start(Socket? socket)
     {
-        if (_socket == null)
+        if (socket == null)
             return;
         _socket = socket;
         await RegisterRecv();
@@ -152,29 +150,27 @@ public abstract class Session
 
     async Task OnSendCompleted(int sendLen)
     {
-        using (await _lock.LockAsync())
+        // 위에서 락 잡고 들어옴
+        if (sendLen > 0)
         {
-            if (sendLen > 0)
+            try
             {
-                try
-                {
-                    _pendingList.Clear();
+                _pendingList.Clear();
 
-                    OnSend(sendLen);
+                OnSend(sendLen);
 
-                    if (_sendQueue.Count > 0)
-                        await RegisterSend();
-                }
-                catch (Exception e)
-                {
-                    //Debug.Log($"OnSendCompleted Failed {e}");
-                    Console.WriteLine($"OnSendCompleted Failed {e}");
-                }
+                if (_sendQueue.Count > 0)
+                    await RegisterSend();
             }
-            else
+            catch (Exception e)
             {
-                Disconnect();
+                //Debug.Log($"OnSendCompleted Failed {e}");
+                Console.WriteLine($"OnSendCompleted Failed {e}");
             }
+        }
+        else
+        {
+            Disconnect();
         }
     }
 
@@ -197,10 +193,10 @@ public abstract class Session
             return;
         }
 
-        await OnRecvCompletedAsync(recvLen);
+        OnRecvCompletedAsync(recvLen);
     }
 
-    async Task OnRecvCompletedAsync(int recvLen)
+    void OnRecvCompletedAsync(int recvLen)
     {
         if (recvLen > 0)
         {
@@ -228,7 +224,9 @@ public abstract class Session
                     return;
                 }
 
-                await RegisterRecv();
+#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
+                RegisterRecv();
+#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             }
             catch (Exception e)
             {

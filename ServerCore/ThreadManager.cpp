@@ -48,9 +48,6 @@ void ThreadManager::DoGlobalQueueWork()
 
 void ThreadManager::DistributeReservedJobs()
 {
-	while (true)
-	{
-		const uint64 now = ::GetTickCount64();
-		JobTimer::GetInstance().Distribute(now);
-	}
+	const uint64 now = TimeUtils::GetTick64();
+	JobTimer::GetInstance().Distribute(now);
 }

@@ -8,17 +8,19 @@ public class ServerSession : PacketSession
     public override void OnConnected(EndPoint endPoint)
     {
         //Debug.Log($"OnConnected : {endPoint}");
+        Console.WriteLine($"OnConnected : {endPoint}");
     }
 
     public override void OnDisconnected(EndPoint endPoint)
     {
         //Debug.Log($"OnDisconnected : {endPoint}");
+        Console.WriteLine($"OnDisconnected : {endPoint}");
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)
     {
         // TODO : packetId 대역 체크
-        //PacketManager.Instance.OnRecvPacket(this, buffer);
+        PacketManager.Instance.OnRecvPacket(this, buffer);
     }
 
     public override void OnSend(int numOfBytes)

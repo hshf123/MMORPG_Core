@@ -11,26 +11,21 @@ public class AsyncLock
     public async Task<IDisposable> LockAsync()
     {
         await _semaphore.WaitAsync();
-        return new Handler(_semaphore);
+        return new Releaser(_semaphore);
     }
 
-    private sealed class Handler : IDisposable
+    private sealed class Releaser : IDisposable
     {
         private readonly SemaphoreSlim _semaphore;
-        private bool _disposed = false;
 
-        public Handler(SemaphoreSlim semaphore)
+        public Releaser(SemaphoreSlim semaphore)
         {
             _semaphore = semaphore;
         }
 
         public void Dispose()
         {
-            if (_disposed == false)
-            {
-                _semaphore.Release();
-                _disposed = true;
-            }
+            _semaphore.Release();
         }
     }
 }

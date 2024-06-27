@@ -90,7 +90,7 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "messageid" field.</summary>
     public const int MessageidFieldNumber = 1;
-    private global::Protocol.EPacketProtocol messageid_ = global::Protocol.EPacketProtocol.CsChatRequest;
+    private global::Protocol.EPacketProtocol messageid_ = global::Protocol.EPacketProtocol.PacketProtocolStart;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Protocol.EPacketProtocol Messageid {
@@ -149,7 +149,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Messageid != global::Protocol.EPacketProtocol.CsChatRequest) hash ^= Messageid.GetHashCode();
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) hash ^= Messageid.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Msg.Length != 0) hash ^= Msg.GetHashCode();
       if (_unknownFields != null) {
@@ -170,7 +170,7 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Messageid != global::Protocol.EPacketProtocol.CsChatRequest) {
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Messageid);
       }
@@ -192,7 +192,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Messageid != global::Protocol.EPacketProtocol.CsChatRequest) {
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Messageid);
       }
@@ -214,7 +214,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Messageid != global::Protocol.EPacketProtocol.CsChatRequest) {
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Messageid);
       }
       if (Name.Length != 0) {
@@ -235,7 +235,7 @@ namespace Google.Protobuf.Protocol {
       if (other == null) {
         return;
       }
-      if (other.Messageid != global::Protocol.EPacketProtocol.CsChatRequest) {
+      if (other.Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
         Messageid = other.Messageid;
       }
       if (other.Name.Length != 0) {
@@ -353,7 +353,7 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "messageid" field.</summary>
     public const int MessageidFieldNumber = 1;
-    private global::Protocol.EPacketProtocol messageid_ = global::Protocol.EPacketProtocol.CsChatRequest;
+    private global::Protocol.EPacketProtocol messageid_ = global::Protocol.EPacketProtocol.PacketProtocolStart;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Protocol.EPacketProtocol Messageid {
@@ -412,7 +412,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Messageid != global::Protocol.EPacketProtocol.CsChatRequest) hash ^= Messageid.GetHashCode();
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) hash ^= Messageid.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Msg.Length != 0) hash ^= Msg.GetHashCode();
       if (_unknownFields != null) {
@@ -433,7 +433,7 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Messageid != global::Protocol.EPacketProtocol.CsChatRequest) {
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Messageid);
       }
@@ -455,7 +455,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Messageid != global::Protocol.EPacketProtocol.CsChatRequest) {
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Messageid);
       }
@@ -477,7 +477,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Messageid != global::Protocol.EPacketProtocol.CsChatRequest) {
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Messageid);
       }
       if (Name.Length != 0) {
@@ -498,7 +498,7 @@ namespace Google.Protobuf.Protocol {
       if (other == null) {
         return;
       }
-      if (other.Messageid != global::Protocol.EPacketProtocol.CsChatRequest) {
+      if (other.Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
         Messageid = other.Messageid;
       }
       if (other.Name.Length != 0) {

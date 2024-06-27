@@ -3,11 +3,15 @@ package Protocol;
 
 enum EPacketProtocol
 {
-	CS_ChatRequest = 0;
-	SC_ChatResponse = 1;
+	PACKET_PROTOCOL_START		= 0;
+	CS_ChatRequest				= 1;
+	SC_ChatResponse				= 2;
+	PACKET_PROTOCOL_END			= 65535;
 }
 
 enum EDBProtocol
 {
-	STDB_ServerStart = 0;
+	DB_PROTOCOL_START			= 0;
+	SGDB_ServerStart			= 1;
+	DB_PROTOCOL_END				= 65535;
 }

@@ -29,14 +29,16 @@ static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
 static constexpr ::_pb::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nEnum.proto\022\010Protocol*:\n\017EPacketProtoco"
-  "l\022\022\n\016CS_ChatRequest\020\000\022\023\n\017SC_ChatResponse"
-  "\020\001*#\n\013EDBProtocol\022\024\n\020STDB_ServerStart\020\000b"
-  "\006proto3"
+  "\n\nEnum.proto\022\010Protocol*p\n\017EPacketProtoco"
+  "l\022\031\n\025PACKET_PROTOCOL_START\020\000\022\022\n\016CS_ChatR"
+  "equest\020\001\022\023\n\017SC_ChatResponse\020\002\022\031\n\023PACKET_"
+  "PROTOCOL_END\020\377\377\003*Q\n\013EDBProtocol\022\025\n\021DB_PR"
+  "OTOCOL_START\020\000\022\024\n\020SGDB_ServerStart\020\001\022\025\n\017"
+  "DB_PROTOCOL_END\020\377\377\003b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 127, descriptor_table_protodef_Enum_2eproto,
+    false, false, 227, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -58,6 +60,8 @@ bool EPacketProtocol_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
+    case 65535:
       return true;
     default:
       return false;
@@ -71,6 +75,8 @@ const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EDBProtocol_descriptor() {
 bool EDBProtocol_IsValid(int value) {
   switch (value) {
     case 0:
+    case 1:
+    case 65535:
       return true;
     default:
       return false;

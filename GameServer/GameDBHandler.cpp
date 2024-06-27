@@ -5,7 +5,7 @@
 void GameDBHandler::Init()
 {
 	DBHandler::Init();
-	RegisterHandler(Protocol::EDBProtocol::STDB_ServerStart, &GameDBHandler::OnSTDBServerStart);
+	RegisterHandler(Protocol::EDBProtocol::SGDB_ServerStart, &GameDBHandler::OnSTDBServerStart);
 }
 
 bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* service)

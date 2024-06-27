@@ -6,6 +6,7 @@
 #include "ThreadManager.h"
 #include "GameDBLoadBalancer.h"
 #include "GameDBHandler.h"
+#include "ClientPacketHandler.h"
 
 /*
 	1. 서버 뜰 때 초기화
@@ -29,12 +30,26 @@ int main()
 	Socket::Init();
 	LogManager::GetInstance().Initialize("GameServer");
 	GameDBHandler::GetInstance().Init();
+	ClientPacketHandler::GetInstance().Init();
 	std::shared_ptr<GameDBLoadBalancer> tdbBalancer = PoolAlloc<GameDBLoadBalancer>();
 #ifdef DEV_TEST
 	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 1);
 #else
 	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 8);
 #endif
+	
+	//const std::string json = "{\"project\":\"rapidjson\",\"stars\":10}";
+	//rapidjson::Document d;
+	//d.Parse(json.c_str());
+	//rapidjson::Value& s = d["stars"];
+	//s.SetInt(s.GetInt() + 1);
+	//rapidjson::StringBuffer buffer;
+	//rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	//d.Accept(writer);
+
+	LogManager::GetInstance().Launch();
+	tdbBalancer->Launch();
+	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::SGDB_ServerStart, 0));
 
 	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
 		NetAddress(L"127.0.0.1", 9999),
@@ -55,19 +70,6 @@ int main()
 				}
 			});
 	}
-
-	//const std::string json = "{\"project\":\"rapidjson\",\"stars\":10}";
-	//rapidjson::Document d;
-	//d.Parse(json.c_str());
-	//rapidjson::Value& s = d["stars"];
-	//s.SetInt(s.GetInt() + 1);
-	//rapidjson::StringBuffer buffer;
-	//rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-	//d.Accept(writer);
-
-	LogManager::GetInstance().Launch();
-	tdbBalancer->Launch();
-	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::STDB_ServerStart, 0));
 
 #ifdef DEV_TEST
 	while (true);

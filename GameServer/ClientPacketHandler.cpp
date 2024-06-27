@@ -14,6 +14,8 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	if (cs == nullptr)
 		return false;
 
+	VIEW_INFO("Recv {} : {}", pkt.name(), pkt.msg());
+
 	Protocol::SCChatResponse packet;
 	packet.set_messageid(Protocol::EPacketProtocol::SC_ChatResponse);
 	packet.set_name(pkt.name());

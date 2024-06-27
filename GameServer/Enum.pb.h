@@ -48,14 +48,16 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 enum EPacketProtocol : int {
-  CS_ChatRequest = 0,
-  SC_ChatResponse = 1,
+  PACKET_PROTOCOL_START = 0,
+  CS_ChatRequest = 1,
+  SC_ChatResponse = 2,
+  PACKET_PROTOCOL_END = 65535,
   EPacketProtocol_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   EPacketProtocol_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool EPacketProtocol_IsValid(int value);
-constexpr EPacketProtocol EPacketProtocol_MIN = CS_ChatRequest;
-constexpr EPacketProtocol EPacketProtocol_MAX = SC_ChatResponse;
+constexpr EPacketProtocol EPacketProtocol_MIN = PACKET_PROTOCOL_START;
+constexpr EPacketProtocol EPacketProtocol_MAX = PACKET_PROTOCOL_END;
 constexpr int EPacketProtocol_ARRAYSIZE = EPacketProtocol_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EPacketProtocol_descriptor();
@@ -73,13 +75,15 @@ inline bool EPacketProtocol_Parse(
     EPacketProtocol_descriptor(), name, value);
 }
 enum EDBProtocol : int {
-  STDB_ServerStart = 0,
+  DB_PROTOCOL_START = 0,
+  SGDB_ServerStart = 1,
+  DB_PROTOCOL_END = 65535,
   EDBProtocol_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   EDBProtocol_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool EDBProtocol_IsValid(int value);
-constexpr EDBProtocol EDBProtocol_MIN = STDB_ServerStart;
-constexpr EDBProtocol EDBProtocol_MAX = STDB_ServerStart;
+constexpr EDBProtocol EDBProtocol_MIN = DB_PROTOCOL_START;
+constexpr EDBProtocol EDBProtocol_MAX = DB_PROTOCOL_END;
 constexpr int EDBProtocol_ARRAYSIZE = EDBProtocol_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EDBProtocol_descriptor();

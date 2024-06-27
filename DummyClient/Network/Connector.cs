@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 public class Connector
 {
-    Func<Session>? _sessionFactory;
-    async public Task Connect(string serverIP, int serverPort, Func<Session> sessionFactory, int count = 1)
+    Func<Task<Session>>? _sessionFactory;
+    public void Connect(string serverIP, int serverPort, Func<Task<Session>> sessionFactory, int count = 1)
     {
         for (int i = 0; i < count; i++)
         {
-            // 휴대폰 설정
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _sessionFactory = sessionFactory;
 
@@ -20,7 +19,9 @@ public class Connector
             args.RemoteEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
             args.UserToken = socket;
 
-            await RegisterConnect(args);
+#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
+            RegisterConnect(args);
+#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
         }
     }
 
@@ -40,16 +41,18 @@ public class Connector
             Console.WriteLine($"{e}");
             return;
         }
-        await OnConnectCompletedAsync(args);
+        OnConnectCompletedAsync(args);
     }
 
-    async Task OnConnectCompletedAsync(SocketAsyncEventArgs args)
+    void OnConnectCompletedAsync(SocketAsyncEventArgs args)
     {
-        if (args.SocketError == SocketError.Success && _sessionFactory != null && args.RemoteEndPoint != null)
+        if (args.SocketError == SocketError.Success)
         {
-            Session session = _sessionFactory.Invoke();
-            await session.Start(args.UserToken as Socket);
-            session.OnConnected(args.RemoteEndPoint);
+            Session session = _sessionFactory!.Invoke().Result;
+#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
+            session.Start(args.UserToken as Socket);
+#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
+            session.OnConnected(args.RemoteEndPoint!);
         }
         else
         {

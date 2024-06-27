@@ -24,9 +24,12 @@ namespace Protocol {
     static EnumReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpFbnVtLnByb3RvEghQcm90b2NvbCo6Cg9FUGFja2V0UHJvdG9jb2wSEgoO",
-            "Q1NfQ2hhdFJlcXVlc3QQABITCg9TQ19DaGF0UmVzcG9uc2UQASojCgtFREJQ",
-            "cm90b2NvbBIUChBTVERCX1NlcnZlclN0YXJ0EABiBnByb3RvMw=="));
+            "CgpFbnVtLnByb3RvEghQcm90b2NvbCpwCg9FUGFja2V0UHJvdG9jb2wSGQoV",
+            "UEFDS0VUX1BST1RPQ09MX1NUQVJUEAASEgoOQ1NfQ2hhdFJlcXVlc3QQARIT",
+            "Cg9TQ19DaGF0UmVzcG9uc2UQAhIZChNQQUNLRVRfUFJPVE9DT0xfRU5EEP//",
+            "AypRCgtFREJQcm90b2NvbBIVChFEQl9QUk9UT0NPTF9TVEFSVBAAEhQKEFNH",
+            "REJfU2VydmVyU3RhcnQQARIVCg9EQl9QUk9UT0NPTF9FTkQQ//8DYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EPacketProtocol), typeof(global::Protocol.EDBProtocol), }, null, null));
@@ -36,12 +39,16 @@ namespace Protocol {
   }
   #region Enums
   public enum EPacketProtocol {
-    [pbr::OriginalName("CS_ChatRequest")] CsChatRequest = 0,
-    [pbr::OriginalName("SC_ChatResponse")] ScChatResponse = 1,
+    [pbr::OriginalName("PACKET_PROTOCOL_START")] PacketProtocolStart = 0,
+    [pbr::OriginalName("CS_ChatRequest")] CsChatRequest = 1,
+    [pbr::OriginalName("SC_ChatResponse")] ScChatResponse = 2,
+    [pbr::OriginalName("PACKET_PROTOCOL_END")] PacketProtocolEnd = 65535,
   }
 
   public enum EDBProtocol {
-    [pbr::OriginalName("STDB_ServerStart")] StdbServerStart = 0,
+    [pbr::OriginalName("DB_PROTOCOL_START")] DbProtocolStart = 0,
+    [pbr::OriginalName("SGDB_ServerStart")] SgdbServerStart = 1,
+    [pbr::OriginalName("DB_PROTOCOL_END")] DbProtocolEnd = 65535,
   }
 
   #endregion
