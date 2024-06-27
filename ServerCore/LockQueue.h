@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// Lock이 걸려있는 큐
+/// </summary>
 template<typename T>
 class LockQueue
 {

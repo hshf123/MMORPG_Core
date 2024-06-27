@@ -11,7 +11,10 @@
 class TimeUtils
 {
 public:
-	// DB에서 받아온 틱 -> 이걸로 서버 시간 정하고 쓸거임
+	/// <summary>
+	/// DB에서 받아온 틱 -> 이걸로 서버 시간 정하고 쓰게끔, 안넣으면 그냥 서버 머신 시간
+	/// </summary>
+	/// <param name="defaultTick"></param>
 	static void Init(const int64& defaultTick = INT64_C(0));
 
 	static const uint64 GetTick64();

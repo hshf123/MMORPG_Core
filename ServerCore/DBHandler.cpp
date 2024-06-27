@@ -11,7 +11,7 @@ void DBHandler::Init()
 		_dbHandler[i] = Handle_INVALID;
 }
 
-bool DBHandler::HandlePacket(uint16 protocolId, std::shared_ptr<DBData> data, DBService* service)
+bool DBHandler::HandleData(uint16 protocolId, std::shared_ptr<DBData> data, DBService* service)
 {
 	return _dbHandler[protocolId](data, service);
 }

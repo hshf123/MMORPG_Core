@@ -3,6 +3,9 @@
 
 using CallbackType = std::function<void()>;
 
+/// <summary>
+/// 게임 로직 일감, 수행할 함수 포인터와 인자를 가짐
+/// </summary>
 class Job
 {
 public:

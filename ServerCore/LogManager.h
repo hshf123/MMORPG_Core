@@ -16,6 +16,9 @@ enum class LogType
 	Error
 };
 
+/// <summary>
+/// spdlog 매핑 클래스
+/// </summary>
 class LogManager : public RefSingleton<LogManager>
 {
 public:

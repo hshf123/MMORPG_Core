@@ -59,6 +59,11 @@ void xdelete(Type* ptr)
 	MemoryPool<Type>::GetInstance().Delete(ptr);
 }
 
+/// <summary>
+/// 메모리 풀을 사용한 smartpointer 반환
+/// 풀에서 꺼내올 때 넣을 때 생성자 소멸자를 호출하기 때문에 별도의 Reset과 같은 함수를 만들 필요 없음.
+/// 메모리 할당 방식은 new/delete, 기본 메모리 할당 방식을 사용함
+/// </summary>
 template<class T, class... Args>
 std::shared_ptr<T> PoolAlloc(Args&&... args)
 {

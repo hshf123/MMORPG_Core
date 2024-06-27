@@ -1,6 +1,15 @@
 #pragma once
 #include "Types.h"
 
+/// <summary>
+/// spinLock±â¹Ý ReadWriteLock
+/// ÀÏÁ¤ È½¼ö µ¿¾È lock È¹µæ ½Ãµµ¸¦ ¹Ýº¹.
+/// WL(WriteLock) RL(ReadLock)
+/// RL -> RL O
+/// WL -> WL O
+/// WL -> RL O
+/// RL -> WL X
+/// </summary>
 class Lock
 {
 	enum : uint32
