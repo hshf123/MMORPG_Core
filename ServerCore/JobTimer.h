@@ -33,7 +33,7 @@ public:
 /// </summary>
 class JobTimer : public RefSingleton<JobTimer>
 {
-public
+public:
 	/// <summary>
 	/// 예약 일감 Push
 	/// </summary>
