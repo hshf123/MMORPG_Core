@@ -9,25 +9,26 @@ LogManager::LogManager()
 
 LogManager::~LogManager()
 {
+	std::queue<std::pair<LogType, std::string>> logQueue;
 	{
 		WRITE_LOCKS(ConsoleLog);
-		auto q = _logs[ConsoleLog];
-		while (_logs[ConsoleLog].empty() == false)
-		{
-			std::pair<LogType, std::string> p = q.front();
-			View(p.first, p.second);
-			q.pop();
-		}
+		_logs[ConsoleLog].swap(logQueue);
+	}
+	while (logQueue.empty() == false)
+	{
+		std::pair<LogType, std::string> p = logQueue.front();
+		View(p.first, p.second);
+		logQueue.pop();
 	}
 	{
 		WRITE_LOCKS(FileLog);
-		auto q = _logs[FileLog];
-		while (_logs[FileLog].empty() == false)
-		{
-			std::pair<LogType, std::string> p = q.front();
-			Write(p.first, p.second);
-			q.pop();
-		}
+		_logs[FileLog].swap(logQueue);
+	}
+	while (logQueue.empty() == false)
+	{
+		std::pair<LogType, std::string> p = logQueue.front();
+		Write(p.first, p.second);
+		logQueue.pop();
 	}
 }
 
@@ -51,41 +52,46 @@ void LogManager::Launch()
 		{
 			while (true)
 			{
+				std::queue<std::pair<LogType, std::string>> logQueue;
 				{
 					WRITE_LOCKS(ConsoleLog);
-					while (_directLogs[ConsoleLog].empty() == false)
-					{
-						const auto& log = _directLogs[ConsoleLog].front();
-						View(log.first, log.second);
-						_directLogs[ConsoleLog].pop();
-					}
+					_directLogs[ConsoleLog].swap(logQueue);
+				}
+				while (logQueue.empty() == false)
+				{
+					const auto& log = logQueue.front();
+					View(log.first, log.second);
+					logQueue.pop();
 				}
 				{
 					WRITE_LOCKS(FileLog);
-					while (_directLogs[FileLog].empty() == false)
-					{
-						const auto& log = _directLogs[FileLog].front();
-						Write(log.first, log.second);
-						_directLogs[FileLog].pop();
-					}
+					_directLogs[FileLog].swap(logQueue);
+				}
+				while (logQueue.empty() == false)
+				{
+					const auto& log = logQueue.front();
+					Write(log.first, log.second);
+					logQueue.pop();
 				}
 				{
 					WRITE_LOCKS(ConsoleLog);
-					if (_logs[ConsoleLog].empty() == false)
-					{
-						const auto& log = _logs[ConsoleLog].front();
-						View(log.first, log.second);
-						_logs[ConsoleLog].pop();
-					}
+					_logs[ConsoleLog].swap(logQueue);
+				}
+				while (logQueue.empty() == false)
+				{
+					const auto& log = logQueue.front();
+					View(log.first, log.second);
+					logQueue.pop();
 				}
 				{
 					WRITE_LOCKS(FileLog);
-					if (_logs[FileLog].empty() == false)
-					{
-						const auto& log = _logs[FileLog].front();
-						Write(log.first, log.second);
-						_logs[FileLog].pop();
-					}
+					_logs[FileLog].swap(logQueue);
+				}
+				while (logQueue.empty() == false)
+				{
+					const auto& log = logQueue.front();
+					Write(log.first, log.second);
+					logQueue.pop();
 				}
 				std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			}
