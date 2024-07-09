@@ -18,6 +18,15 @@ enum class LogType
 	Error
 };
 
+struct LogStruct
+{
+	LogStruct(LogType lv, uint64 time, std::string_view log) : lv(lv), time(time), log(log) {}
+
+	LogType lv;
+	uint64 time;
+	std::string_view log;
+};
+
 /// <summary>
 /// spdlog 매핑 클래스
 /// </summary>
@@ -32,22 +41,22 @@ public:
 	void Launch();
 
 	template <class... Args>
-	void Log(const LogType& type, const bool& view, const bool& write, const std::string& fmt, Args&&... args);
+	void Log(const uint64& time, const LogType& type, const bool& view, const bool& write, const std::string& fmt, Args&&... args);
 
 private:
-	void Write(const LogType& type, const std::string& log);
-	void View(const LogType& type, const std::string& log);
-	void Log(const LogType& type, const std::string_view& log, spdlog::logger* logger = nullptr);
+	void Write(const uint64& time, const LogType& type, const std::string_view& log);
+	void View(const uint64& time, const LogType& type, const std::string_view& log);
+	void Log(const uint64& time, const LogType& type, const std::string_view& log, spdlog::logger* logger = nullptr);
 
 public:
 	USE_LOCKS(LogMax);
 	std::shared_ptr<spdlog::logger> _logger = nullptr;
-	std::queue<std::pair<LogType, std::string>> _logs[LogMax];
-	std::queue<std::pair<LogType, std::string>> _directLogs[LogMax];
+	std::queue<LogStruct> _logs[LogMax];
+	std::queue<LogStruct> _directLogs[LogMax];
 };
 
 template <class... Args>
-void LogManager::Log(const LogType& type, const bool& view, const bool& write, const std::string& fmt, Args&&... args)
+void LogManager::Log(const uint64& time, const LogType& type, const bool& view, const bool& write, const std::string& fmt, Args&&... args)
 {
 	std::string log = std::vformat(fmt, std::make_format_args(args...));
 
@@ -55,16 +64,16 @@ void LogManager::Log(const LogType& type, const bool& view, const bool& write, c
 	{
 		WRITE_LOCKS(FileLog);
 		if (type == LogType::Error)
-			_directLogs[FileLog].push({ type, log });
+			_directLogs[FileLog].push({ type, time, log });
 		else
-			_logs[FileLog].push({ type, log });
+			_logs[FileLog].push({ type, time, log });
 	}
 	if (view)
 	{
 		WRITE_LOCKS(ConsoleLog);
 		if (type == LogType::Error)
-			_directLogs[ConsoleLog].push({ type, log });
+			_directLogs[ConsoleLog].push({ type, time, log });
 		else
-			_logs[ConsoleLog].push({ type, log });
+			_logs[ConsoleLog].push({ type, time, log });
 	}
 }

@@ -44,7 +44,7 @@ void Session::Disconnect(const WCHAR* cause)
 	if (_connected.exchange(false) == false)
 		return;
 
-	VIEW_WRITE_WARNING("Disconnected {}", StrUtils::ToString(cause));
+	VIEW_WRITE_WARNING(TimeUtils::GetTick64(), "Disconnected {}", StrUtils::ToString(cause));
 	RegisterDisconnect();
 }
 
@@ -260,10 +260,10 @@ void Session::ProcessSend(int32 numOfBytes)
 	WRITE_LOCK;
 
 	if (_sendQueue.size() >= WARN_SENDQUEUE_SIZE)
-		VIEW_WRITE_WARNING("WorkId({}) SendQueueSize Over {}!! QueueSize({})", GetWorkId(), WARN_SENDQUEUE_SIZE, _sendQueue.size());
+		VIEW_WRITE_WARNING(TimeUtils::GetTick64(), "WorkId({}) SendQueueSize Over {}!! QueueSize({})", GetWorkId(), WARN_SENDQUEUE_SIZE, _sendQueue.size());
 	if (_sendQueue.size() >= WARN_SENDQUEUE_SIZE)
 	{
-		VIEW_WRITE_WARNING("WorkId({}) Kick By SendQueueSize Over {}!! QueueSize({})", GetWorkId(), KICK_SENDQUEUE_SIZE, _sendQueue.size());
+		VIEW_WRITE_WARNING(TimeUtils::GetTick64(), "WorkId({}) Kick By SendQueueSize Over {}!! QueueSize({})", GetWorkId(), KICK_SENDQUEUE_SIZE, _sendQueue.size());
 		Disconnect(L"SendQueue Size Over");
 		return;
 	}
@@ -283,7 +283,7 @@ void Session::HandleError(int32 errorCode)
 		Disconnect(L"HandleError");
 		break;
 	default:
-		VIEW_WRITE_ERROR("Handle Error, {}", errorCode);
+		VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "Handle Error, {}", errorCode);
 		break;
 	}
 }

@@ -9,15 +9,15 @@ LogManager::LogManager()
 
 LogManager::~LogManager()
 {
-	std::queue<std::pair<LogType, std::string>> logQueue;
+	std::queue<LogStruct> logQueue;
 	{
 		WRITE_LOCKS(ConsoleLog);
 		_logs[ConsoleLog].swap(logQueue);
 	}
 	while (logQueue.empty() == false)
 	{
-		std::pair<LogType, std::string> p = logQueue.front();
-		View(p.first, p.second);
+		LogStruct p = logQueue.front();
+		View(p.time, p.lv, p.log);
 		logQueue.pop();
 	}
 	{
@@ -26,8 +26,8 @@ LogManager::~LogManager()
 	}
 	while (logQueue.empty() == false)
 	{
-		std::pair<LogType, std::string> p = logQueue.front();
-		Write(p.first, p.second);
+		LogStruct p = logQueue.front();
+		Write(p.time, p.lv, p.log);
 		logQueue.pop();
 	}
 }
@@ -52,7 +52,7 @@ void LogManager::Launch()
 		{
 			while (true)
 			{
-				std::queue<std::pair<LogType, std::string>> logQueue;
+				std::queue<LogStruct> logQueue;
 				{
 					WRITE_LOCKS(ConsoleLog);
 					_directLogs[ConsoleLog].swap(logQueue);
@@ -60,7 +60,7 @@ void LogManager::Launch()
 				while (logQueue.empty() == false)
 				{
 					const auto& log = logQueue.front();
-					View(log.first, log.second);
+					View(log.time, log.lv, log.log);
 					logQueue.pop();
 				}
 				{
@@ -70,7 +70,7 @@ void LogManager::Launch()
 				while (logQueue.empty() == false)
 				{
 					const auto& log = logQueue.front();
-					Write(log.first, log.second);
+					Write(log.time, log.lv, log.log);
 					logQueue.pop();
 				}
 				{
@@ -80,7 +80,7 @@ void LogManager::Launch()
 				while (logQueue.empty() == false)
 				{
 					const auto& log = logQueue.front();
-					View(log.first, log.second);
+					View(log.time, log.lv, log.log);
 					logQueue.pop();
 				}
 				{
@@ -90,7 +90,7 @@ void LogManager::Launch()
 				while (logQueue.empty() == false)
 				{
 					const auto& log = logQueue.front();
-					Write(log.first, log.second);
+					Write(log.time, log.lv, log.log);
 					logQueue.pop();
 				}
 				std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -98,17 +98,17 @@ void LogManager::Launch()
 		});
 }
 
-void LogManager::Write(const LogType& type, const std::string& log)
+void LogManager::Write(const uint64& time, const LogType& type, const std::string_view& log)
 {
-	Log(type, log, _logger.get());
+	Log(time, type, log, _logger.get());
 }
 
-void LogManager::View(const LogType& type, const std::string& log)
+void LogManager::View(const uint64& time, const LogType& type, const std::string_view& log)
 {
-	Log(type, log);
+	Log(time, type, log);
 }
 
-void LogManager::Log(const LogType& type, const std::string_view& log, spdlog::logger* logger /*= nullptr*/)
+void LogManager::Log(const uint64& time, const LogType& type, const std::string_view& log, spdlog::logger* logger /*= nullptr*/)
 {
 	if (logger == nullptr)
 		logger = spdlog::default_logger_raw();
@@ -129,7 +129,7 @@ void LogManager::Log(const LogType& type, const std::string_view& log, spdlog::l
 		break;
 	}
 
-	auto local_time_point = std::chrono::system_clock::time_point(std::chrono::system_clock::duration(TimeUtils::GetTick64()));
+	auto local_time_point = std::chrono::system_clock::time_point(std::chrono::system_clock::duration(time));
 	logger->log(local_time_point, spdlog::source_loc{}, lvl, log);
 	if (lvl == spdlog::level::err)
 		logger->flush();

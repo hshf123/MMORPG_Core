@@ -21,7 +21,7 @@ void TimeUtils::Init(const int64& defaultTick /*= INT64_C(0)*/)
 	auto zt = std::chrono::zoned_time<std::chrono::system_clock::duration>(std::chrono::current_zone(), std::chrono::system_clock::now());
 	const int64& tick = zt.get_local_time().time_since_epoch().count(); // 서버 시간
 	_interpolationTick = defaultTick - tick;	// DB시간 - 서버시간 = 보정시간
-	VIEW_WRITE_INFO("DB InterpolationTick : {}", _interpolationTick);
+	VIEW_WRITE_INFO(TimeUtils::GetTick64(), "DB InterpolationTick : {}", _interpolationTick);
 }
 
 const uint64 TimeUtils::GetTick64()

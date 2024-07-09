@@ -10,7 +10,7 @@ bool DBService::Connect(const std::string& connectionString)
 	}
 	catch (Poco::Data::ConnectionFailedException& ex)
 	{
-		VIEW_WRITE_ERROR("[DB: {}] Connect Failed Cause \n{}", _connectionString, ex.displayText());
+		VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "[DB: {}] Connect Failed Cause \n{}", _connectionString, ex.displayText());
 		return false;
 	}
 

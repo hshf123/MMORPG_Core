@@ -23,7 +23,7 @@ bool DBHandler::RegisterHandler(const uint16& protocol, DBHandlerFunc fn)
 #ifdef DEV_TEST
 	if (_useProtocol.insert(protocol).second == false)
 	{
-		VIEW_WRITE_ERROR("Duplicated Protocol Detected! Check Protocol ID({})", protocol);
+		VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "Duplicated Protocol Detected! Check Protocol ID({})", protocol);
 		return false;
 	}
 #endif
@@ -35,6 +35,6 @@ bool Handle_INVALID(std::shared_ptr<DBData> data, DBService* service)
 {
 	if (data == nullptr)
 		return false;
-	VIEW_WRITE_ERROR("Invalid Inner Data dected ProtocolID({}), WorkID({})", data->ProtocolID, data->WorkID);
+	VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "Invalid Inner Data dected ProtocolID({}), WorkID({})", data->ProtocolID, data->WorkID);
 	return false;
 }

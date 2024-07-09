@@ -29,11 +29,11 @@ bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* s
 	}
 	catch (Poco::Data::ODBC::StatementException& ex)
 	{
-		VIEW_WRITE_ERROR("\n{}", ex.message());
+		VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "\n{}", ex.message());
 	}
 	catch (std::exception& e)
 	{
-		VIEW_WRITE_ERROR("\nDB Error : {}", e.what());
+		VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "\nDB Error : {}", e.what());
 	}
 
 	//Poco::Data::Statement select(session); // SELECT 시에 사용, range(0,1)
