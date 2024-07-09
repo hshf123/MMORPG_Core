@@ -22,7 +22,7 @@ struct LogStruct
 
 	LogType lv = LogType::Info;
 	uint64 time = UINT64_C(0);
-	std::string_view log = "";
+	std::string log = "";
 };
 
 /// <summary>
