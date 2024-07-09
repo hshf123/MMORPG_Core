@@ -46,11 +46,12 @@ private:
 	void View(const uint64& time, const LogType& type, const std::string_view& log);
 	void Log(const uint64& time, const LogType& type, const std::string_view& log, spdlog::logger* logger = nullptr);
 
-public:
+private:
 	USE_LOCKS(LogMax);
 	std::shared_ptr<spdlog::logger> _logger = nullptr;
 	std::queue<LogStruct> _logs[LogMax];
 	std::queue<LogStruct> _directLogs[LogMax];
+	std::chrono::seconds _offset = {};
 };
 
 template <class... Args>

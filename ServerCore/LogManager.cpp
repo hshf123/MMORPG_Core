@@ -39,6 +39,9 @@ void LogManager::Initialize(const std::string& loggerName /*= "basic_logger"*/, 
 		Poco::DateTime now = TimeUtils::GetPocoTime();
 		std::string formattedDate = Poco::DateTimeFormatter::format(now, "%Y-%m-%d") + ".txt";
 		_logger = spdlog::basic_logger_mt(loggerName, filepath + formattedDate);
+
+		auto localTime = std::chrono::zoned_time(std::chrono::current_zone(), std::chrono::system_clock::now());
+		_offset = localTime.get_info().offset;
 	}
 	catch (const spdlog::spdlog_ex& ex)
 	{
@@ -129,12 +132,8 @@ void LogManager::Log(const uint64& time, const LogType& type, const std::string_
 		break;
 	}
 
-	time_t t = time / 1'000'000;
-	std::tm tm;
-	::gmtime_s(&tm, &t);
-	time_t t1 = ::mktime(&tm);
-	std::chrono::microseconds duration((t1 * 1'000'000) + (time % 1'000'000));
-
+	std::chrono::microseconds duration(time);
+	duration -= _offset;
 	std::chrono::system_clock::time_point time_point(duration);
 	logger->log(time_point, spdlog::source_loc{}, lvl, log);
 	if (lvl == spdlog::level::err)
