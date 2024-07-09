@@ -4,6 +4,8 @@
 #include "spdlog/sinks/basic_file_sink.h"
 #include <spdlog/common.h>
 #include <format>
+#include "TimeUtils.h"
+#include <iomanip>
 
 #define ConsoleLog		0
 #define FileLog			1
@@ -35,6 +37,7 @@ public:
 private:
 	void Write(const LogType& type, const std::string& log);
 	void View(const LogType& type, const std::string& log);
+	void Log(const LogType& type, const std::string_view& log, spdlog::logger* logger = nullptr);
 
 public:
 	USE_LOCKS(LogMax);

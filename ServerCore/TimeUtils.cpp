@@ -18,15 +18,18 @@ void TimeUtils::Init(const int64& defaultTick /*= INT64_C(0)*/)
 {
 	if (defaultTick <= INT64_C(0))
 		return;
-	
-	const int64& tick = GetPocoTime().timestamp().epochTime();		// 서버 시간
+	auto zt = std::chrono::zoned_time<std::chrono::system_clock::duration>(std::chrono::current_zone(), std::chrono::system_clock::now());
+	const int64& tick = zt.get_local_time().time_since_epoch().count(); // 서버 시간
 	_interpolationTick = defaultTick - tick;	// DB시간 - 서버시간 = 보정시간
+	VIEW_WRITE_INFO("DB InterpolationTick : {}", _interpolationTick);
 }
 
 const uint64 TimeUtils::GetTick64()
 {
 	// DB 시간 = 서버시간 + 보정시간
-	return GetPocoTime().timestamp().epochTime() + _interpolationTick;
+	auto zt = std::chrono::zoned_time<std::chrono::system_clock::duration>(std::chrono::current_zone(), std::chrono::system_clock::now());
+	const int64& tick = zt.get_sys_time().time_since_epoch().count(); // 서버 시간
+	return tick + _interpolationTick;
 }
 
 Poco::DateTime TimeUtils::GetPocoTime()

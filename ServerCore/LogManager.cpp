@@ -100,41 +100,37 @@ void LogManager::Launch()
 
 void LogManager::Write(const LogType& type, const std::string& log)
 {
-	if (_logger == nullptr)
-		return;
-
-	switch (type)
-	{
-	case LogType::Info:
-		_logger->info(log);
-		break;
-	case LogType::Warning:
-		_logger->warn(log);
-		break;
-	case LogType::Error:
-		_logger->error(log);
-		_logger->flush();
-		break;
-	default:
-		break;
-	}
+	Log(type, log, _logger.get());
 }
 
 void LogManager::View(const LogType& type, const std::string& log)
 {
+	Log(type, log);
+}
+
+void LogManager::Log(const LogType& type, const std::string_view& log, spdlog::logger* logger /*= nullptr*/)
+{
+	if (logger == nullptr)
+		logger = spdlog::default_logger_raw();
+
+	spdlog::level::level_enum lvl = spdlog::level::off;
 	switch (type)
 	{
 	case LogType::Info:
-		spdlog::info(log);
+		lvl = spdlog::level::info;
 		break;
 	case LogType::Warning:
-		spdlog::warn(log);
+		lvl = spdlog::level::warn;
 		break;
 	case LogType::Error:
-		spdlog::error(log);
-		_logger->flush();
+		lvl = spdlog::level::err;
 		break;
 	default:
 		break;
 	}
+
+	auto local_time_point = std::chrono::system_clock::time_point(std::chrono::system_clock::duration(TimeUtils::GetTick64()));
+	logger->log(local_time_point, spdlog::source_loc{}, lvl, log);
+	if (lvl == spdlog::level::err)
+		logger->flush();
 }
