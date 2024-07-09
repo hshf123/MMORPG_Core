@@ -3,9 +3,6 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include <spdlog/common.h>
-#include <format>
-#include "TimeUtils.h"
-#include <iomanip>
 
 #define ConsoleLog		0
 #define FileLog			1
@@ -20,11 +17,12 @@ enum class LogType
 
 struct LogStruct
 {
+	LogStruct() = default;
 	LogStruct(LogType lv, uint64 time, std::string_view log) : lv(lv), time(time), log(log) {}
 
-	LogType lv;
-	uint64 time;
-	std::string_view log;
+	LogType lv = LogType::Info;
+	uint64 time = UINT64_C(0);
+	std::string_view log = "";
 };
 
 /// <summary>
