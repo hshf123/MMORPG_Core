@@ -71,6 +71,17 @@ int main()
 			});
 	}
 
+	while (true)
+	{
+		auto t = TimeUtils::GetTick64();
+		auto t1 = TimeUtils::TickToPocoTime(t);
+
+		auto t2 = std::chrono::system_clock::time_point(std::chrono::system_clock::now()).time_since_epoch().count();
+		auto t3 = TimeUtils::TickToPocoTime(t2);
+
+		int a = 0;
+	}
+
 #ifdef DEV_TEST
 	while (true);
 #else

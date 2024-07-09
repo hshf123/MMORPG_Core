@@ -129,8 +129,14 @@ void LogManager::Log(const uint64& time, const LogType& type, const std::string_
 		break;
 	}
 
-	auto local_time_point = std::chrono::system_clock::time_point(std::chrono::system_clock::duration(time));
-	logger->log(local_time_point, spdlog::source_loc{}, lvl, log);
+	time_t t = time / 1'000'000;
+	std::tm tm;
+	::gmtime_s(&tm, &t);
+	time_t t1 = ::mktime(&tm);
+	std::chrono::microseconds duration((t1 * 1'000'000) + (time % 1'000'000));
+
+	std::chrono::system_clock::time_point time_point(duration);
+	logger->log(time_point, spdlog::source_loc{}, lvl, log);
 	if (lvl == spdlog::level::err)
 		logger->flush();
 }

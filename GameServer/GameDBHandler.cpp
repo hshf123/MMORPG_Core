@@ -19,12 +19,12 @@ bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* s
 	Poco::Data::Session& session = *dbSession;
 
 	int serverId = 1;
-	int64 dbTick = INT64_C(0);
+	Poco::DateTime serverStartTime;
 	try
 	{
-		session << "{CALL spServerStart(?,?)}",
+		session << "{CALL spServerStart(?)}",
 			in(serverId),
-			io(dbTick),
+			into(serverStartTime),
 			now;
 	}
 	catch (Poco::Data::ODBC::StatementException& ex)
@@ -44,7 +44,7 @@ bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* s
 		}
 	}*/
 
-	TimeUtils::Init(dbTick);
+	TimeUtils::Init(serverStartTime);
 
 	return true;
 }

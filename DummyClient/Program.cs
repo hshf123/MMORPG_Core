@@ -17,7 +17,7 @@ namespace DummyClient
                 {
                     return await ServerSessionManager.Instance.CreateSessionAsync();    // Session Create Func Ptr
                 },
-                500                                                                     // Dummy Client Count
+                1                                                                     // Dummy Client Count
             );
 
             while (true)
