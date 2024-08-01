@@ -10,7 +10,7 @@ void ClientSessionManager::OnConnected(std::shared_ptr<PacketSession> session)
 		return;
 	WRITE_LOCK;
 	_sessions.insert(cs);
-	VIEW_INFO(TimeUtils::GetTick64(), "Client Connected {}", StrUtils::ToString(cs->GetAddress().GetIpAddress()));
+	VIEW_INFO("Client Connected {}", StrUtils::ToString(cs->GetAddress().GetIpAddress()));
 }
 
 void ClientSessionManager::OnDisconnected(std::shared_ptr<PacketSession> session)

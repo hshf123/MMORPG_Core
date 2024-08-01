@@ -27,7 +27,7 @@ bool PacketHandler::RegisterHandler(const uint16& protocol, PacketHandlerFunc fn
 #ifdef DEV_TEST
 	if (_useProtocol.insert(protocol).second == false)
 	{
-		VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "Duplicated Protocol Detected! Check Protocol ID({})", protocol);
+		VIEW_WRITE_ERROR("Duplicated Protocol Detected! Check Protocol ID({})", protocol);
 		return false;
 	}
 #endif
@@ -41,6 +41,6 @@ bool Handle_INVALID(std::shared_ptr<PacketSession>& session, BYTE* buffer, int32
 	if (header == nullptr)
 		return false;
 
-	VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "Invalid Pakcet dected ID({}), IP({})", header->id, StrUtils::ToString(session->GetAddress().GetIpAddress()));
+	VIEW_WRITE_ERROR("Invalid Pakcet dected ID({}), IP({})", header->id, StrUtils::ToString(session->GetAddress().GetIpAddress()));
 	return false;
 }

@@ -95,12 +95,12 @@ void DeadLockProfiler::Dfs(int32 here)
 
 		if (_finished[there] == false)
 		{
-			VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "{} -> {}", _idToName[here], _idToName[there]);
+			VIEW_WRITE_ERROR("{} -> {}", _idToName[here], _idToName[there]);
 
 			int32 now = here;
 			while (true)
 			{
-				VIEW_WRITE_ERROR(TimeUtils::GetTick64(), "{} -> {}", _idToName[_parent[now]], _idToName[now]);
+				VIEW_WRITE_ERROR("{} -> {}", _idToName[_parent[now]], _idToName[now]);
 
 				now = _parent[now];
 				if (now == there)
