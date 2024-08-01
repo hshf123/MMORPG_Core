@@ -13,11 +13,11 @@ namespace DummyClient
             connector.Connect(
                 "127.0.0.1",                                                            // IP
                 9999,                                                                   // Port
-                async () =>
+                () =>
                 {
-                    return await ServerSessionManager.Instance.CreateSessionAsync();    // Session Create Func Ptr
+                    return ServerSessionManager.Instance.CreateSession();               // Session Create Func Ptr
                 },
-                1                                                                     // Dummy Client Count
+                500                                                                     // Dummy Client Count
             );
 
             while (true)

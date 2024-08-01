@@ -181,7 +181,7 @@ public abstract class Session
 
         _recvBuffer.Clean();
         ArraySegment<byte> segment = _recvBuffer.WriteSegment;
-        int recvLen;
+        int recvLen = 0;
         try
         {
             recvLen = await _socket!.ReceiveAsync(segment.Array!, SocketFlags.None);

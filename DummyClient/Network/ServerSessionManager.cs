@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 public class ServerSessionManager
 {
@@ -12,20 +13,19 @@ public class ServerSessionManager
     public static ServerSessionManager Instance { get { return _instance; } }
 
     List<ServerSession> _sessions = new List<ServerSession>();
-    //object _lock = new object();
-    AsyncLock _lock = new AsyncLock();
+    Lock _lock = new Lock();
 
-    public async Task AddAsync(ServerSession session)
+    public void Add(ServerSession session)
     {
-        using (await _lock.LockAsync())
+        using (WriteLock wLock = new WriteLock(_lock))
         {
             _sessions.Add(session);
         }
     }
 
-    public async Task RemoveAsync(ServerSession session)
+    public void Remove(ServerSession session)
     {
-        using (await _lock.LockAsync())
+        using (WriteLock wLock = new WriteLock(_lock))
         {
             _sessions.Remove(session);
         }
@@ -34,7 +34,7 @@ public class ServerSessionManager
     public async Task BroadcastAsync(EPacketProtocol protocol, IMessage packet)
     {
         List<ServerSession> sessions;
-        using (await _lock.LockAsync())
+        using (WriteLock wLock = new WriteLock(_lock))
         {
             sessions = _sessions.ToList();
         }
@@ -53,13 +53,9 @@ public class ServerSessionManager
         }
     }
 
-    public async Task<ServerSession> CreateSessionAsync()
+    public ServerSession CreateSession()
     {
         ServerSession session = new ServerSession();
-        using (await _lock.LockAsync())
-        {
-            _sessions.Add(session);
-        }
         return session;
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 public class Connector
 {
-    Func<Task<Session>>? _sessionFactory;
-    public void Connect(string serverIP, int serverPort, Func<Task<Session>> sessionFactory, int count = 1)
+    Func<Session>? _sessionFactory;
+    public void Connect(string serverIP, int serverPort, Func<Session> sessionFactory, int count = 1)
     {
         for (int i = 0; i < count; i++)
         {
@@ -18,7 +18,6 @@ public class Connector
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
             args.RemoteEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
             args.UserToken = socket;
-
 #pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             RegisterConnect(args);
 #pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
@@ -48,7 +47,7 @@ public class Connector
     {
         if (args.SocketError == SocketError.Success)
         {
-            Session session = _sessionFactory!.Invoke().Result;
+            Session session = _sessionFactory!.Invoke();
 #pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             session.Start(args.UserToken as Socket);
 #pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.

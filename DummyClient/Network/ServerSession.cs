@@ -5,14 +5,18 @@ using System.Net;
 
 public class ServerSession : PacketSession
 {
+    static int SessionNumber = 1;
+
     public override void OnConnected(EndPoint endPoint)
     {
+        ServerSessionManager.Instance.Add(this);
         //Debug.Log($"OnConnected : {endPoint}");
-        Console.WriteLine($"OnConnected : {endPoint}");
+        Console.WriteLine($"OnConnected : {endPoint}, Session Number : {SessionNumber++}");
     }
 
     public override void OnDisconnected(EndPoint endPoint)
     {
+        ServerSessionManager.Instance.Remove(this);
         //Debug.Log($"OnDisconnected : {endPoint}");
         Console.WriteLine($"OnDisconnected : {endPoint}");
     }
