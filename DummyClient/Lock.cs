@@ -38,7 +38,7 @@ public class Lock
             }
 
             if (Environment.TickCount64 - beginTick > ACQUIRE_TIMEOUT_TICK)
-                return; //CRASH
+                Environment.Exit(0);
 
             Thread.Yield();
         }
@@ -46,7 +46,7 @@ public class Lock
     public void WriteUnLock()
     {
         if ((Interlocked.Read(ref _lockFlag) & READ_COUNT_MASK) != 0)
-            return; // CRASH
+            Environment.Exit(0);
 
         ushort lockCount = --_writeCount;
         if (lockCount == 0)
@@ -73,7 +73,7 @@ public class Lock
             }
 
             if (Environment.TickCount64 - beginTick > ACQUIRE_TIMEOUT_TICK)
-                return; // CRASH("LOCK_TIMEOUT");
+                Environment.Exit(0);
 
             Thread.Yield();
         }
@@ -81,7 +81,7 @@ public class Lock
     public void ReadUnLock()
     {
         if ((Interlocked.Decrement(ref _lockFlag) & READ_COUNT_MASK) == 0)
-            return; // CRASH("MULTIPLE_UNLOCK");
+            Environment.Exit(0);
     }
 }
 

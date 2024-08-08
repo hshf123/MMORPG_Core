@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// async/await에서 사용하기 위한 락, 성능이 별로라서 미사용
 public class AsyncLock
 {
     private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);

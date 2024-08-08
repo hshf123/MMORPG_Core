@@ -57,8 +57,7 @@ public abstract class Session
 
     RecvBuffer _recvBuffer = new RecvBuffer();
 
-    //object _lock = new object();
-    AsyncLock _lock = new AsyncLock();
+    Lock _lock = new Lock();
     Queue<ArraySegment<byte>> _sendQueue = new Queue<ArraySegment<byte>>();
     List<ArraySegment<byte>> _pendingList = new List<ArraySegment<byte>>();
 
@@ -67,9 +66,9 @@ public abstract class Session
     public abstract void OnSend(int numOfBytes);
     public abstract void OnDisconnected(EndPoint endPoint);
 
-    async void Clear()
+    void Clear()
     {
-        using (await _lock.LockAsync())
+        using (WriteLock wLock = new WriteLock(_lock))
         {
             _sendQueue.Clear();
             _pendingList.Clear();
@@ -89,7 +88,7 @@ public abstract class Session
         if (sendBuffList.Count == 0)
             return;
 
-        using (await _lock.LockAsync())
+        using (WriteLock wLock = new WriteLock(_lock))
         {
             foreach (ArraySegment<byte> sendBuff in sendBuffList)
                 _sendQueue.Enqueue(sendBuff);
@@ -101,7 +100,7 @@ public abstract class Session
 
     public async Task SendAsync(ArraySegment<byte> sendBuff)
     {
-        using (await _lock.LockAsync())
+        using (WriteLock wLock = new WriteLock(_lock))
         {
             _sendQueue.Enqueue(sendBuff);
             if (_pendingList.Count == 0)

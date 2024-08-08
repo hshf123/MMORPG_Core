@@ -1,8 +1,6 @@
 #pragma once
 #include "Singleton.h"
 
-constexpr int PoolSize = 4096;
-
 template<class T, class... Args>
 class MemoryPool : public RefSingleton<MemoryPool<T>>
 {
