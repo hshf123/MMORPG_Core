@@ -32,6 +32,7 @@ IN_ADDR NetAddress::Ip2Address(const WCHAR* ip)
 LPFN_CONNECTEX Socket::ConnectEx;
 LPFN_DISCONNECTEX Socket::DisconnectEx;
 LPFN_ACCEPTEX Socket::AcceptEx;
+RIO_EXTENSION_FUNCTION_TABLE Socket::RIOEFTable;
 
 void Socket::Init()
 {
@@ -42,6 +43,11 @@ void Socket::Init()
 	ASSERT_CRASH(BindWindowsFunction(dummySocket, WSAID_CONNECTEX, reinterpret_cast<LPVOID*>(&ConnectEx)));
 	ASSERT_CRASH(BindWindowsFunction(dummySocket, WSAID_DISCONNECTEX, reinterpret_cast<LPVOID*>(&DisconnectEx)));
 	ASSERT_CRASH(BindWindowsFunction(dummySocket, WSAID_ACCEPTEX, reinterpret_cast<LPVOID*>(&AcceptEx)));
+#ifdef USE_RIO
+	GUID guid = WSAID_MULTIPLE_RIO;
+	DWORD bytes = 0;
+	ASSERT_CRASH(::WSAIoctl(dummySocket, SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER, &guid, sizeof(guid), (void**)&RIOEFTable, sizeof(RIOEFTable), OUT &bytes, NULL, NULL) != SOCKET_ERROR);
+#endif
 	Close(dummySocket);
 }
 
@@ -58,7 +64,11 @@ bool Socket::BindWindowsFunction(SOCKET socket, GUID guid, LPVOID* fn)
 
 SOCKET Socket::CreateSocket()
 {
+#ifdef USE_RIO
+	return ::WSASocketW(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_REGISTERED_IO);
+#else
 	return ::WSASocketW(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
+#endif
 }
 
 bool Socket::SetLinger(SOCKET socket, uint16 onoff, uint16 linger)

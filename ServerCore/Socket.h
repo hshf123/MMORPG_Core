@@ -24,6 +24,7 @@ public:
 	static LPFN_CONNECTEX ConnectEx;
 	static LPFN_DISCONNECTEX DisconnectEx;
 	static LPFN_ACCEPTEX AcceptEx;
+	static RIO_EXTENSION_FUNCTION_TABLE RIOEFTable;
 
 public:
 	static void Init();

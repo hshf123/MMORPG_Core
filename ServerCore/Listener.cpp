@@ -69,6 +69,11 @@ void Listener::Dispatch(IocpEvent* iocpEvent, [[maybe_unused]] int32 numOfBytes 
 	ProcessAccept(acceptEvent);
 }
 
+void Listener::Dispatch([[maybe_unused]]RIOEvent* rioEvent, [[maybe_unused]] int32 numOfBytes /*= 0*/)
+{
+
+}
+
 void Listener::RegisterAccept(AcceptEvent* acceptEvent)
 {
 	std::shared_ptr<Session> session = _service->CreateSession();

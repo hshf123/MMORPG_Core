@@ -32,6 +32,10 @@ public:
 	std::shared_ptr<Service> GetService() { return _service.lock(); }
 	void SetService(std::shared_ptr<Service> service) { _service = service; }
 
+public: // RIO
+	bool RegisterRIOBuffer();
+	bool CreateRIORQ();
+
 public:
 	void SetNetAddr(NetAddress address) { _netAddress = address; }
 	NetAddress GetAddress() { return _netAddress; }
@@ -43,6 +47,7 @@ public:
 private:
 	virtual HANDLE GetHandle() override;
 	virtual void Dispatch(IocpEvent* iocpEvent, int32 numOfBytes = 0) override;
+	virtual void Dispatch(RIOEvent* rioEvent, int32 numOfBytes = 0) override;
 
 private:
 	void SetWorkId();
@@ -83,6 +88,10 @@ private:
 	DisconnectEvent _disconnectEvent;
 	RecvEvent _recvEvent;
 	SendEvent _sendEvent;
+
+	RIO_BUFFERID _rioBufferId;
+	RIO_RQ _rioRQ;
+	RIORecvEvent _rioRecvEvent;
 };
 
 struct PacketHeader

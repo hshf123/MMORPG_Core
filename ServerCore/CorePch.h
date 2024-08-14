@@ -47,3 +47,5 @@
 #include "LogManager.h"
 #include "StrUtils.h"
 #include "TimeUtils.h"
+
+#define USE_RIO

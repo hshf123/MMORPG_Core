@@ -5,6 +5,7 @@ class IocpObject : public std::enable_shared_from_this<IocpObject>
 public:
 	virtual HANDLE GetHandle() abstract;
 	virtual void Dispatch(class IocpEvent* iocpEvent, int32 numOfBytes = 0) abstract;
+	virtual void Dispatch(class RIOEvent* rioEvent, int32 numOfBytes = 0) abstract;
 };
 
 class IocpCore
@@ -79,4 +80,20 @@ public:
 	SendEvent() : IocpEvent(EventType::Send) {}
 
 	std::vector<std::shared_ptr<SendBuffer>> SendBuffers;
+};
+
+class RIOEvent : public RIO_BUF
+{
+public:
+	RIOEvent(EventType type) : eventType(type) {}
+	void Init();
+
+	EventType eventType;
+	std::shared_ptr<IocpObject> owner;
+};
+
+class RIORecvEvent : public RIOEvent
+{
+public:
+	RIORecvEvent() : RIOEvent(EventType::Recv) {}
 };

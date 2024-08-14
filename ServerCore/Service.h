@@ -38,6 +38,9 @@ public:
 	NetAddress GetNetAddress() { return _netAddress; }
 	std::shared_ptr<IocpCore>& GetIocpCore() { return _iocpCore; }
 
+	RIO_CQ& GetRIOCQ(const int32& idx) { return _rioCQList[idx % GetMaxSessionCount()]; }
+	void Dispatch();
+
 protected:
 	USE_LOCK;
 	ServiceType _type;
@@ -49,7 +52,7 @@ protected:
 	int32 _maxSessionCount = 0;
 	SessionFactory _sessionFactory;
 
-	int32 _threadCount = 24;
+	RIO_CQ* _rioCQList = nullptr;	// 배열로 사용
 };
 
 class ClientService : public Service

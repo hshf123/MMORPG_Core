@@ -65,6 +65,7 @@ int main()
 				{
 					LEndTickCount = TimeUtils::GetTick64() + 64;
 					clientService->GetIocpCore()->Dispatch(10);
+					clientService->Dispatch();
 					ThreadManager::DistributeReservedJobs();
 					ThreadManager::DoGlobalQueueWork();
 				}

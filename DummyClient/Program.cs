@@ -9,6 +9,9 @@ namespace DummyClient
     {
         static async Task Main(string[] args)
         {
+            Thread.Sleep(3000);
+
+
             Connector connector = new Connector();
             connector.Connect(
                 "127.0.0.1",                                                            // IP
@@ -17,7 +20,7 @@ namespace DummyClient
                 {
                     return ServerSessionManager.Instance.CreateSession();               // Session Create Func Ptr
                 },
-                500                                                                     // Dummy Client Count
+                1                                                                     // Dummy Client Count
             );
 
             while (true)

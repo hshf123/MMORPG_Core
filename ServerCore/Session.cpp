@@ -48,6 +48,28 @@ void Session::Disconnect(const WCHAR* cause)
 	RegisterDisconnect();
 }
 
+bool Session::RegisterRIOBuffer()
+{
+	_rioBufferId = Socket::RIOEFTable.RIORegisterBuffer(reinterpret_cast<PCHAR>(_recvBuffer.WritePos()), _recvBuffer.FreeSize());
+	return _rioBufferId != RIO_INVALID_BUFFERID;
+}
+
+bool Session::CreateRIORQ()
+{
+	_rioRQ = Socket::RIOEFTable.RIOCreateRequestQueue(_socket, 32, 1, 32, 1, GetService()->GetRIOCQ(LThreadId), GetService()->GetRIOCQ(LThreadId), nullptr);
+	if (_rioRQ == RIO_INVALID_RQ)
+	{
+		int32 errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING)
+		{
+			HandleError(errorCode);
+		}
+		return false;
+	}
+
+	return true;
+}
+
 HANDLE Session::GetHandle()
 {
 	return reinterpret_cast<HANDLE>(_socket);
@@ -56,6 +78,27 @@ HANDLE Session::GetHandle()
 void Session::Dispatch(IocpEvent* iocpEvent, int32 numOfBytes /*= 0*/)
 {
 	switch (iocpEvent->eventType)
+	{
+	case EventType::Connect:
+		ProcessConnect();
+		break;
+	case EventType::Disconnect:
+		ProcessDisconnect();
+		break;
+	case EventType::Recv:
+		ProcessRecv(numOfBytes);
+		break;
+	case EventType::Send:
+		ProcessSend(numOfBytes);
+		break;
+	default:
+		break;
+	}
+}
+
+void Session::Dispatch(RIOEvent* rioEvent, int32 numOfBytes /*= 0*/)
+{
+	switch (rioEvent->eventType)
 	{
 	case EventType::Connect:
 		ProcessConnect();
@@ -134,7 +177,26 @@ void Session::RegisterRecv()
 {
 	if (IsConnected() == false)
 		return;
+#ifdef USE_RIO
+	_rioRecvEvent.Init();
+	_rioRecvEvent.owner = shared_from_this();
 
+	_rioRecvEvent.BufferId = _rioBufferId;
+	_rioRecvEvent.Length = _recvBuffer.FreeSize();
+	_rioRecvEvent.Offset = static_cast<uint64>(_recvBuffer.WriteOffset());
+
+	DWORD recvbytes = 0;
+	DWORD flags = 0;
+	if (Socket::RIOEFTable.RIOReceive(_rioRQ, static_cast<PRIO_BUF>(&_rioRecvEvent), 1, flags, &_rioRecvEvent) == false)
+	{
+		int32 errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING)
+		{
+			HandleError(errorCode);
+			_rioRecvEvent.owner = nullptr;
+		}
+	}
+#else
 	_recvEvent.Init();
 	_recvEvent.owner = shared_from_this();
 
@@ -153,6 +215,7 @@ void Session::RegisterRecv()
 			_recvEvent.owner = nullptr;
 		}
 	}
+#endif
 }
 
 void Session::RegisterSend()
@@ -206,6 +269,10 @@ void Session::ProcessConnect()
 	GetService()->AddSession(GetSession());
 	OnConnected(GetService()->GetNetAddress());
 	SetWorkId();
+#ifdef USE_RIO
+	RegisterRIOBuffer();
+	CreateRIORQ();
+#endif
 	RegisterRecv();
 }
 

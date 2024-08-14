@@ -58,3 +58,10 @@ void IocpEvent::Init()
 	OVERLAPPED::Offset = 0;
 	OVERLAPPED::OffsetHigh = 0;
 }
+
+void RIOEvent::Init()
+{
+	BufferId = 0;
+	Offset = 0;
+	Length = 0;
+}
