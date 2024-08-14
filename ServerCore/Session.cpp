@@ -85,12 +85,15 @@ void Session::Dispatch(IocpEvent* iocpEvent, int32 numOfBytes /*= 0*/)
 	case EventType::Disconnect:
 		ProcessDisconnect();
 		break;
+#ifdef USE_RIO
+#else
 	case EventType::Recv:
 		ProcessRecv(numOfBytes);
 		break;
 	case EventType::Send:
 		ProcessSend(numOfBytes);
 		break;
+#endif
 	default:
 		break;
 	}
@@ -99,13 +102,7 @@ void Session::Dispatch(IocpEvent* iocpEvent, int32 numOfBytes /*= 0*/)
 void Session::Dispatch(RIOEvent* rioEvent, int32 numOfBytes /*= 0*/)
 {
 	switch (rioEvent->eventType)
-	{
-	case EventType::Connect:
-		ProcessConnect();
-		break;
-	case EventType::Disconnect:
-		ProcessDisconnect();
-		break;
+	{	// RIO는 Send / Recv만 작동
 	case EventType::Recv:
 		ProcessRecv(numOfBytes);
 		break;
