@@ -17,6 +17,7 @@ public:
 	int32 DataSize() { return _writePos - _readPos; }
 	int32 FreeSize() { return _capacity - _writePos; }
 	int32 WriteOffset() { return _writePos; }
+	int32 ReadOffset() { return _readPos; }
 
 private:
 	int32 _capacity = 0;

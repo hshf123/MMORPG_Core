@@ -7,9 +7,10 @@ namespace DummyClient
 {
     internal class Program
     {
+        static int pakcetNum = 1;
         static async Task Main(string[] args)
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
 
 
             Connector connector = new Connector();
@@ -20,7 +21,7 @@ namespace DummyClient
                 {
                     return ServerSessionManager.Instance.CreateSession();               // Session Create Func Ptr
                 },
-                1                                                                     // Dummy Client Count
+                102 * 9                                                                     // Dummy Client Count
             );
 
             while (true)
@@ -30,7 +31,7 @@ namespace DummyClient
                     CSChatRequest packet = new CSChatRequest();
                     packet.Messageid = EPacketProtocol.CsChatRequest;
                     packet.Name = "Client";
-                    packet.Msg = "Hello Server";
+                    packet.Msg = $"Hello Server {pakcetNum++}";
                     await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsChatRequest, packet);
                 }
                 catch (Exception e)

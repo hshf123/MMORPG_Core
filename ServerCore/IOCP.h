@@ -102,6 +102,4 @@ class RIOSendEvent : public RIOEvent
 {
 public:
 	RIOSendEvent() : RIOEvent(EventType::Send) {}
-
-	std::vector<std::shared_ptr<SendBuffer>> SendBuffers;
 };

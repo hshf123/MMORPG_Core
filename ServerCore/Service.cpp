@@ -12,7 +12,10 @@ Service::Service(ServiceType type, NetAddress address, std::shared_ptr<IocpCore>
 
 Service::~Service()
 {
-
+#ifdef USE_RIO
+	for (const auto& cq : _rioCQList)
+		Socket::RIOEFTable.RIOCloseCompletionQueue(cq);
+#endif
 }
 
 void Service::CloseService()
@@ -47,20 +50,25 @@ void Service::ReleaseSession(std::shared_ptr<Session> session)
 
 void Service::Dispatch()
 {
-	RIORESULT results[256] = { 0, };
+	RIORESULT results[RIO_DISPATCH_RESULT_COUNT] = { 0, };
 
-	uint64 numResult = Socket::RIOEFTable.RIODequeueCompletion(GetRIOCQ(LThreadId), results, 256);
-	if (numResult == 0)
-		return;
-	if (numResult == RIO_CORRUPT_CQ)
+	uint64 numResult = INT64_C(0);
 	{
-		[[maybe_unused]]int32 errCode = ::WSAGetLastError();
-		return;
+		WRITE_LOCK;
+		numResult = Socket::RIOEFTable.RIODequeueCompletion(GetRIOCQ(LThreadId), results, RIO_DISPATCH_RESULT_COUNT);
+		if (numResult == 0)
+			return;
+		if (numResult == RIO_CORRUPT_CQ)
+		{
+			int32 errCode = ::GetLastError();
+			VIEW_WRITE_ERROR("RIO Dispatch Error : {}", errCode);
+			return;
+		}
 	}
 
 	for (uint64 i = 0; i < numResult; i++)
 	{
-		RIORecvEvent* context = reinterpret_cast<RIORecvEvent*>(results[i].RequestContext);
+		RIOEvent* context = reinterpret_cast<RIOEvent*>(results[i].RequestContext);
 		std::shared_ptr<IocpObject> iocpObject = context->owner;
 		iocpObject->Dispatch(context, results[i].BytesTransferred);
 	}
@@ -104,12 +112,24 @@ bool ServerService::Start()
 		return false;
 
 #ifdef USE_RIO
-	_rioCQList = new RIO_CQ[GetMaxSessionCount()];
-	for (int32 i = 0; i < GetMaxSessionCount(); i++)
+	/*
+	테스트 해보니 RIO_MAX_CQ_SIZE = 134,217,728 인데
+	지금 버퍼 Recv, Send 2개 다 65535 * 10으로 하면 CQ 하나당 102개 까지 받을 수 있음 (실제로, 1개로 하고 테스트했을 때 딱 102까지임)
+	
+	근데 너무 큼... 현재 사양으로는 9개 까지 만들 수 있는데 메모리를 너무 잡아먹음
+	RIOCreateCompletionQueue 이거 하나에 3.3GB 말이됨??????
+	*/
+	constexpr int cqCount = 1;
+	_rioCQList.resize(cqCount);
+	for (int32 i = 0; i < cqCount; i++)
 	{
 		_rioCQList[i] = Socket::RIOEFTable.RIOCreateCompletionQueue(163840, 0);
 		if (_rioCQList[i] == RIO_INVALID_CQ)
+		{
+			int32 errCode = ::GetLastError();
+			VIEW_WRITE_ERROR("CompletionQueue Create Fail Err : {}", errCode);
 			return false;
+		}
 	}
 #endif
 

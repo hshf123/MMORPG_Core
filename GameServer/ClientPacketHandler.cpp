@@ -14,13 +14,13 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	if (cs == nullptr)
 		return false;
 
-	VIEW_INFO("Recv {} : {}", pkt.name(), pkt.msg());
+	//VIEW_INFO("Recv {} : {}", pkt.name(), pkt.msg());
 
 	Protocol::SCChatResponse packet;
 	packet.set_messageid(Protocol::EPacketProtocol::SC_ChatResponse);
 	packet.set_name(pkt.name());
 	packet.set_msg(pkt.msg());
-	ClientSessionManager::GetInstance().Broadcast(packet);
-
+	//ClientSessionManager::GetInstance().Broadcast(packet);
+	cs->Send(ClientPacketHandler::GetInstance().MakeSendBuffer(packet));
 	return true;
 }

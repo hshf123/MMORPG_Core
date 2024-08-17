@@ -20,7 +20,7 @@ void ClientSession::OnRecvPacket(BYTE* buffer, int32 len)
 	ClientPacketHandler::GetInstance().HandlePacket(session, buffer, len);
 }
 
-void ClientSession::OnSend(int32 len)
+void ClientSession::OnSend([[maybe_unused]]int32 len)
 {
-
+	//VIEW_WRITE_INFO("Send Complete{}", len);
 }

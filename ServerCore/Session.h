@@ -75,10 +75,14 @@ private:
 	SOCKET _socket = INVALID_SOCKET;
 	NetAddress _netAddress = {};
 	std::atomic_bool _connected = false;
-	int32 _workId;
+	int32 _workId = 0;
 
 private:
-	USE_LOCK;
+#define SEND_QUEUE_LOCK		0
+#define RIO_RQ_LOCK			1
+	USE_LOCKS(2);
+	using RIOSendBuffer = RecvBuffer;
+	RIOSendBuffer _sendBuffer;
 	RecvBuffer _recvBuffer;
 	std::queue<std::shared_ptr<SendBuffer>> _sendQueue;
 	std::atomic_bool _sendRegistered = false;
@@ -89,9 +93,11 @@ private:
 	RecvEvent _recvEvent;
 	SendEvent _sendEvent;
 
-	RIO_BUFFERID _rioBufferId;
+	RIO_BUFFERID _rioRecvBufferId;
+	RIO_BUFFERID _rioSendBufferId;
 	RIO_RQ _rioRQ;
 	RIORecvEvent _rioRecvEvent;
+	//RIOSendEvent _rioSendEvent;
 };
 
 struct PacketHeader

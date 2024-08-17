@@ -1,5 +1,9 @@
 #pragma once
 
+// for, RIO
+constexpr int RIO_DISPATCH_RESULT_COUNT = 256;	// Dispatch 1번으로 가져올 최대 결과 개수
+
+
 class NetAddress
 {
 public:

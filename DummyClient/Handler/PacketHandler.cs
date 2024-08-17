@@ -14,6 +14,6 @@ public class PacketHandler
         if (pkt == null)
             return;
 
-        //Console.WriteLine($"RecvFrom Server {pkt.Name} : {pkt.Msg}");
+        Console.WriteLine($"RecvFrom Server {pkt.Name} : {pkt.Msg}");
     }
 }

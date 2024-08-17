@@ -38,7 +38,8 @@ public:
 	NetAddress GetNetAddress() { return _netAddress; }
 	std::shared_ptr<IocpCore>& GetIocpCore() { return _iocpCore; }
 
-	RIO_CQ& GetRIOCQ(const int32& idx) { return _rioCQList[idx % GetMaxSessionCount()]; }
+	//RIO_CQ& GetRIOCQ(const int32& idx) { return _rioCQList[idx % GetMaxSessionCount()]; }	// 일종의 로드밸런서..?
+	RIO_CQ& GetRIOCQ(const int32& idx) { return _rioCQList[0]; }	// 일종의 로드밸런서..?
 	void Dispatch();
 
 protected:
@@ -52,7 +53,7 @@ protected:
 	int32 _maxSessionCount = 0;
 	SessionFactory _sessionFactory;
 
-	RIO_CQ* _rioCQList = nullptr;	// 배열로 사용
+	std::vector<RIO_CQ> _rioCQList;
 };
 
 class ClientService : public Service
