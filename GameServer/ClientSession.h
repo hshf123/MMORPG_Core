@@ -4,6 +4,9 @@
 class ClientSession : public PacketSession
 {
 public:
+	ClientSession() {}
+	virtual ~ClientSession() {}
+
 	void OnConnected(NetAddress netAddr) override;
 	void OnDisconnected() override;
 	void OnRecvPacket(BYTE* buffer, int32 len) override;

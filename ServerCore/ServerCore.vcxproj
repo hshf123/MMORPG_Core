@@ -185,6 +185,7 @@
     <ClInclude Include="JobTimer.h" />
     <ClInclude Include="Listener.h" />
     <ClInclude Include="Lock.h" />
+    <ClInclude Include="LockFreeStack.h" />
     <ClInclude Include="LockQueue.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="Macro.h" />
