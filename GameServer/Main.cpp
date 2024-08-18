@@ -18,7 +18,7 @@
 uint32 GetThreadCount()
 {
 #ifdef DEV_TEST
-	return 1;
+	return 16;
 #else
 	std::thread t;
 	return t.hardware_concurrency();

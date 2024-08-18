@@ -21,7 +21,7 @@ namespace DummyClient
                 {
                     return ServerSessionManager.Instance.CreateSession();               // Session Create Func Ptr
                 },
-                102 * 9                                                                     // Dummy Client Count
+                3000                                                                    // Dummy Client Count
             );
 
             while (true)

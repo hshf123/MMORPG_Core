@@ -66,10 +66,10 @@ bool Session::RegisterRIOBuffer()
 bool Session::CreateRIORQ()
 {
 	_rioRQ = Socket::RIOEFTable.RIOCreateRequestQueue(_socket
-		, _recvBuffer.FreeSize()			// Recv Pending Size
-		, 1									// Recv Buffer Count
-		, _sendBuffer.FreeSize()			// Send Pending Size
-		, 1									// Send Buffer Count
+		, 16								// Max OutStanding Recv
+		, 1									// Recv Buffer Count Must be 1?
+		, 16								// Max OutStanding Send
+		, 1									// Send Buffer Count Must be 1?
 		, GetService()->GetRIOCQ(LThreadId)
 		, GetService()->GetRIOCQ(LThreadId)
 		, nullptr);
@@ -123,7 +123,7 @@ void Session::Dispatch(RIOEvent* rioEvent, int32 numOfBytes /*= 0*/)
 	case EventType::Send:
 		ProcessSend(numOfBytes);
 		rioEvent->owner = nullptr;
-		xdelete(rioEvent);
+		xdelete(static_cast<RIOSendEvent*>(rioEvent));
 		break;
 	default:
 		break;
