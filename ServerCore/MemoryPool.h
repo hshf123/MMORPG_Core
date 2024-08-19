@@ -2,7 +2,7 @@
 #include "Singleton.h"
 #include "LockFreeStack.h"
 
-//#define USE_LOCK_FREE
+#define USE_LOCK_FREE
 
 template<class T, class... Args>
 class MemoryPool : public RefSingleton<MemoryPool<T>>

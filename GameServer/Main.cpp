@@ -8,6 +8,9 @@
 #include "GameDBHandler.h"
 #include "ClientPacketHandler.h"
 
+#include "pdh.h"
+#pragma comment(lib, "pdh.lib")
+
 /*
 	1. 서버 뜰 때 초기화
 	2. DB 연결 데이터 로딩
@@ -27,6 +30,12 @@ uint32 GetThreadCount()
 
 int main()
 {
+	PDH_HQUERY cpuQuery;
+	PDH_HCOUNTER cpuTotal;
+	::PdhOpenQuery(NULL, NULL, &cpuQuery);
+	::PdhAddCounter(cpuQuery, L"\\Processor(_Total)\\% Processor Time", NULL, &cpuTotal);
+	::PdhCollectQueryData(cpuQuery);
+
 	Socket::Init();
 	LogManager::GetInstance().Initialize("GameServer");
 	GameDBHandler::GetInstance().Init();
@@ -65,7 +74,9 @@ int main()
 				{
 					LEndTickCount = TimeUtils::GetTick64() + 64;
 					clientService->GetIocpCore()->Dispatch(10);
+#ifdef USE_RIO
 					clientService->Dispatch();
+#endif
 					ThreadManager::DistributeReservedJobs();
 					ThreadManager::DoGlobalQueueWork();
 				}
@@ -73,7 +84,17 @@ int main()
 	}
 
 #ifdef DEV_TEST
-	while (true);
+	uint64 tick = TimeUtils::GetTick64();
+	while (true)
+	{
+		if (tick > TimeUtils::GetTick64())
+			continue;
+		PDH_FMT_COUNTERVALUE counterVal;
+		::PdhCollectQueryData(cpuQuery);
+		::PdhGetFormattedCounterValue(cpuTotal, PDH_FMT_DOUBLE, NULL, &counterVal);
+		VIEW_INFO("CPU USAGE : {}", counterVal.doubleValue);
+		tick += 1'000'000;
+	}
 #else
 	while (true)
 	{

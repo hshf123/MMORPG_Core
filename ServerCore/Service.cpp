@@ -55,7 +55,7 @@ void Service::Dispatch()
 	uint64 numResult = INT64_C(0);
 	{
 		WRITE_LOCK;
-		numResult = Socket::RIOEFTable.RIODequeueCompletion(GetRIOCQ(LThreadId), results, RIO_DISPATCH_RESULT_COUNT);
+		numResult = Socket::RIOEFTable.RIODequeueCompletion(GetRIOCQ(), results, RIO_DISPATCH_RESULT_COUNT);
 		if (numResult == 0)
 			return;
 		if (numResult == RIO_CORRUPT_CQ)

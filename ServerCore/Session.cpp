@@ -70,8 +70,8 @@ bool Session::CreateRIORQ()
 		, 1									// Recv Buffer Count Must be 1?
 		, 16								// Max OutStanding Send
 		, 1									// Send Buffer Count Must be 1?
-		, GetService()->GetRIOCQ(LThreadId)
-		, GetService()->GetRIOCQ(LThreadId)
+		, GetService()->GetRIOCQ()
+		, GetService()->GetRIOCQ()
 		, nullptr);
 	if (_rioRQ == RIO_INVALID_RQ)
 	{
@@ -262,7 +262,7 @@ void Session::RegisterSend()
 		DWORD flags = 0;
 		if (Socket::RIOEFTable.RIOSend(_rioRQ, static_cast<PRIO_BUF>(rioSendEvent), 1, flags, rioSendEvent) == false)
 		{
-			int32 errorCode = ::GetLastError();
+			int32 errorCode = ::WSAGetLastError();
 			if (errorCode != WSA_IO_PENDING)
 			{
 				HandleError(errorCode);
@@ -409,6 +409,13 @@ void Session::HandleError(int32 errorCode)
 	case WSAECONNRESET:
 	case WSAECONNABORTED:
 		Disconnect(L"HandleError");
+		break;
+	case WSAEFAULT:
+	case WSAEINVAL:
+		Disconnect(L"INVALID REQ");	// 버퍼 해제, 잘못된 매개변수 전달 등... 그냥 재접 시켜
+		break;
+	case WSAENOBUFS:
+		Disconnect(L"MEMORY FULL");	// I/O 완료 큐가 가득 찼을 경우, 클라가 느리게 처리하는 경우거나 보내는게 느린건데 어쨌든 쌓인게 많으니 그냥 재접 시키는게
 		break;
 	default:
 		VIEW_WRITE_ERROR("Handle Error, {}", errorCode);
