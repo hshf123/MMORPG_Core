@@ -3,7 +3,7 @@
 class DBData
 {
 public:
-	DBData(uint16 protocolId, int32 workId) : ProtocolID(protocolId), WorkID(workId) {}
+	DBData(uint16 protocolId, int32 workId = 0) : ProtocolID(protocolId), WorkID(workId) {}
 
 	int32 WorkID = 0;		// 밸런싱 할 ID
 	uint16 ProtocolID = 0;	// 서버 내 프로토콜
