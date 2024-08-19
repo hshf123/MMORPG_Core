@@ -17,7 +17,10 @@ void ClientSession::OnRecvPacket(BYTE* buffer, int32 len)
 {
 	std::shared_ptr<PacketSession> session = GetPacketSession();
 	PacketHeader header = *reinterpret_cast<PacketHeader*>(buffer);
-	ClientPacketHandler::GetInstance().HandlePacket(session, buffer, len);
+	if (ClientPacketHandler::GetInstance().HandlePacket(session, buffer, len) == false)
+	{
+		// 로그라도 찍어야 하나?
+	}
 }
 
 void ClientSession::OnSend([[maybe_unused]]int32 len)

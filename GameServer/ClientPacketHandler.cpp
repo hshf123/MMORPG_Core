@@ -2,10 +2,13 @@
 #include "ClientPacketHandler.h"
 #include "ClientSessionManager.h"
 
+#define PROTO(id) Protocol::EPacketProtocol::id
+#define HANDLER(handler) &ClientPacketHandler::handler
+
 void ClientPacketHandler::Init()
 {
 	PacketHandler::Init();
-	RegisterHandler(Protocol::EPacketProtocol::CS_ChatRequest, &ClientPacketHandler::OnCSChatRequest);
+	RegisterHandler(PROTO(CS_ChatRequest), HANDLER(OnCSChatRequest));
 }
 
 bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& session, Protocol::CSChatRequest& pkt)
