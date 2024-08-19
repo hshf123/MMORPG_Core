@@ -25,6 +25,9 @@
     <Filter Include="Job">
       <UniqueIdentifier>{bc25ed65-7ffc-46b9-86fe-193e4b69e0c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{2ba0a6c0-ced1-4c7a-a394-7e177b5a5d39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -117,6 +120,15 @@
     <ClInclude Include="LockFreeStack.h">
       <Filter>Thread</Filter>
     </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="MathPch.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -197,5 +209,19 @@
     <ClCompile Include="DeadLockProfiler.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
+    <ClCompile Include="MathUtil.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="MathPch.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleMath.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl">
+      <Filter>Physics</Filter>
+    </None>
   </ItemGroup>
 </Project>
