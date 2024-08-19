@@ -2,7 +2,7 @@
 
 class RecvBuffer
 {
-	enum { BUFFER_COUNT = 1 };
+	enum { BUFFER_COUNT = 2 };
 
 public:
 	RecvBuffer(int32 bufferSize);

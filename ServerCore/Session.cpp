@@ -66,9 +66,9 @@ bool Session::RegisterRIOBuffer()
 bool Session::CreateRIORQ()
 {
 	_rioRQ = Socket::RIOEFTable.RIOCreateRequestQueue(_socket
-		, 16								// Max OutStanding Recv
+		, OUTSTANDING_COUNT					// Max OutStanding Recv
 		, 1									// Recv Buffer Count Must be 1?
-		, 16								// Max OutStanding Send
+		, OUTSTANDING_COUNT					// Max OutStanding Send
 		, 1									// Send Buffer Count Must be 1?
 		, GetService()->GetRIOCQ()
 		, GetService()->GetRIOCQ()

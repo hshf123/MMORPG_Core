@@ -113,19 +113,13 @@ bool ServerService::Start()
 
 #ifdef USE_RIO
 	/*
-	테스트 해보니 RIO_MAX_CQ_SIZE = 134,217,728 인데
-	지금 버퍼 Recv, Send 2개 다 65535 * 10으로 하면 CQ 하나당 102개 까지 받을 수 있음 (실제로, 1개로 하고 테스트했을 때 딱 102까지임)
-	
-	패킷 1개 최대 사이즈를 8096으로 제한한다고 가정, 최대 유저 수는 3000명이라 했을 때 스레드 16개 돌려서 1번에 최대로 들어올 수 있는 사이즈 계산
-	세션 1개의 송/수신 버퍼 사이즈를 65535 * 10 -> 65535로 변경
-	CQ 사이즈는 RQ 사이즈의 합의 최대치인 줄 알았는데 그게 아닌듯함 -> 이 부분은 좀 더 찾아봐야할 듯
-	일단 이렇게 했을 때 돌리면 메모리 누수 없이 돌아가긴 하는데 CPU 사용량이 들쑥날쑥한거보면 아무래도 메모리 풀링에서 거는 락이 좀 부하가 큰 듯함
-	기존 락프리에서 락을 잡는걸로 변경했는데 락프리로 가면 성능이 좀 더 나아지는지 보고 락프리를 사용해보는걸로 해야할 듯...
+	잘못알고 있었다 여기서 말하는 사이즈는 버퍼 사이즈가 아니라 큐 사이즈다........
+	이러니 메모리가 너무 크게 잡히지....
 	*/
-	constexpr int PacketSize = 8096;
-	constexpr int MaxClientSize = 3000;
+	constexpr int PendingCount = 64;	// (Send + Recv) OutStandingCount
 	constexpr int ThreadCount = 16;
-	constexpr int CompletionQueueSize = (PacketSize * MaxClientSize) / ThreadCount;
+	constexpr int MaxClientSize = 30000;
+	constexpr int CompletionQueueSize = (PendingCount * MaxClientSize) / ThreadCount;
 
 	for (int32 i = 0; i < ThreadCount; i++)
 	{
