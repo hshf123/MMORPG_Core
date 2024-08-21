@@ -6,31 +6,31 @@ using System.Threading.Tasks;
 
 public class Lock
 {
-    const long ACQUIRE_TIMEOUT_TICK = 10000;
-    const uint MAX_SPIN_COUNT = 5000;
-    const ulong WRITE_THREAD_MASK = 0xFFFFFFFF00000000;
-    const ulong READ_COUNT_MASK = 0x00000000FFFFFFFF;
-    const ulong EMPTY_FLAG = 0x000000000000000;
+    const long ACQUIRE_TIMEOUT_TICK         = 10000;
+    const uint MAX_SPIN_COUNT               = 5000;
+    const uint WRITE_THREAD_MASK            = 0xFFFF0000;
+    const uint READ_COUNT_MASK              = 0x0000FFFF;
+    const uint EMPTY_FLAG                   = 0x0000000;
 
-    ulong _lockFlag = EMPTY_FLAG;
-    ushort _writeCount = 0;
+    uint _lockFlag                          = EMPTY_FLAG;
+    ushort _writeCount                      = 0;
 
     public void WriteLock()
     {
-        ulong lockThreadId = Interlocked.Read(ref _lockFlag) >> 32;
-        if((ulong)Thread.CurrentThread.ManagedThreadId == lockThreadId)
+        uint lockThreadId = _lockFlag >> 16;
+        if(Thread.CurrentThread.ManagedThreadId == lockThreadId)
         {
             _writeCount++;
             return;
         }
 
         long beginTick = Environment.TickCount64;
-        ulong desired = ((ulong)Thread.CurrentThread.ManagedThreadId << 32) & WRITE_THREAD_MASK;
+        uint desired = ((uint)Thread.CurrentThread.ManagedThreadId << 16) & WRITE_THREAD_MASK;
         while (true)
         {
             for (uint spinCount = 0; spinCount < MAX_SPIN_COUNT; spinCount++)
             {
-                if(Interlocked.CompareExchange(ref _lockFlag, desired, EMPTY_FLAG) == EMPTY_FLAG)
+                if (Interlocked.CompareExchange(ref _lockFlag, desired, EMPTY_FLAG) == EMPTY_FLAG)
                 {
                     _writeCount++;
                     return;
@@ -45,7 +45,7 @@ public class Lock
     }
     public void WriteUnLock()
     {
-        if ((Interlocked.Read(ref _lockFlag) & READ_COUNT_MASK) != 0)
+        if ((_lockFlag & READ_COUNT_MASK) != 0)
             Environment.Exit(0);
 
         ushort lockCount = --_writeCount;
@@ -54,7 +54,7 @@ public class Lock
     }
     public void ReadLock()
     {
-        ulong lockThreadId = (Interlocked.Read(ref _lockFlag) & WRITE_THREAD_MASK) >> 32;
+        ulong lockThreadId = (_lockFlag & WRITE_THREAD_MASK) >> 16;
         if (lockThreadId == (ulong)Thread.CurrentThread.ManagedThreadId)
         {
             Interlocked.Increment(ref _lockFlag);
@@ -66,7 +66,7 @@ public class Lock
         {
             for (uint spinCount = 0; spinCount < MAX_SPIN_COUNT; spinCount++)
             {
-                ulong expected = (Interlocked.Read(ref _lockFlag) & READ_COUNT_MASK);
+                uint expected = _lockFlag & READ_COUNT_MASK;
 
                 if (Interlocked.CompareExchange(ref _lockFlag, expected + 1, expected) == expected)
                     return;
