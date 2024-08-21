@@ -61,7 +61,7 @@ int main()
 	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::SGDB_ServerStart));
 
 	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
-		NetAddress(L"127.0.0.1", 9999),
+		NetAddress(L"0.0.0.0", 9999),
 		PoolAlloc<IocpCore>(),
 		PoolAlloc<ClientSession>,
 		10);
@@ -93,7 +93,7 @@ int main()
 		::PdhCollectQueryData(cpuQuery);
 		::PdhGetFormattedCounterValue(cpuTotal, PDH_FMT_DOUBLE, NULL, &counterVal);
 		VIEW_INFO("CPU USAGE : {}", counterVal.doubleValue);
-		tick += 1'000'000;
+		tick += TimeUtils::OneSec;
 	}
 #else
 	while (true)
