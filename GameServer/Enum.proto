@@ -4,8 +4,13 @@ package Protocol;
 enum EPacketProtocol
 {
 	PACKET_PROTOCOL_START		= 0;
+
 	CS_ChatRequest				= 1;
 	SC_ChatResponse				= 2;
+
+	CS_CircularSectorSkillRequest = 3;
+	SC_CircularSectorSkillResponse = 4;
+
 	PACKET_PROTOCOL_END			= 65535;
 }
 

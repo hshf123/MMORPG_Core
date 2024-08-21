@@ -2,3 +2,9 @@ syntax = "proto3";
 package Protocol;
 
 import "Enum.proto";
+
+message SPosition
+{
+	float X = 1;
+	float Y = 2;
+}

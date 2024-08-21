@@ -24,12 +24,13 @@ namespace Protocol {
     static EnumReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpFbnVtLnByb3RvEghQcm90b2NvbCpwCg9FUGFja2V0UHJvdG9jb2wSGQoV",
-            "UEFDS0VUX1BST1RPQ09MX1NUQVJUEAASEgoOQ1NfQ2hhdFJlcXVlc3QQARIT",
-            "Cg9TQ19DaGF0UmVzcG9uc2UQAhIZChNQQUNLRVRfUFJPVE9DT0xfRU5EEP//",
-            "AypRCgtFREJQcm90b2NvbBIVChFEQl9QUk9UT0NPTF9TVEFSVBAAEhQKEFNH",
-            "REJfU2VydmVyU3RhcnQQARIVCg9EQl9QUk9UT0NPTF9FTkQQ//8DYgZwcm90",
-            "bzM="));
+            "CgpFbnVtLnByb3RvEghQcm90b2NvbCq3AQoPRVBhY2tldFByb3RvY29sEhkK",
+            "FVBBQ0tFVF9QUk9UT0NPTF9TVEFSVBAAEhIKDkNTX0NoYXRSZXF1ZXN0EAES",
+            "EwoPU0NfQ2hhdFJlc3BvbnNlEAISIQodQ1NfQ2lyY3VsYXJTZWN0b3JTa2ls",
+            "bFJlcXVlc3QQAxIiCh5TQ19DaXJjdWxhclNlY3RvclNraWxsUmVzcG9uc2UQ",
+            "BBIZChNQQUNLRVRfUFJPVE9DT0xfRU5EEP//AypRCgtFREJQcm90b2NvbBIV",
+            "ChFEQl9QUk9UT0NPTF9TVEFSVBAAEhQKEFNHREJfU2VydmVyU3RhcnQQARIV",
+            "Cg9EQl9QUk9UT0NPTF9FTkQQ//8DYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EPacketProtocol), typeof(global::Protocol.EDBProtocol), }, null, null));
@@ -42,6 +43,8 @@ namespace Protocol {
     [pbr::OriginalName("PACKET_PROTOCOL_START")] PacketProtocolStart = 0,
     [pbr::OriginalName("CS_ChatRequest")] CsChatRequest = 1,
     [pbr::OriginalName("SC_ChatResponse")] ScChatResponse = 2,
+    [pbr::OriginalName("CS_CircularSectorSkillRequest")] CsCircularSectorSkillRequest = 3,
+    [pbr::OriginalName("SC_CircularSectorSkillResponse")] ScCircularSectorSkillResponse = 4,
     [pbr::OriginalName("PACKET_PROTOCOL_END")] PacketProtocolEnd = 65535,
   }
 

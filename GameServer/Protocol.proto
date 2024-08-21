@@ -20,3 +20,19 @@ message SCChatResponse
 	string Name							= 2;
 	string Msg							= 3;
 }
+
+message CSCircularSectorSkillRequest
+{
+	EPacketProtocol messageid			= 1;
+	float Theta							= 2;
+	float Radius						= 3;
+	SPosition MyPos						= 4;
+	SPosition Forward					= 5;
+	SPosition TargetPos					= 6;
+}
+
+message SCCircularSectorSkillResponse
+{
+	EPacketProtocol messageid			= 1;
+	bool IsHit							= 2;
+}

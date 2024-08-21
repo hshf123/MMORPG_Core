@@ -29,13 +29,22 @@ namespace Google.Protobuf.Protocol {
             "U0NoYXRSZXF1ZXN0EiwKCW1lc3NhZ2VpZBgBIAEoDjIZLlByb3RvY29sLkVQ",
             "YWNrZXRQcm90b2NvbBIMCgROYW1lGAIgASgJEgsKA01zZxgDIAEoCSJZCg5T",
             "Q0NoYXRSZXNwb25zZRIsCgltZXNzYWdlaWQYASABKA4yGS5Qcm90b2NvbC5F",
-            "UGFja2V0UHJvdG9jb2wSDAoETmFtZRgCIAEoCRILCgNNc2cYAyABKAlCG6oC",
-            "GEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
+            "UGFja2V0UHJvdG9jb2wSDAoETmFtZRgCIAEoCRILCgNNc2cYAyABKAki3QEK",
+            "HENTQ2lyY3VsYXJTZWN0b3JTa2lsbFJlcXVlc3QSLAoJbWVzc2FnZWlkGAEg",
+            "ASgOMhkuUHJvdG9jb2wuRVBhY2tldFByb3RvY29sEg0KBVRoZXRhGAIgASgC",
+            "Eg4KBlJhZGl1cxgDIAEoAhIiCgVNeVBvcxgEIAEoCzITLlByb3RvY29sLlNQ",
+            "b3NpdGlvbhIkCgdGb3J3YXJkGAUgASgLMhMuUHJvdG9jb2wuU1Bvc2l0aW9u",
+            "EiYKCVRhcmdldFBvcxgGIAEoCzITLlByb3RvY29sLlNQb3NpdGlvbiJcCh1T",
+            "Q0NpcmN1bGFyU2VjdG9yU2tpbGxSZXNwb25zZRIsCgltZXNzYWdlaWQYASAB",
+            "KA4yGS5Qcm90b2NvbC5FUGFja2V0UHJvdG9jb2wSDQoFSXNIaXQYAiABKAhC",
+            "G6oCGEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::Protocol.EnumReflection.Descriptor, global::Protocol.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CSChatRequest), global::Google.Protobuf.Protocol.CSChatRequest.Parser, new[]{ "Messageid", "Name", "Msg" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SCChatResponse), global::Google.Protobuf.Protocol.SCChatResponse.Parser, new[]{ "Messageid", "Name", "Msg" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SCChatResponse), global::Google.Protobuf.Protocol.SCChatResponse.Parser, new[]{ "Messageid", "Name", "Msg" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CSCircularSectorSkillRequest), global::Google.Protobuf.Protocol.CSCircularSectorSkillRequest.Parser, new[]{ "Messageid", "Theta", "Radius", "MyPos", "Forward", "TargetPos" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SCCircularSectorSkillResponse), global::Google.Protobuf.Protocol.SCCircularSectorSkillResponse.Parser, new[]{ "Messageid", "IsHit" }, null, null, null, null)
           }));
     }
     #endregion
@@ -559,6 +568,633 @@ namespace Google.Protobuf.Protocol {
           }
           case 26: {
             Msg = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class CSCircularSectorSkillRequest : pb::IMessage<CSCircularSectorSkillRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CSCircularSectorSkillRequest> _parser = new pb::MessageParser<CSCircularSectorSkillRequest>(() => new CSCircularSectorSkillRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CSCircularSectorSkillRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Google.Protobuf.Protocol.ProtocolReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CSCircularSectorSkillRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CSCircularSectorSkillRequest(CSCircularSectorSkillRequest other) : this() {
+      messageid_ = other.messageid_;
+      theta_ = other.theta_;
+      radius_ = other.radius_;
+      myPos_ = other.myPos_ != null ? other.myPos_.Clone() : null;
+      forward_ = other.forward_ != null ? other.forward_.Clone() : null;
+      targetPos_ = other.targetPos_ != null ? other.targetPos_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CSCircularSectorSkillRequest Clone() {
+      return new CSCircularSectorSkillRequest(this);
+    }
+
+    /// <summary>Field number for the "messageid" field.</summary>
+    public const int MessageidFieldNumber = 1;
+    private global::Protocol.EPacketProtocol messageid_ = global::Protocol.EPacketProtocol.PacketProtocolStart;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Protocol.EPacketProtocol Messageid {
+      get { return messageid_; }
+      set {
+        messageid_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Theta" field.</summary>
+    public const int ThetaFieldNumber = 2;
+    private float theta_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Theta {
+      get { return theta_; }
+      set {
+        theta_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Radius" field.</summary>
+    public const int RadiusFieldNumber = 3;
+    private float radius_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Radius {
+      get { return radius_; }
+      set {
+        radius_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "MyPos" field.</summary>
+    public const int MyPosFieldNumber = 4;
+    private global::Protocol.SPosition myPos_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Protocol.SPosition MyPos {
+      get { return myPos_; }
+      set {
+        myPos_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Forward" field.</summary>
+    public const int ForwardFieldNumber = 5;
+    private global::Protocol.SPosition forward_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Protocol.SPosition Forward {
+      get { return forward_; }
+      set {
+        forward_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "TargetPos" field.</summary>
+    public const int TargetPosFieldNumber = 6;
+    private global::Protocol.SPosition targetPos_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Protocol.SPosition TargetPos {
+      get { return targetPos_; }
+      set {
+        targetPos_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CSCircularSectorSkillRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CSCircularSectorSkillRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Messageid != other.Messageid) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Theta, other.Theta)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Radius, other.Radius)) return false;
+      if (!object.Equals(MyPos, other.MyPos)) return false;
+      if (!object.Equals(Forward, other.Forward)) return false;
+      if (!object.Equals(TargetPos, other.TargetPos)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) hash ^= Messageid.GetHashCode();
+      if (Theta != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Theta);
+      if (Radius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Radius);
+      if (myPos_ != null) hash ^= MyPos.GetHashCode();
+      if (forward_ != null) hash ^= Forward.GetHashCode();
+      if (targetPos_ != null) hash ^= TargetPos.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Messageid);
+      }
+      if (Theta != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Theta);
+      }
+      if (Radius != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Radius);
+      }
+      if (myPos_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(MyPos);
+      }
+      if (forward_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(Forward);
+      }
+      if (targetPos_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(TargetPos);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Messageid);
+      }
+      if (Theta != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Theta);
+      }
+      if (Radius != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Radius);
+      }
+      if (myPos_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(MyPos);
+      }
+      if (forward_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(Forward);
+      }
+      if (targetPos_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(TargetPos);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Messageid);
+      }
+      if (Theta != 0F) {
+        size += 1 + 4;
+      }
+      if (Radius != 0F) {
+        size += 1 + 4;
+      }
+      if (myPos_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MyPos);
+      }
+      if (forward_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Forward);
+      }
+      if (targetPos_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(TargetPos);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CSCircularSectorSkillRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
+        Messageid = other.Messageid;
+      }
+      if (other.Theta != 0F) {
+        Theta = other.Theta;
+      }
+      if (other.Radius != 0F) {
+        Radius = other.Radius;
+      }
+      if (other.myPos_ != null) {
+        if (myPos_ == null) {
+          MyPos = new global::Protocol.SPosition();
+        }
+        MyPos.MergeFrom(other.MyPos);
+      }
+      if (other.forward_ != null) {
+        if (forward_ == null) {
+          Forward = new global::Protocol.SPosition();
+        }
+        Forward.MergeFrom(other.Forward);
+      }
+      if (other.targetPos_ != null) {
+        if (targetPos_ == null) {
+          TargetPos = new global::Protocol.SPosition();
+        }
+        TargetPos.MergeFrom(other.TargetPos);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Messageid = (global::Protocol.EPacketProtocol) input.ReadEnum();
+            break;
+          }
+          case 21: {
+            Theta = input.ReadFloat();
+            break;
+          }
+          case 29: {
+            Radius = input.ReadFloat();
+            break;
+          }
+          case 34: {
+            if (myPos_ == null) {
+              MyPos = new global::Protocol.SPosition();
+            }
+            input.ReadMessage(MyPos);
+            break;
+          }
+          case 42: {
+            if (forward_ == null) {
+              Forward = new global::Protocol.SPosition();
+            }
+            input.ReadMessage(Forward);
+            break;
+          }
+          case 50: {
+            if (targetPos_ == null) {
+              TargetPos = new global::Protocol.SPosition();
+            }
+            input.ReadMessage(TargetPos);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Messageid = (global::Protocol.EPacketProtocol) input.ReadEnum();
+            break;
+          }
+          case 21: {
+            Theta = input.ReadFloat();
+            break;
+          }
+          case 29: {
+            Radius = input.ReadFloat();
+            break;
+          }
+          case 34: {
+            if (myPos_ == null) {
+              MyPos = new global::Protocol.SPosition();
+            }
+            input.ReadMessage(MyPos);
+            break;
+          }
+          case 42: {
+            if (forward_ == null) {
+              Forward = new global::Protocol.SPosition();
+            }
+            input.ReadMessage(Forward);
+            break;
+          }
+          case 50: {
+            if (targetPos_ == null) {
+              TargetPos = new global::Protocol.SPosition();
+            }
+            input.ReadMessage(TargetPos);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class SCCircularSectorSkillResponse : pb::IMessage<SCCircularSectorSkillResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<SCCircularSectorSkillResponse> _parser = new pb::MessageParser<SCCircularSectorSkillResponse>(() => new SCCircularSectorSkillResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<SCCircularSectorSkillResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Google.Protobuf.Protocol.ProtocolReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SCCircularSectorSkillResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SCCircularSectorSkillResponse(SCCircularSectorSkillResponse other) : this() {
+      messageid_ = other.messageid_;
+      isHit_ = other.isHit_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SCCircularSectorSkillResponse Clone() {
+      return new SCCircularSectorSkillResponse(this);
+    }
+
+    /// <summary>Field number for the "messageid" field.</summary>
+    public const int MessageidFieldNumber = 1;
+    private global::Protocol.EPacketProtocol messageid_ = global::Protocol.EPacketProtocol.PacketProtocolStart;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Protocol.EPacketProtocol Messageid {
+      get { return messageid_; }
+      set {
+        messageid_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "IsHit" field.</summary>
+    public const int IsHitFieldNumber = 2;
+    private bool isHit_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsHit {
+      get { return isHit_; }
+      set {
+        isHit_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as SCCircularSectorSkillResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(SCCircularSectorSkillResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Messageid != other.Messageid) return false;
+      if (IsHit != other.IsHit) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) hash ^= Messageid.GetHashCode();
+      if (IsHit != false) hash ^= IsHit.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Messageid);
+      }
+      if (IsHit != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(IsHit);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Messageid);
+      }
+      if (IsHit != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(IsHit);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Messageid);
+      }
+      if (IsHit != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(SCCircularSectorSkillResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Messageid != global::Protocol.EPacketProtocol.PacketProtocolStart) {
+        Messageid = other.Messageid;
+      }
+      if (other.IsHit != false) {
+        IsHit = other.IsHit;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Messageid = (global::Protocol.EPacketProtocol) input.ReadEnum();
+            break;
+          }
+          case 16: {
+            IsHit = input.ReadBool();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Messageid = (global::Protocol.EPacketProtocol) input.ReadEnum();
+            break;
+          }
+          case 16: {
+            IsHit = input.ReadBool();
             break;
           }
         }

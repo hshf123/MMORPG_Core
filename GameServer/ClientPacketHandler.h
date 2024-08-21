@@ -7,5 +7,5 @@ class ClientPacketHandler : public PacketHandler, public RefSingleton<ClientPack
 public:
 	void Init() override;
 	bool OnCSChatRequest(std::shared_ptr<PacketSession>& session, Protocol::CSChatRequest& pkt);
-
+	bool OnCSCircularSectorSkillRequest(std::shared_ptr<PacketSession>& session, Protocol::CSCircularSectorSkillRequest& pkt);
 };

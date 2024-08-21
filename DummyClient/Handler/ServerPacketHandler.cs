@@ -26,6 +26,8 @@ class PacketManager
     {
         _onRecv.Add((ushort)EPacketProtocol.ScChatResponse, MakePacket<SCChatResponse>);
         _handler.Add((ushort)EPacketProtocol.ScChatResponse, PacketHandler.OnSCChatResponse);
+        _onRecv.Add((ushort)EPacketProtocol.ScCircularSectorSkillResponse, MakePacket<SCCircularSectorSkillResponse>);
+        _handler.Add((ushort)EPacketProtocol.ScCircularSectorSkillResponse, PacketHandler.OnSCCircularSectorSkillResponse);
     }
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

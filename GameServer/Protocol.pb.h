@@ -51,13 +51,21 @@ namespace Protocol {
 class CSChatRequest;
 struct CSChatRequestDefaultTypeInternal;
 extern CSChatRequestDefaultTypeInternal _CSChatRequest_default_instance_;
+class CSCircularSectorSkillRequest;
+struct CSCircularSectorSkillRequestDefaultTypeInternal;
+extern CSCircularSectorSkillRequestDefaultTypeInternal _CSCircularSectorSkillRequest_default_instance_;
 class SCChatResponse;
 struct SCChatResponseDefaultTypeInternal;
 extern SCChatResponseDefaultTypeInternal _SCChatResponse_default_instance_;
+class SCCircularSectorSkillResponse;
+struct SCCircularSectorSkillResponseDefaultTypeInternal;
+extern SCCircularSectorSkillResponseDefaultTypeInternal _SCCircularSectorSkillResponse_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::CSChatRequest* Arena::CreateMaybeMessage<::Protocol::CSChatRequest>(Arena*);
+template<> ::Protocol::CSCircularSectorSkillRequest* Arena::CreateMaybeMessage<::Protocol::CSCircularSectorSkillRequest>(Arena*);
 template<> ::Protocol::SCChatResponse* Arena::CreateMaybeMessage<::Protocol::SCChatResponse>(Arena*);
+template<> ::Protocol::SCCircularSectorSkillResponse* Arena::CreateMaybeMessage<::Protocol::SCCircularSectorSkillResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
@@ -411,6 +419,385 @@ class SCChatResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
 };
+// -------------------------------------------------------------------
+
+class CSCircularSectorSkillRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CSCircularSectorSkillRequest) */ {
+ public:
+  inline CSCircularSectorSkillRequest() : CSCircularSectorSkillRequest(nullptr) {}
+  ~CSCircularSectorSkillRequest() override;
+  explicit PROTOBUF_CONSTEXPR CSCircularSectorSkillRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CSCircularSectorSkillRequest(const CSCircularSectorSkillRequest& from);
+  CSCircularSectorSkillRequest(CSCircularSectorSkillRequest&& from) noexcept
+    : CSCircularSectorSkillRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CSCircularSectorSkillRequest& operator=(const CSCircularSectorSkillRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CSCircularSectorSkillRequest& operator=(CSCircularSectorSkillRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CSCircularSectorSkillRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CSCircularSectorSkillRequest* internal_default_instance() {
+    return reinterpret_cast<const CSCircularSectorSkillRequest*>(
+               &_CSCircularSectorSkillRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(CSCircularSectorSkillRequest& a, CSCircularSectorSkillRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CSCircularSectorSkillRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CSCircularSectorSkillRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CSCircularSectorSkillRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CSCircularSectorSkillRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CSCircularSectorSkillRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const CSCircularSectorSkillRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CSCircularSectorSkillRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CSCircularSectorSkillRequest";
+  }
+  protected:
+  explicit CSCircularSectorSkillRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMyPosFieldNumber = 4,
+    kForwardFieldNumber = 5,
+    kTargetPosFieldNumber = 6,
+    kMessageidFieldNumber = 1,
+    kThetaFieldNumber = 2,
+    kRadiusFieldNumber = 3,
+  };
+  // .Protocol.SPosition MyPos = 4;
+  bool has_mypos() const;
+  private:
+  bool _internal_has_mypos() const;
+  public:
+  void clear_mypos();
+  const ::Protocol::SPosition& mypos() const;
+  PROTOBUF_NODISCARD ::Protocol::SPosition* release_mypos();
+  ::Protocol::SPosition* mutable_mypos();
+  void set_allocated_mypos(::Protocol::SPosition* mypos);
+  private:
+  const ::Protocol::SPosition& _internal_mypos() const;
+  ::Protocol::SPosition* _internal_mutable_mypos();
+  public:
+  void unsafe_arena_set_allocated_mypos(
+      ::Protocol::SPosition* mypos);
+  ::Protocol::SPosition* unsafe_arena_release_mypos();
+
+  // .Protocol.SPosition Forward = 5;
+  bool has_forward() const;
+  private:
+  bool _internal_has_forward() const;
+  public:
+  void clear_forward();
+  const ::Protocol::SPosition& forward() const;
+  PROTOBUF_NODISCARD ::Protocol::SPosition* release_forward();
+  ::Protocol::SPosition* mutable_forward();
+  void set_allocated_forward(::Protocol::SPosition* forward);
+  private:
+  const ::Protocol::SPosition& _internal_forward() const;
+  ::Protocol::SPosition* _internal_mutable_forward();
+  public:
+  void unsafe_arena_set_allocated_forward(
+      ::Protocol::SPosition* forward);
+  ::Protocol::SPosition* unsafe_arena_release_forward();
+
+  // .Protocol.SPosition TargetPos = 6;
+  bool has_targetpos() const;
+  private:
+  bool _internal_has_targetpos() const;
+  public:
+  void clear_targetpos();
+  const ::Protocol::SPosition& targetpos() const;
+  PROTOBUF_NODISCARD ::Protocol::SPosition* release_targetpos();
+  ::Protocol::SPosition* mutable_targetpos();
+  void set_allocated_targetpos(::Protocol::SPosition* targetpos);
+  private:
+  const ::Protocol::SPosition& _internal_targetpos() const;
+  ::Protocol::SPosition* _internal_mutable_targetpos();
+  public:
+  void unsafe_arena_set_allocated_targetpos(
+      ::Protocol::SPosition* targetpos);
+  ::Protocol::SPosition* unsafe_arena_release_targetpos();
+
+  // .Protocol.EPacketProtocol messageid = 1;
+  void clear_messageid();
+  ::Protocol::EPacketProtocol messageid() const;
+  void set_messageid(::Protocol::EPacketProtocol value);
+  private:
+  ::Protocol::EPacketProtocol _internal_messageid() const;
+  void _internal_set_messageid(::Protocol::EPacketProtocol value);
+  public:
+
+  // float Theta = 2;
+  void clear_theta();
+  float theta() const;
+  void set_theta(float value);
+  private:
+  float _internal_theta() const;
+  void _internal_set_theta(float value);
+  public:
+
+  // float Radius = 3;
+  void clear_radius();
+  float radius() const;
+  void set_radius(float value);
+  private:
+  float _internal_radius() const;
+  void _internal_set_radius(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CSCircularSectorSkillRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::Protocol::SPosition* mypos_;
+  ::Protocol::SPosition* forward_;
+  ::Protocol::SPosition* targetpos_;
+  int messageid_;
+  float theta_;
+  float radius_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SCCircularSectorSkillResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SCCircularSectorSkillResponse) */ {
+ public:
+  inline SCCircularSectorSkillResponse() : SCCircularSectorSkillResponse(nullptr) {}
+  ~SCCircularSectorSkillResponse() override;
+  explicit PROTOBUF_CONSTEXPR SCCircularSectorSkillResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SCCircularSectorSkillResponse(const SCCircularSectorSkillResponse& from);
+  SCCircularSectorSkillResponse(SCCircularSectorSkillResponse&& from) noexcept
+    : SCCircularSectorSkillResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SCCircularSectorSkillResponse& operator=(const SCCircularSectorSkillResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SCCircularSectorSkillResponse& operator=(SCCircularSectorSkillResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SCCircularSectorSkillResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SCCircularSectorSkillResponse* internal_default_instance() {
+    return reinterpret_cast<const SCCircularSectorSkillResponse*>(
+               &_SCCircularSectorSkillResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(SCCircularSectorSkillResponse& a, SCCircularSectorSkillResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SCCircularSectorSkillResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SCCircularSectorSkillResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SCCircularSectorSkillResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SCCircularSectorSkillResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SCCircularSectorSkillResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const SCCircularSectorSkillResponse& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SCCircularSectorSkillResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SCCircularSectorSkillResponse";
+  }
+  protected:
+  explicit SCCircularSectorSkillResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageidFieldNumber = 1,
+    kIsHitFieldNumber = 2,
+  };
+  // .Protocol.EPacketProtocol messageid = 1;
+  void clear_messageid();
+  ::Protocol::EPacketProtocol messageid() const;
+  void set_messageid(::Protocol::EPacketProtocol value);
+  private:
+  ::Protocol::EPacketProtocol _internal_messageid() const;
+  void _internal_set_messageid(::Protocol::EPacketProtocol value);
+  public:
+
+  // bool IsHit = 2;
+  void clear_ishit();
+  bool ishit() const;
+  void set_ishit(bool value);
+  private:
+  bool _internal_ishit() const;
+  void _internal_set_ishit(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.SCCircularSectorSkillResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int messageid_;
+  bool ishit_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
 // ===================================================================
 
 
@@ -666,9 +1053,376 @@ inline void SCChatResponse::set_allocated_msg(std::string* msg) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.SCChatResponse.Msg)
 }
 
+// -------------------------------------------------------------------
+
+// CSCircularSectorSkillRequest
+
+// .Protocol.EPacketProtocol messageid = 1;
+inline void CSCircularSectorSkillRequest::clear_messageid() {
+  messageid_ = 0;
+}
+inline ::Protocol::EPacketProtocol CSCircularSectorSkillRequest::_internal_messageid() const {
+  return static_cast< ::Protocol::EPacketProtocol >(messageid_);
+}
+inline ::Protocol::EPacketProtocol CSCircularSectorSkillRequest::messageid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSCircularSectorSkillRequest.messageid)
+  return _internal_messageid();
+}
+inline void CSCircularSectorSkillRequest::_internal_set_messageid(::Protocol::EPacketProtocol value) {
+  
+  messageid_ = value;
+}
+inline void CSCircularSectorSkillRequest::set_messageid(::Protocol::EPacketProtocol value) {
+  _internal_set_messageid(value);
+  // @@protoc_insertion_point(field_set:Protocol.CSCircularSectorSkillRequest.messageid)
+}
+
+// float Theta = 2;
+inline void CSCircularSectorSkillRequest::clear_theta() {
+  theta_ = 0;
+}
+inline float CSCircularSectorSkillRequest::_internal_theta() const {
+  return theta_;
+}
+inline float CSCircularSectorSkillRequest::theta() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSCircularSectorSkillRequest.Theta)
+  return _internal_theta();
+}
+inline void CSCircularSectorSkillRequest::_internal_set_theta(float value) {
+  
+  theta_ = value;
+}
+inline void CSCircularSectorSkillRequest::set_theta(float value) {
+  _internal_set_theta(value);
+  // @@protoc_insertion_point(field_set:Protocol.CSCircularSectorSkillRequest.Theta)
+}
+
+// float Radius = 3;
+inline void CSCircularSectorSkillRequest::clear_radius() {
+  radius_ = 0;
+}
+inline float CSCircularSectorSkillRequest::_internal_radius() const {
+  return radius_;
+}
+inline float CSCircularSectorSkillRequest::radius() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSCircularSectorSkillRequest.Radius)
+  return _internal_radius();
+}
+inline void CSCircularSectorSkillRequest::_internal_set_radius(float value) {
+  
+  radius_ = value;
+}
+inline void CSCircularSectorSkillRequest::set_radius(float value) {
+  _internal_set_radius(value);
+  // @@protoc_insertion_point(field_set:Protocol.CSCircularSectorSkillRequest.Radius)
+}
+
+// .Protocol.SPosition MyPos = 4;
+inline bool CSCircularSectorSkillRequest::_internal_has_mypos() const {
+  return this != internal_default_instance() && mypos_ != nullptr;
+}
+inline bool CSCircularSectorSkillRequest::has_mypos() const {
+  return _internal_has_mypos();
+}
+inline const ::Protocol::SPosition& CSCircularSectorSkillRequest::_internal_mypos() const {
+  const ::Protocol::SPosition* p = mypos_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::SPosition&>(
+      ::Protocol::_SPosition_default_instance_);
+}
+inline const ::Protocol::SPosition& CSCircularSectorSkillRequest::mypos() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSCircularSectorSkillRequest.MyPos)
+  return _internal_mypos();
+}
+inline void CSCircularSectorSkillRequest::unsafe_arena_set_allocated_mypos(
+    ::Protocol::SPosition* mypos) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(mypos_);
+  }
+  mypos_ = mypos;
+  if (mypos) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.CSCircularSectorSkillRequest.MyPos)
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::release_mypos() {
+  
+  ::Protocol::SPosition* temp = mypos_;
+  mypos_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::unsafe_arena_release_mypos() {
+  // @@protoc_insertion_point(field_release:Protocol.CSCircularSectorSkillRequest.MyPos)
+  
+  ::Protocol::SPosition* temp = mypos_;
+  mypos_ = nullptr;
+  return temp;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::_internal_mutable_mypos() {
+  
+  if (mypos_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::SPosition>(GetArenaForAllocation());
+    mypos_ = p;
+  }
+  return mypos_;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::mutable_mypos() {
+  ::Protocol::SPosition* _msg = _internal_mutable_mypos();
+  // @@protoc_insertion_point(field_mutable:Protocol.CSCircularSectorSkillRequest.MyPos)
+  return _msg;
+}
+inline void CSCircularSectorSkillRequest::set_allocated_mypos(::Protocol::SPosition* mypos) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(mypos_);
+  }
+  if (mypos) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(mypos));
+    if (message_arena != submessage_arena) {
+      mypos = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, mypos, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  mypos_ = mypos;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CSCircularSectorSkillRequest.MyPos)
+}
+
+// .Protocol.SPosition Forward = 5;
+inline bool CSCircularSectorSkillRequest::_internal_has_forward() const {
+  return this != internal_default_instance() && forward_ != nullptr;
+}
+inline bool CSCircularSectorSkillRequest::has_forward() const {
+  return _internal_has_forward();
+}
+inline const ::Protocol::SPosition& CSCircularSectorSkillRequest::_internal_forward() const {
+  const ::Protocol::SPosition* p = forward_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::SPosition&>(
+      ::Protocol::_SPosition_default_instance_);
+}
+inline const ::Protocol::SPosition& CSCircularSectorSkillRequest::forward() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSCircularSectorSkillRequest.Forward)
+  return _internal_forward();
+}
+inline void CSCircularSectorSkillRequest::unsafe_arena_set_allocated_forward(
+    ::Protocol::SPosition* forward) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(forward_);
+  }
+  forward_ = forward;
+  if (forward) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.CSCircularSectorSkillRequest.Forward)
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::release_forward() {
+  
+  ::Protocol::SPosition* temp = forward_;
+  forward_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::unsafe_arena_release_forward() {
+  // @@protoc_insertion_point(field_release:Protocol.CSCircularSectorSkillRequest.Forward)
+  
+  ::Protocol::SPosition* temp = forward_;
+  forward_ = nullptr;
+  return temp;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::_internal_mutable_forward() {
+  
+  if (forward_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::SPosition>(GetArenaForAllocation());
+    forward_ = p;
+  }
+  return forward_;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::mutable_forward() {
+  ::Protocol::SPosition* _msg = _internal_mutable_forward();
+  // @@protoc_insertion_point(field_mutable:Protocol.CSCircularSectorSkillRequest.Forward)
+  return _msg;
+}
+inline void CSCircularSectorSkillRequest::set_allocated_forward(::Protocol::SPosition* forward) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(forward_);
+  }
+  if (forward) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(forward));
+    if (message_arena != submessage_arena) {
+      forward = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, forward, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  forward_ = forward;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CSCircularSectorSkillRequest.Forward)
+}
+
+// .Protocol.SPosition TargetPos = 6;
+inline bool CSCircularSectorSkillRequest::_internal_has_targetpos() const {
+  return this != internal_default_instance() && targetpos_ != nullptr;
+}
+inline bool CSCircularSectorSkillRequest::has_targetpos() const {
+  return _internal_has_targetpos();
+}
+inline const ::Protocol::SPosition& CSCircularSectorSkillRequest::_internal_targetpos() const {
+  const ::Protocol::SPosition* p = targetpos_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::SPosition&>(
+      ::Protocol::_SPosition_default_instance_);
+}
+inline const ::Protocol::SPosition& CSCircularSectorSkillRequest::targetpos() const {
+  // @@protoc_insertion_point(field_get:Protocol.CSCircularSectorSkillRequest.TargetPos)
+  return _internal_targetpos();
+}
+inline void CSCircularSectorSkillRequest::unsafe_arena_set_allocated_targetpos(
+    ::Protocol::SPosition* targetpos) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(targetpos_);
+  }
+  targetpos_ = targetpos;
+  if (targetpos) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.CSCircularSectorSkillRequest.TargetPos)
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::release_targetpos() {
+  
+  ::Protocol::SPosition* temp = targetpos_;
+  targetpos_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::unsafe_arena_release_targetpos() {
+  // @@protoc_insertion_point(field_release:Protocol.CSCircularSectorSkillRequest.TargetPos)
+  
+  ::Protocol::SPosition* temp = targetpos_;
+  targetpos_ = nullptr;
+  return temp;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::_internal_mutable_targetpos() {
+  
+  if (targetpos_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::SPosition>(GetArenaForAllocation());
+    targetpos_ = p;
+  }
+  return targetpos_;
+}
+inline ::Protocol::SPosition* CSCircularSectorSkillRequest::mutable_targetpos() {
+  ::Protocol::SPosition* _msg = _internal_mutable_targetpos();
+  // @@protoc_insertion_point(field_mutable:Protocol.CSCircularSectorSkillRequest.TargetPos)
+  return _msg;
+}
+inline void CSCircularSectorSkillRequest::set_allocated_targetpos(::Protocol::SPosition* targetpos) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(targetpos_);
+  }
+  if (targetpos) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(targetpos));
+    if (message_arena != submessage_arena) {
+      targetpos = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, targetpos, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  targetpos_ = targetpos;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CSCircularSectorSkillRequest.TargetPos)
+}
+
+// -------------------------------------------------------------------
+
+// SCCircularSectorSkillResponse
+
+// .Protocol.EPacketProtocol messageid = 1;
+inline void SCCircularSectorSkillResponse::clear_messageid() {
+  messageid_ = 0;
+}
+inline ::Protocol::EPacketProtocol SCCircularSectorSkillResponse::_internal_messageid() const {
+  return static_cast< ::Protocol::EPacketProtocol >(messageid_);
+}
+inline ::Protocol::EPacketProtocol SCCircularSectorSkillResponse::messageid() const {
+  // @@protoc_insertion_point(field_get:Protocol.SCCircularSectorSkillResponse.messageid)
+  return _internal_messageid();
+}
+inline void SCCircularSectorSkillResponse::_internal_set_messageid(::Protocol::EPacketProtocol value) {
+  
+  messageid_ = value;
+}
+inline void SCCircularSectorSkillResponse::set_messageid(::Protocol::EPacketProtocol value) {
+  _internal_set_messageid(value);
+  // @@protoc_insertion_point(field_set:Protocol.SCCircularSectorSkillResponse.messageid)
+}
+
+// bool IsHit = 2;
+inline void SCCircularSectorSkillResponse::clear_ishit() {
+  ishit_ = false;
+}
+inline bool SCCircularSectorSkillResponse::_internal_ishit() const {
+  return ishit_;
+}
+inline bool SCCircularSectorSkillResponse::ishit() const {
+  // @@protoc_insertion_point(field_get:Protocol.SCCircularSectorSkillResponse.IsHit)
+  return _internal_ishit();
+}
+inline void SCCircularSectorSkillResponse::_internal_set_ishit(bool value) {
+  
+  ishit_ = value;
+}
+inline void SCCircularSectorSkillResponse::set_ishit(bool value) {
+  _internal_set_ishit(value);
+  // @@protoc_insertion_point(field_set:Protocol.SCCircularSectorSkillResponse.IsHit)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

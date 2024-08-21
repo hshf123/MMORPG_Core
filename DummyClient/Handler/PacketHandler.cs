@@ -16,4 +16,13 @@ public class PacketHandler
 
         Console.WriteLine($"RecvFrom Server {pkt.Name} : {pkt.Msg}");
     }
+
+    public static void OnSCCircularSectorSkillResponse(PacketSession session, IMessage packet)
+    {
+        SCCircularSectorSkillResponse? pkt = packet as SCCircularSectorSkillResponse;
+        if (pkt == null)
+            return;
+
+        Console.WriteLine($"RecvFrom Server IsHit : {(pkt.IsHit ? "Hit!" : "Nope")}");
+    }
 }

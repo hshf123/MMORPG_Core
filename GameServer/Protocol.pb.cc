@@ -51,8 +51,40 @@ struct SCChatResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCChatResponseDefaultTypeInternal _SCChatResponse_default_instance_;
+PROTOBUF_CONSTEXPR CSCircularSectorSkillRequest::CSCircularSectorSkillRequest(
+    ::_pbi::ConstantInitialized)
+  : mypos_(nullptr)
+  , forward_(nullptr)
+  , targetpos_(nullptr)
+  , messageid_(0)
+
+  , theta_(0)
+  , radius_(0){}
+struct CSCircularSectorSkillRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CSCircularSectorSkillRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CSCircularSectorSkillRequestDefaultTypeInternal() {}
+  union {
+    CSCircularSectorSkillRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSCircularSectorSkillRequestDefaultTypeInternal _CSCircularSectorSkillRequest_default_instance_;
+PROTOBUF_CONSTEXPR SCCircularSectorSkillResponse::SCCircularSectorSkillResponse(
+    ::_pbi::ConstantInitialized)
+  : messageid_(0)
+
+  , ishit_(false){}
+struct SCCircularSectorSkillResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SCCircularSectorSkillResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SCCircularSectorSkillResponseDefaultTypeInternal() {}
+  union {
+    SCCircularSectorSkillResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCCircularSectorSkillResponseDefaultTypeInternal _SCCircularSectorSkillResponse_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Protocol_2eproto[2];
+static ::_pb::Metadata file_level_metadata_Protocol_2eproto[4];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Protocol_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Protocol_2eproto = nullptr;
 
@@ -75,15 +107,39 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, messageid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, name_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, msg_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, messageid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, theta_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, radius_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, mypos_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, forward_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, targetpos_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SCCircularSectorSkillResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SCCircularSectorSkillResponse, messageid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SCCircularSectorSkillResponse, ishit_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::CSChatRequest)},
   { 9, -1, -1, sizeof(::Protocol::SCChatResponse)},
+  { 18, -1, -1, sizeof(::Protocol::CSCircularSectorSkillRequest)},
+  { 30, -1, -1, sizeof(::Protocol::SCCircularSectorSkillResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_CSChatRequest_default_instance_._instance,
   &::Protocol::_SCChatResponse_default_instance_._instance,
+  &::Protocol::_CSCircularSectorSkillRequest_default_instance_._instance,
+  &::Protocol::_SCCircularSectorSkillResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -93,8 +149,16 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "\0162\031.Protocol.EPacketProtocol\022\014\n\004Name\030\002 \001"
   "(\t\022\013\n\003Msg\030\003 \001(\t\"Y\n\016SCChatResponse\022,\n\tmes"
   "sageid\030\001 \001(\0162\031.Protocol.EPacketProtocol\022"
-  "\014\n\004Name\030\002 \001(\t\022\013\n\003Msg\030\003 \001(\tB\033\252\002\030Google.Pr"
-  "otobuf.Protocolb\006proto3"
+  "\014\n\004Name\030\002 \001(\t\022\013\n\003Msg\030\003 \001(\t\"\335\001\n\034CSCircula"
+  "rSectorSkillRequest\022,\n\tmessageid\030\001 \001(\0162\031"
+  ".Protocol.EPacketProtocol\022\r\n\005Theta\030\002 \001(\002"
+  "\022\016\n\006Radius\030\003 \001(\002\022\"\n\005MyPos\030\004 \001(\0132\023.Protoc"
+  "ol.SPosition\022$\n\007Forward\030\005 \001(\0132\023.Protocol"
+  ".SPosition\022&\n\tTargetPos\030\006 \001(\0132\023.Protocol"
+  ".SPosition\"\\\n\035SCCircularSectorSkillRespo"
+  "nse\022,\n\tmessageid\030\001 \001(\0162\031.Protocol.EPacke"
+  "tProtocol\022\r\n\005IsHit\030\002 \001(\010B\033\252\002\030Google.Prot"
+  "obuf.Protocolb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Protocol_2eproto_deps[3] = {
   &::descriptor_table_Enum_2eproto,
@@ -103,9 +167,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Protocol_2eproto_de
 };
 static ::_pbi::once_flag descriptor_table_Protocol_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Protocol_2eproto = {
-    false, false, 303, descriptor_table_protodef_Protocol_2eproto,
+    false, false, 621, descriptor_table_protodef_Protocol_2eproto,
     "Protocol.proto",
-    &descriptor_table_Protocol_2eproto_once, descriptor_table_Protocol_2eproto_deps, 3, 2,
+    &descriptor_table_Protocol_2eproto_once, descriptor_table_Protocol_2eproto_deps, 3, 4,
     schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
     file_level_metadata_Protocol_2eproto, file_level_enum_descriptors_Protocol_2eproto,
     file_level_service_descriptors_Protocol_2eproto,
@@ -662,6 +726,606 @@ void SCChatResponse::InternalSwap(SCChatResponse* other) {
       file_level_metadata_Protocol_2eproto[1]);
 }
 
+// ===================================================================
+
+class CSCircularSectorSkillRequest::_Internal {
+ public:
+  static const ::Protocol::SPosition& mypos(const CSCircularSectorSkillRequest* msg);
+  static const ::Protocol::SPosition& forward(const CSCircularSectorSkillRequest* msg);
+  static const ::Protocol::SPosition& targetpos(const CSCircularSectorSkillRequest* msg);
+};
+
+const ::Protocol::SPosition&
+CSCircularSectorSkillRequest::_Internal::mypos(const CSCircularSectorSkillRequest* msg) {
+  return *msg->mypos_;
+}
+const ::Protocol::SPosition&
+CSCircularSectorSkillRequest::_Internal::forward(const CSCircularSectorSkillRequest* msg) {
+  return *msg->forward_;
+}
+const ::Protocol::SPosition&
+CSCircularSectorSkillRequest::_Internal::targetpos(const CSCircularSectorSkillRequest* msg) {
+  return *msg->targetpos_;
+}
+void CSCircularSectorSkillRequest::clear_mypos() {
+  if (GetArenaForAllocation() == nullptr && mypos_ != nullptr) {
+    delete mypos_;
+  }
+  mypos_ = nullptr;
+}
+void CSCircularSectorSkillRequest::clear_forward() {
+  if (GetArenaForAllocation() == nullptr && forward_ != nullptr) {
+    delete forward_;
+  }
+  forward_ = nullptr;
+}
+void CSCircularSectorSkillRequest::clear_targetpos() {
+  if (GetArenaForAllocation() == nullptr && targetpos_ != nullptr) {
+    delete targetpos_;
+  }
+  targetpos_ = nullptr;
+}
+CSCircularSectorSkillRequest::CSCircularSectorSkillRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:Protocol.CSCircularSectorSkillRequest)
+}
+CSCircularSectorSkillRequest::CSCircularSectorSkillRequest(const CSCircularSectorSkillRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_mypos()) {
+    mypos_ = new ::Protocol::SPosition(*from.mypos_);
+  } else {
+    mypos_ = nullptr;
+  }
+  if (from._internal_has_forward()) {
+    forward_ = new ::Protocol::SPosition(*from.forward_);
+  } else {
+    forward_ = nullptr;
+  }
+  if (from._internal_has_targetpos()) {
+    targetpos_ = new ::Protocol::SPosition(*from.targetpos_);
+  } else {
+    targetpos_ = nullptr;
+  }
+  ::memcpy(&messageid_, &from.messageid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&radius_) -
+    reinterpret_cast<char*>(&messageid_)) + sizeof(radius_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.CSCircularSectorSkillRequest)
+}
+
+inline void CSCircularSectorSkillRequest::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&mypos_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&radius_) -
+    reinterpret_cast<char*>(&mypos_)) + sizeof(radius_));
+}
+
+CSCircularSectorSkillRequest::~CSCircularSectorSkillRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CSCircularSectorSkillRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CSCircularSectorSkillRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete mypos_;
+  if (this != internal_default_instance()) delete forward_;
+  if (this != internal_default_instance()) delete targetpos_;
+}
+
+void CSCircularSectorSkillRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CSCircularSectorSkillRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CSCircularSectorSkillRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && mypos_ != nullptr) {
+    delete mypos_;
+  }
+  mypos_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && forward_ != nullptr) {
+    delete forward_;
+  }
+  forward_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && targetpos_ != nullptr) {
+    delete targetpos_;
+  }
+  targetpos_ = nullptr;
+  ::memset(&messageid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&radius_) -
+      reinterpret_cast<char*>(&messageid_)) + sizeof(radius_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* CSCircularSectorSkillRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .Protocol.EPacketProtocol messageid = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_messageid(static_cast<::Protocol::EPacketProtocol>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // float Theta = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
+          theta_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float Radius = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
+          radius_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.SPosition MyPos = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_mypos(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.SPosition Forward = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_forward(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.SPosition TargetPos = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_targetpos(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CSCircularSectorSkillRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CSCircularSectorSkillRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .Protocol.EPacketProtocol messageid = 1;
+  if (this->_internal_messageid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_messageid(), target);
+  }
+
+  // float Theta = 2;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_theta = this->_internal_theta();
+  uint32_t raw_theta;
+  memcpy(&raw_theta, &tmp_theta, sizeof(tmp_theta));
+  if (raw_theta != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_theta(), target);
+  }
+
+  // float Radius = 3;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_radius = this->_internal_radius();
+  uint32_t raw_radius;
+  memcpy(&raw_radius, &tmp_radius, sizeof(tmp_radius));
+  if (raw_radius != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_radius(), target);
+  }
+
+  // .Protocol.SPosition MyPos = 4;
+  if (this->_internal_has_mypos()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::mypos(this),
+        _Internal::mypos(this).GetCachedSize(), target, stream);
+  }
+
+  // .Protocol.SPosition Forward = 5;
+  if (this->_internal_has_forward()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::forward(this),
+        _Internal::forward(this).GetCachedSize(), target, stream);
+  }
+
+  // .Protocol.SPosition TargetPos = 6;
+  if (this->_internal_has_targetpos()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(6, _Internal::targetpos(this),
+        _Internal::targetpos(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CSCircularSectorSkillRequest)
+  return target;
+}
+
+size_t CSCircularSectorSkillRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CSCircularSectorSkillRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .Protocol.SPosition MyPos = 4;
+  if (this->_internal_has_mypos()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *mypos_);
+  }
+
+  // .Protocol.SPosition Forward = 5;
+  if (this->_internal_has_forward()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *forward_);
+  }
+
+  // .Protocol.SPosition TargetPos = 6;
+  if (this->_internal_has_targetpos()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *targetpos_);
+  }
+
+  // .Protocol.EPacketProtocol messageid = 1;
+  if (this->_internal_messageid() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_messageid());
+  }
+
+  // float Theta = 2;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_theta = this->_internal_theta();
+  uint32_t raw_theta;
+  memcpy(&raw_theta, &tmp_theta, sizeof(tmp_theta));
+  if (raw_theta != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float Radius = 3;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_radius = this->_internal_radius();
+  uint32_t raw_radius;
+  memcpy(&raw_radius, &tmp_radius, sizeof(tmp_radius));
+  if (raw_radius != 0) {
+    total_size += 1 + 4;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CSCircularSectorSkillRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    CSCircularSectorSkillRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CSCircularSectorSkillRequest::GetClassData() const { return &_class_data_; }
+
+void CSCircularSectorSkillRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<CSCircularSectorSkillRequest *>(to)->MergeFrom(
+      static_cast<const CSCircularSectorSkillRequest &>(from));
+}
+
+
+void CSCircularSectorSkillRequest::MergeFrom(const CSCircularSectorSkillRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CSCircularSectorSkillRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_mypos()) {
+    _internal_mutable_mypos()->::Protocol::SPosition::MergeFrom(from._internal_mypos());
+  }
+  if (from._internal_has_forward()) {
+    _internal_mutable_forward()->::Protocol::SPosition::MergeFrom(from._internal_forward());
+  }
+  if (from._internal_has_targetpos()) {
+    _internal_mutable_targetpos()->::Protocol::SPosition::MergeFrom(from._internal_targetpos());
+  }
+  if (from._internal_messageid() != 0) {
+    _internal_set_messageid(from._internal_messageid());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_theta = from._internal_theta();
+  uint32_t raw_theta;
+  memcpy(&raw_theta, &tmp_theta, sizeof(tmp_theta));
+  if (raw_theta != 0) {
+    _internal_set_theta(from._internal_theta());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_radius = from._internal_radius();
+  uint32_t raw_radius;
+  memcpy(&raw_radius, &tmp_radius, sizeof(tmp_radius));
+  if (raw_radius != 0) {
+    _internal_set_radius(from._internal_radius());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CSCircularSectorSkillRequest::CopyFrom(const CSCircularSectorSkillRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CSCircularSectorSkillRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CSCircularSectorSkillRequest::IsInitialized() const {
+  return true;
+}
+
+void CSCircularSectorSkillRequest::InternalSwap(CSCircularSectorSkillRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CSCircularSectorSkillRequest, radius_)
+      + sizeof(CSCircularSectorSkillRequest::radius_)
+      - PROTOBUF_FIELD_OFFSET(CSCircularSectorSkillRequest, mypos_)>(
+          reinterpret_cast<char*>(&mypos_),
+          reinterpret_cast<char*>(&other->mypos_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CSCircularSectorSkillRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Protocol_2eproto_getter, &descriptor_table_Protocol_2eproto_once,
+      file_level_metadata_Protocol_2eproto[2]);
+}
+
+// ===================================================================
+
+class SCCircularSectorSkillResponse::_Internal {
+ public:
+};
+
+SCCircularSectorSkillResponse::SCCircularSectorSkillResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:Protocol.SCCircularSectorSkillResponse)
+}
+SCCircularSectorSkillResponse::SCCircularSectorSkillResponse(const SCCircularSectorSkillResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&messageid_, &from.messageid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&ishit_) -
+    reinterpret_cast<char*>(&messageid_)) + sizeof(ishit_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.SCCircularSectorSkillResponse)
+}
+
+inline void SCCircularSectorSkillResponse::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&messageid_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&ishit_) -
+    reinterpret_cast<char*>(&messageid_)) + sizeof(ishit_));
+}
+
+SCCircularSectorSkillResponse::~SCCircularSectorSkillResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SCCircularSectorSkillResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SCCircularSectorSkillResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SCCircularSectorSkillResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void SCCircularSectorSkillResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SCCircularSectorSkillResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&messageid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&ishit_) -
+      reinterpret_cast<char*>(&messageid_)) + sizeof(ishit_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SCCircularSectorSkillResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .Protocol.EPacketProtocol messageid = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_messageid(static_cast<::Protocol::EPacketProtocol>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool IsHit = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          ishit_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SCCircularSectorSkillResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SCCircularSectorSkillResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .Protocol.EPacketProtocol messageid = 1;
+  if (this->_internal_messageid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_messageid(), target);
+  }
+
+  // bool IsHit = 2;
+  if (this->_internal_ishit() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_ishit(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SCCircularSectorSkillResponse)
+  return target;
+}
+
+size_t SCCircularSectorSkillResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SCCircularSectorSkillResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .Protocol.EPacketProtocol messageid = 1;
+  if (this->_internal_messageid() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_messageid());
+  }
+
+  // bool IsHit = 2;
+  if (this->_internal_ishit() != 0) {
+    total_size += 1 + 1;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SCCircularSectorSkillResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    SCCircularSectorSkillResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SCCircularSectorSkillResponse::GetClassData() const { return &_class_data_; }
+
+void SCCircularSectorSkillResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<SCCircularSectorSkillResponse *>(to)->MergeFrom(
+      static_cast<const SCCircularSectorSkillResponse &>(from));
+}
+
+
+void SCCircularSectorSkillResponse::MergeFrom(const SCCircularSectorSkillResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SCCircularSectorSkillResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_messageid() != 0) {
+    _internal_set_messageid(from._internal_messageid());
+  }
+  if (from._internal_ishit() != 0) {
+    _internal_set_ishit(from._internal_ishit());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SCCircularSectorSkillResponse::CopyFrom(const SCCircularSectorSkillResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SCCircularSectorSkillResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SCCircularSectorSkillResponse::IsInitialized() const {
+  return true;
+}
+
+void SCCircularSectorSkillResponse::InternalSwap(SCCircularSectorSkillResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SCCircularSectorSkillResponse, ishit_)
+      + sizeof(SCCircularSectorSkillResponse::ishit_)
+      - PROTOBUF_FIELD_OFFSET(SCCircularSectorSkillResponse, messageid_)>(
+          reinterpret_cast<char*>(&messageid_),
+          reinterpret_cast<char*>(&other->messageid_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SCCircularSectorSkillResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Protocol_2eproto_getter, &descriptor_table_Protocol_2eproto_once,
+      file_level_metadata_Protocol_2eproto[3]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
@@ -672,6 +1336,14 @@ Arena::CreateMaybeMessage< ::Protocol::CSChatRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::SCChatResponse*
 Arena::CreateMaybeMessage< ::Protocol::SCChatResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::SCChatResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::CSCircularSectorSkillRequest*
+Arena::CreateMaybeMessage< ::Protocol::CSCircularSectorSkillRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CSCircularSectorSkillRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SCCircularSectorSkillResponse*
+Arena::CreateMaybeMessage< ::Protocol::SCCircularSectorSkillResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SCCircularSectorSkillResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

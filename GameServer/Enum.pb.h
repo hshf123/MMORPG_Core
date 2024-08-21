@@ -51,6 +51,8 @@ enum EPacketProtocol : int {
   PACKET_PROTOCOL_START = 0,
   CS_ChatRequest = 1,
   SC_ChatResponse = 2,
+  CS_CircularSectorSkillRequest = 3,
+  SC_CircularSectorSkillResponse = 4,
   PACKET_PROTOCOL_END = 65535,
   EPacketProtocol_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   EPacketProtocol_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
