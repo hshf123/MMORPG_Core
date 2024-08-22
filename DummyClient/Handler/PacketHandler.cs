@@ -25,4 +25,11 @@ public class PacketHandler
 
         Console.WriteLine($"RecvFrom Server IsHit : {(pkt.IsHit ? "Hit!" : "Nope")}");
     }
+
+    public static void OnSCBigTestResponse(PacketSession session, IMessage packet)
+    {
+        SCBigTestResponse? pkt = packet as SCBigTestResponse;
+        if (pkt == null)
+            return;
+    }
 }

@@ -11,6 +11,9 @@ enum EPacketProtocol
 	CS_CircularSectorSkillRequest = 3;
 	SC_CircularSectorSkillResponse = 4;
 
+	CS_BigTestRequest = 5;
+	SC_BigTestResponse = 6;
+
 	PACKET_PROTOCOL_END			= 65535;
 }
 

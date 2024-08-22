@@ -28,6 +28,8 @@ class PacketManager
         _handler.Add((ushort)EPacketProtocol.ScChatResponse, PacketHandler.OnSCChatResponse);
         _onRecv.Add((ushort)EPacketProtocol.ScCircularSectorSkillResponse, MakePacket<SCCircularSectorSkillResponse>);
         _handler.Add((ushort)EPacketProtocol.ScCircularSectorSkillResponse, PacketHandler.OnSCCircularSectorSkillResponse);
+        _onRecv.Add((ushort)EPacketProtocol.ScBigTestResponse, MakePacket<SCBigTestResponse>);
+        _handler.Add((ushort)EPacketProtocol.ScBigTestResponse, PacketHandler.OnSCBigTestResponse);
     }
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

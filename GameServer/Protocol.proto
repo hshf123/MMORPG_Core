@@ -36,3 +36,15 @@ message SCCircularSectorSkillResponse
 	EPacketProtocol messageid			= 1;
 	bool IsHit							= 2;
 }
+
+message CSBigTestRequest
+{
+	EPacketProtocol messageid			= 1;
+	repeated BigTest List				= 2;
+}
+
+message SCBigTestResponse
+{
+	EPacketProtocol messageid			= 1;
+	repeated BigTest List				= 2;
+}

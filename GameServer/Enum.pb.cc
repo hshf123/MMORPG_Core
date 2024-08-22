@@ -29,18 +29,19 @@ static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
 static constexpr ::_pb::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nEnum.proto\022\010Protocol*\267\001\n\017EPacketProtoc"
+  "\n\nEnum.proto\022\010Protocol*\346\001\n\017EPacketProtoc"
   "ol\022\031\n\025PACKET_PROTOCOL_START\020\000\022\022\n\016CS_Chat"
   "Request\020\001\022\023\n\017SC_ChatResponse\020\002\022!\n\035CS_Cir"
   "cularSectorSkillRequest\020\003\022\"\n\036SC_Circular"
-  "SectorSkillResponse\020\004\022\031\n\023PACKET_PROTOCOL"
-  "_END\020\377\377\003*Q\n\013EDBProtocol\022\025\n\021DB_PROTOCOL_S"
-  "TART\020\000\022\024\n\020SGDB_ServerStart\020\001\022\025\n\017DB_PROTO"
-  "COL_END\020\377\377\003b\006proto3"
+  "SectorSkillResponse\020\004\022\025\n\021CS_BigTestReque"
+  "st\020\005\022\026\n\022SC_BigTestResponse\020\006\022\031\n\023PACKET_P"
+  "ROTOCOL_END\020\377\377\003*Q\n\013EDBProtocol\022\025\n\021DB_PRO"
+  "TOCOL_START\020\000\022\024\n\020SGDB_ServerStart\020\001\022\025\n\017D"
+  "B_PROTOCOL_END\020\377\377\003b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 299, descriptor_table_protodef_Enum_2eproto,
+    false, false, 346, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -65,6 +66,8 @@ bool EPacketProtocol_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
+    case 6:
     case 65535:
       return true;
     default:

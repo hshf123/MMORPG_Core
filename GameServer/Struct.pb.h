@@ -46,11 +46,15 @@ struct TableStruct_Struct_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Struct_2eproto;
 namespace Protocol {
+class BigTest;
+struct BigTestDefaultTypeInternal;
+extern BigTestDefaultTypeInternal _BigTest_default_instance_;
 class SPosition;
 struct SPositionDefaultTypeInternal;
 extern SPositionDefaultTypeInternal _SPosition_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
+template<> ::Protocol::BigTest* Arena::CreateMaybeMessage<::Protocol::BigTest>(Arena*);
 template<> ::Protocol::SPosition* Arena::CreateMaybeMessage<::Protocol::SPosition>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
@@ -209,6 +213,171 @@ class SPosition final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Struct_2eproto;
 };
+// -------------------------------------------------------------------
+
+class BigTest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.BigTest) */ {
+ public:
+  inline BigTest() : BigTest(nullptr) {}
+  ~BigTest() override;
+  explicit PROTOBUF_CONSTEXPR BigTest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  BigTest(const BigTest& from);
+  BigTest(BigTest&& from) noexcept
+    : BigTest() {
+    *this = ::std::move(from);
+  }
+
+  inline BigTest& operator=(const BigTest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BigTest& operator=(BigTest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const BigTest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BigTest* internal_default_instance() {
+    return reinterpret_cast<const BigTest*>(
+               &_BigTest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(BigTest& a, BigTest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(BigTest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BigTest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BigTest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BigTest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const BigTest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const BigTest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(BigTest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.BigTest";
+  }
+  protected:
+  explicit BigTest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAFieldNumber = 1,
+    kBFieldNumber = 2,
+    kCFieldNumber = 3,
+  };
+  // int64 A = 1;
+  void clear_a();
+  int64_t a() const;
+  void set_a(int64_t value);
+  private:
+  int64_t _internal_a() const;
+  void _internal_set_a(int64_t value);
+  public:
+
+  // int64 B = 2;
+  void clear_b();
+  int64_t b() const;
+  void set_b(int64_t value);
+  private:
+  int64_t _internal_b() const;
+  void _internal_set_b(int64_t value);
+  public:
+
+  // int64 C = 3;
+  void clear_c();
+  int64_t c() const;
+  void set_c(int64_t value);
+  private:
+  int64_t _internal_c() const;
+  void _internal_set_c(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.BigTest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int64_t a_;
+  int64_t b_;
+  int64_t c_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Struct_2eproto;
+};
 // ===================================================================
 
 
@@ -260,9 +429,75 @@ inline void SPosition::set_y(float value) {
   // @@protoc_insertion_point(field_set:Protocol.SPosition.Y)
 }
 
+// -------------------------------------------------------------------
+
+// BigTest
+
+// int64 A = 1;
+inline void BigTest::clear_a() {
+  a_ = int64_t{0};
+}
+inline int64_t BigTest::_internal_a() const {
+  return a_;
+}
+inline int64_t BigTest::a() const {
+  // @@protoc_insertion_point(field_get:Protocol.BigTest.A)
+  return _internal_a();
+}
+inline void BigTest::_internal_set_a(int64_t value) {
+  
+  a_ = value;
+}
+inline void BigTest::set_a(int64_t value) {
+  _internal_set_a(value);
+  // @@protoc_insertion_point(field_set:Protocol.BigTest.A)
+}
+
+// int64 B = 2;
+inline void BigTest::clear_b() {
+  b_ = int64_t{0};
+}
+inline int64_t BigTest::_internal_b() const {
+  return b_;
+}
+inline int64_t BigTest::b() const {
+  // @@protoc_insertion_point(field_get:Protocol.BigTest.B)
+  return _internal_b();
+}
+inline void BigTest::_internal_set_b(int64_t value) {
+  
+  b_ = value;
+}
+inline void BigTest::set_b(int64_t value) {
+  _internal_set_b(value);
+  // @@protoc_insertion_point(field_set:Protocol.BigTest.B)
+}
+
+// int64 C = 3;
+inline void BigTest::clear_c() {
+  c_ = int64_t{0};
+}
+inline int64_t BigTest::_internal_c() const {
+  return c_;
+}
+inline int64_t BigTest::c() const {
+  // @@protoc_insertion_point(field_get:Protocol.BigTest.C)
+  return _internal_c();
+}
+inline void BigTest::_internal_set_c(int64_t value) {
+  
+  c_ = value;
+}
+inline void BigTest::set_c(int64_t value) {
+  _internal_set_c(value);
+  // @@protoc_insertion_point(field_set:Protocol.BigTest.C)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

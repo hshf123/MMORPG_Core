@@ -8,3 +8,10 @@ message SPosition
 	float X = 1;
 	float Y = 2;
 }
+
+message BigTest
+{
+	int64 A = 1;
+	int64 B = 2;
+	int64 C = 3;
+}
