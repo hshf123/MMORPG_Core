@@ -6,13 +6,14 @@
 
 #define PROTO(id) Protocol::EPacketProtocol::id
 #define HANDLER(handler) &ClientPacketHandler::handler
+#define RREGISTER(id, handler) RegisterHandler(PROTO(id), HANDLER(handler))
 
 void ClientPacketHandler::Init()
 {
 	PacketHandler::Init();
-	RegisterHandler(PROTO(CS_ChatRequest), HANDLER(OnCSChatRequest));
-	RegisterHandler(PROTO(CS_CircularSectorSkillRequest), HANDLER(OnCSCircularSectorSkillRequest));
-	RegisterHandler(PROTO(CS_BigTestRequest), HANDLER(OnCSBigTestRequest));
+	RREGISTER(CS_ChatRequest, OnCSChatRequest);
+	RREGISTER(CS_CircularSectorSkillRequest, OnCSCircularSectorSkillRequest);
+	RREGISTER(CS_BigTestRequest, OnCSBigTestRequest);
 }
 
 bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& session, Protocol::CSChatRequest& pkt)
