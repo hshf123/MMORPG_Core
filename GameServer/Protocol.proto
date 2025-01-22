@@ -9,42 +9,36 @@ import "Struct.proto";
 
 message CSChatRequest
 {
-	EPacketProtocol messageid			= 1;
-	string Name							= 2;
-	string Msg							= 3;
+	string Name						= 1;
+	string Msg						= 2;
 }
 
 message SCChatResponse
 {
-	EPacketProtocol messageid			= 1;
-	string Name							= 2;
-	string Msg							= 3;
+	string Name						= 1;
+	string Msg						= 2;
 }
 
 message CSCircularSectorSkillRequest
 {
-	EPacketProtocol messageid			= 1;
-	float Theta							= 2;
-	float Radius						= 3;
-	SPosition MyPos						= 4;
-	SPosition Forward					= 5;
-	SPosition TargetPos					= 6;
+	float Theta						= 1;
+	float Radius					= 2;
+	SPosition MyPos					= 3;
+	SPosition Forward				= 4;
+	SPosition TargetPos				= 5;
 }
 
 message SCCircularSectorSkillResponse
 {
-	EPacketProtocol messageid			= 1;
-	bool IsHit							= 2;
+	bool IsHit						= 1;
 }
 
 message CSBigTestRequest
 {
-	EPacketProtocol messageid			= 1;
-	repeated BigTest List				= 2;
+	repeated BigTest List				= 1;
 }
 
 message SCBigTestResponse
 {
-	EPacketProtocol messageid			= 1;
-	repeated BigTest List				= 2;
+	repeated BigTest List				= 1;
 }

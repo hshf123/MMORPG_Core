@@ -4,16 +4,12 @@
 
 #include "MathUtil.h"
 
-#define PROTO(id) Protocol::EPacketProtocol::id
-#define HANDLER(handler) &ClientPacketHandler::handler
-#define RREGISTER(id, handler) RegisterHandler(PROTO(id), HANDLER(handler))
-
 void ClientPacketHandler::Init()
 {
 	PacketHandler::Init();
-	RREGISTER(CS_ChatRequest, OnCSChatRequest);
-	RREGISTER(CS_CircularSectorSkillRequest, OnCSCircularSectorSkillRequest);
-	RREGISTER(CS_BigTestRequest, OnCSBigTestRequest);
+	_RegisterHandler(&ClientPacketHandler::OnCSChatRequest);
+	_RegisterHandler(&ClientPacketHandler::OnCSCircularSectorSkillRequest);
+	_RegisterHandler(&ClientPacketHandler::OnCSBigTestRequest);
 }
 
 bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& session, Protocol::CSChatRequest& pkt)
@@ -25,7 +21,6 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	//VIEW_INFO("Recv {} : {}", pkt.name(), pkt.msg());
 
 	Protocol::SCChatResponse packet;
-	packet.set_messageid(Protocol::EPacketProtocol::SC_ChatResponse);
 	packet.set_name(pkt.name());
 	packet.set_msg(pkt.msg());
 	//ClientSessionManager::GetInstance().Broadcast(packet);

@@ -2,7 +2,6 @@
 
 #include "CorePch.h"
 
-#pragma comment(lib, "ServerCore.lib")
 #pragma comment(lib, "Protobuf\\libprotobuf.lib")
 
 #include "Enum.pb.h"

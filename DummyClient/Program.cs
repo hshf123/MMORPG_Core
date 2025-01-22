@@ -65,7 +65,6 @@ namespace DummyClient
                     int listSize = SetSize / 24;
 
                     CSBigTestRequest packet = new CSBigTestRequest();
-                    packet.Messageid = EPacketProtocol.CsBigTestRequest;
                     int size = packet.CalculateSize();
                     for (int i = 0; i < listSize; i++)
                     {

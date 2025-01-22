@@ -24,9 +24,7 @@ namespace Protocol {
 PROTOBUF_CONSTEXPR CSChatRequest::CSChatRequest(
     ::_pbi::ConstantInitialized)
   : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , msg_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , messageid_(0)
-{}
+  , msg_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct CSChatRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CSChatRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -39,9 +37,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR SCChatResponse::SCChatResponse(
     ::_pbi::ConstantInitialized)
   : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , msg_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , messageid_(0)
-{}
+  , msg_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct SCChatResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SCChatResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -56,8 +52,6 @@ PROTOBUF_CONSTEXPR CSCircularSectorSkillRequest::CSCircularSectorSkillRequest(
   : mypos_(nullptr)
   , forward_(nullptr)
   , targetpos_(nullptr)
-  , messageid_(0)
-
   , theta_(0)
   , radius_(0){}
 struct CSCircularSectorSkillRequestDefaultTypeInternal {
@@ -71,9 +65,7 @@ struct CSCircularSectorSkillRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSCircularSectorSkillRequestDefaultTypeInternal _CSCircularSectorSkillRequest_default_instance_;
 PROTOBUF_CONSTEXPR SCCircularSectorSkillResponse::SCCircularSectorSkillResponse(
     ::_pbi::ConstantInitialized)
-  : messageid_(0)
-
-  , ishit_(false){}
+  : ishit_(false){}
 struct SCCircularSectorSkillResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SCCircularSectorSkillResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -85,9 +77,7 @@ struct SCCircularSectorSkillResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCCircularSectorSkillResponseDefaultTypeInternal _SCCircularSectorSkillResponse_default_instance_;
 PROTOBUF_CONSTEXPR CSBigTestRequest::CSBigTestRequest(
     ::_pbi::ConstantInitialized)
-  : list_()
-  , messageid_(0)
-{}
+  : list_(){}
 struct CSBigTestRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CSBigTestRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -99,9 +89,7 @@ struct CSBigTestRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSBigTestRequestDefaultTypeInternal _CSBigTestRequest_default_instance_;
 PROTOBUF_CONSTEXPR SCBigTestResponse::SCBigTestResponse(
     ::_pbi::ConstantInitialized)
-  : list_()
-  , messageid_(0)
-{}
+  : list_(){}
 struct SCBigTestResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SCBigTestResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -123,7 +111,6 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CSChatRequest, messageid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CSChatRequest, name_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CSChatRequest, msg_),
   ~0u,  // no _has_bits_
@@ -132,7 +119,6 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, messageid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, name_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SCChatResponse, msg_),
   ~0u,  // no _has_bits_
@@ -141,7 +127,6 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, messageid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, theta_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, radius_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CSCircularSectorSkillRequest, mypos_),
@@ -153,7 +138,6 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SCCircularSectorSkillResponse, messageid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SCCircularSectorSkillResponse, ishit_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CSBigTestRequest, _internal_metadata_),
@@ -161,7 +145,6 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CSBigTestRequest, messageid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CSBigTestRequest, list_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::SCBigTestResponse, _internal_metadata_),
@@ -169,16 +152,15 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SCBigTestResponse, messageid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SCBigTestResponse, list_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::CSChatRequest)},
-  { 9, -1, -1, sizeof(::Protocol::SCChatResponse)},
-  { 18, -1, -1, sizeof(::Protocol::CSCircularSectorSkillRequest)},
-  { 30, -1, -1, sizeof(::Protocol::SCCircularSectorSkillResponse)},
-  { 38, -1, -1, sizeof(::Protocol::CSBigTestRequest)},
-  { 46, -1, -1, sizeof(::Protocol::SCBigTestResponse)},
+  { 8, -1, -1, sizeof(::Protocol::SCChatResponse)},
+  { 16, -1, -1, sizeof(::Protocol::CSCircularSectorSkillRequest)},
+  { 27, -1, -1, sizeof(::Protocol::SCCircularSectorSkillResponse)},
+  { 34, -1, -1, sizeof(::Protocol::CSBigTestRequest)},
+  { 41, -1, -1, sizeof(::Protocol::SCBigTestResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -193,25 +175,18 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\016Protocol.proto\022\010Protocol\032\037google/proto"
   "buf/timestamp.proto\032\nEnum.proto\032\014Struct."
-  "proto\"X\n\rCSChatRequest\022,\n\tmessageid\030\001 \001("
-  "\0162\031.Protocol.EPacketProtocol\022\014\n\004Name\030\002 \001"
-  "(\t\022\013\n\003Msg\030\003 \001(\t\"Y\n\016SCChatResponse\022,\n\tmes"
-  "sageid\030\001 \001(\0162\031.Protocol.EPacketProtocol\022"
-  "\014\n\004Name\030\002 \001(\t\022\013\n\003Msg\030\003 \001(\t\"\335\001\n\034CSCircula"
-  "rSectorSkillRequest\022,\n\tmessageid\030\001 \001(\0162\031"
-  ".Protocol.EPacketProtocol\022\r\n\005Theta\030\002 \001(\002"
-  "\022\016\n\006Radius\030\003 \001(\002\022\"\n\005MyPos\030\004 \001(\0132\023.Protoc"
-  "ol.SPosition\022$\n\007Forward\030\005 \001(\0132\023.Protocol"
-  ".SPosition\022&\n\tTargetPos\030\006 \001(\0132\023.Protocol"
-  ".SPosition\"\\\n\035SCCircularSectorSkillRespo"
-  "nse\022,\n\tmessageid\030\001 \001(\0162\031.Protocol.EPacke"
-  "tProtocol\022\r\n\005IsHit\030\002 \001(\010\"a\n\020CSBigTestReq"
-  "uest\022,\n\tmessageid\030\001 \001(\0162\031.Protocol.EPack"
-  "etProtocol\022\037\n\004List\030\002 \003(\0132\021.Protocol.BigT"
-  "est\"b\n\021SCBigTestResponse\022,\n\tmessageid\030\001 "
-  "\001(\0162\031.Protocol.EPacketProtocol\022\037\n\004List\030\002"
-  " \003(\0132\021.Protocol.BigTestB\033\252\002\030Google.Proto"
-  "buf.Protocolb\006proto3"
+  "proto\"*\n\rCSChatRequest\022\014\n\004Name\030\001 \001(\t\022\013\n\003"
+  "Msg\030\002 \001(\t\"+\n\016SCChatResponse\022\014\n\004Name\030\001 \001("
+  "\t\022\013\n\003Msg\030\002 \001(\t\"\257\001\n\034CSCircularSectorSkill"
+  "Request\022\r\n\005Theta\030\001 \001(\002\022\016\n\006Radius\030\002 \001(\002\022\""
+  "\n\005MyPos\030\003 \001(\0132\023.Protocol.SPosition\022$\n\007Fo"
+  "rward\030\004 \001(\0132\023.Protocol.SPosition\022&\n\tTarg"
+  "etPos\030\005 \001(\0132\023.Protocol.SPosition\".\n\035SCCi"
+  "rcularSectorSkillResponse\022\r\n\005IsHit\030\001 \001(\010"
+  "\"3\n\020CSBigTestRequest\022\037\n\004List\030\001 \003(\0132\021.Pro"
+  "tocol.BigTest\"4\n\021SCBigTestResponse\022\037\n\004Li"
+  "st\030\001 \003(\0132\021.Protocol.BigTestB\033\252\002\030Google.P"
+  "rotobuf.Protocolb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Protocol_2eproto_deps[3] = {
   &::descriptor_table_Enum_2eproto,
@@ -220,7 +195,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Protocol_2eproto_de
 };
 static ::_pbi::once_flag descriptor_table_Protocol_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Protocol_2eproto = {
-    false, false, 820, descriptor_table_protodef_Protocol_2eproto,
+    false, false, 544, descriptor_table_protodef_Protocol_2eproto,
     "Protocol.proto",
     &descriptor_table_Protocol_2eproto_once, descriptor_table_Protocol_2eproto_deps, 3, 6,
     schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
@@ -266,7 +241,6 @@ CSChatRequest::CSChatRequest(const CSChatRequest& from)
     msg_.Set(from._internal_msg(), 
       GetArenaForAllocation());
   }
-  messageid_ = from.messageid_;
   // @@protoc_insertion_point(copy_constructor:Protocol.CSChatRequest)
 }
 
@@ -279,7 +253,6 @@ msg_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   msg_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-messageid_ = 0;
 }
 
 CSChatRequest::~CSChatRequest() {
@@ -309,7 +282,6 @@ void CSChatRequest::Clear() {
 
   name_.ClearToEmpty();
   msg_.ClearToEmpty();
-  messageid_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -319,18 +291,9 @@ const char* CSChatRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext*
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .Protocol.EPacketProtocol messageid = 1;
+      // string Name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_messageid(static_cast<::Protocol::EPacketProtocol>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      // string Name = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -338,9 +301,9 @@ const char* CSChatRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // string Msg = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // string Msg = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_msg();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -377,31 +340,24 @@ uint8_t* CSChatRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_messageid(), target);
-  }
-
-  // string Name = 2;
+  // string Name = 1;
   if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "Protocol.CSChatRequest.Name");
     target = stream->WriteStringMaybeAliased(
-        2, this->_internal_name(), target);
+        1, this->_internal_name(), target);
   }
 
-  // string Msg = 3;
+  // string Msg = 2;
   if (!this->_internal_msg().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_msg().data(), static_cast<int>(this->_internal_msg().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "Protocol.CSChatRequest.Msg");
     target = stream->WriteStringMaybeAliased(
-        3, this->_internal_msg(), target);
+        2, this->_internal_msg(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -420,24 +376,18 @@ size_t CSChatRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string Name = 2;
+  // string Name = 1;
   if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
-  // string Msg = 3;
+  // string Msg = 2;
   if (!this->_internal_msg().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_msg());
-  }
-
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_messageid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
@@ -468,9 +418,6 @@ void CSChatRequest::MergeFrom(const CSChatRequest& from) {
   if (!from._internal_msg().empty()) {
     _internal_set_msg(from._internal_msg());
   }
-  if (from._internal_messageid() != 0) {
-    _internal_set_messageid(from._internal_messageid());
-  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -498,7 +445,6 @@ void CSChatRequest::InternalSwap(CSChatRequest* other) {
       &msg_, lhs_arena,
       &other->msg_, rhs_arena
   );
-  swap(messageid_, other->messageid_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CSChatRequest::GetMetadata() const {
@@ -538,7 +484,6 @@ SCChatResponse::SCChatResponse(const SCChatResponse& from)
     msg_.Set(from._internal_msg(), 
       GetArenaForAllocation());
   }
-  messageid_ = from.messageid_;
   // @@protoc_insertion_point(copy_constructor:Protocol.SCChatResponse)
 }
 
@@ -551,7 +496,6 @@ msg_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   msg_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-messageid_ = 0;
 }
 
 SCChatResponse::~SCChatResponse() {
@@ -581,7 +525,6 @@ void SCChatResponse::Clear() {
 
   name_.ClearToEmpty();
   msg_.ClearToEmpty();
-  messageid_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -591,18 +534,9 @@ const char* SCChatResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .Protocol.EPacketProtocol messageid = 1;
+      // string Name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_messageid(static_cast<::Protocol::EPacketProtocol>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      // string Name = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -610,9 +544,9 @@ const char* SCChatResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
-      // string Msg = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // string Msg = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_msg();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -649,31 +583,24 @@ uint8_t* SCChatResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_messageid(), target);
-  }
-
-  // string Name = 2;
+  // string Name = 1;
   if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "Protocol.SCChatResponse.Name");
     target = stream->WriteStringMaybeAliased(
-        2, this->_internal_name(), target);
+        1, this->_internal_name(), target);
   }
 
-  // string Msg = 3;
+  // string Msg = 2;
   if (!this->_internal_msg().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_msg().data(), static_cast<int>(this->_internal_msg().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "Protocol.SCChatResponse.Msg");
     target = stream->WriteStringMaybeAliased(
-        3, this->_internal_msg(), target);
+        2, this->_internal_msg(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -692,24 +619,18 @@ size_t SCChatResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string Name = 2;
+  // string Name = 1;
   if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
-  // string Msg = 3;
+  // string Msg = 2;
   if (!this->_internal_msg().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_msg());
-  }
-
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_messageid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
@@ -740,9 +661,6 @@ void SCChatResponse::MergeFrom(const SCChatResponse& from) {
   if (!from._internal_msg().empty()) {
     _internal_set_msg(from._internal_msg());
   }
-  if (from._internal_messageid() != 0) {
-    _internal_set_messageid(from._internal_messageid());
-  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -770,7 +688,6 @@ void SCChatResponse::InternalSwap(SCChatResponse* other) {
       &msg_, lhs_arena,
       &other->msg_, rhs_arena
   );
-  swap(messageid_, other->messageid_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SCChatResponse::GetMetadata() const {
@@ -842,9 +759,9 @@ CSCircularSectorSkillRequest::CSCircularSectorSkillRequest(const CSCircularSecto
   } else {
     targetpos_ = nullptr;
   }
-  ::memcpy(&messageid_, &from.messageid_,
+  ::memcpy(&theta_, &from.theta_,
     static_cast<size_t>(reinterpret_cast<char*>(&radius_) -
-    reinterpret_cast<char*>(&messageid_)) + sizeof(radius_));
+    reinterpret_cast<char*>(&theta_)) + sizeof(radius_));
   // @@protoc_insertion_point(copy_constructor:Protocol.CSCircularSectorSkillRequest)
 }
 
@@ -893,9 +810,9 @@ void CSCircularSectorSkillRequest::Clear() {
     delete targetpos_;
   }
   targetpos_ = nullptr;
-  ::memset(&messageid_, 0, static_cast<size_t>(
+  ::memset(&theta_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&radius_) -
-      reinterpret_cast<char*>(&messageid_)) + sizeof(radius_));
+      reinterpret_cast<char*>(&theta_)) + sizeof(radius_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -905,50 +822,41 @@ const char* CSCircularSectorSkillRequest::_InternalParse(const char* ptr, ::_pbi
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .Protocol.EPacketProtocol messageid = 1;
+      // float Theta = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_messageid(static_cast<::Protocol::EPacketProtocol>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      // float Theta = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
           theta_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float Radius = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
+      // float Radius = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           radius_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.SPosition MyPos = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+      // .Protocol.SPosition MyPos = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_mypos(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.SPosition Forward = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+      // .Protocol.SPosition Forward = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_forward(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.SPosition TargetPos = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+      // .Protocol.SPosition TargetPos = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_targetpos(), ptr);
           CHK_(ptr);
         } else
@@ -983,51 +891,44 @@ uint8_t* CSCircularSectorSkillRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_messageid(), target);
-  }
-
-  // float Theta = 2;
+  // float Theta = 1;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_theta = this->_internal_theta();
   uint32_t raw_theta;
   memcpy(&raw_theta, &tmp_theta, sizeof(tmp_theta));
   if (raw_theta != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_theta(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(1, this->_internal_theta(), target);
   }
 
-  // float Radius = 3;
+  // float Radius = 2;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_radius = this->_internal_radius();
   uint32_t raw_radius;
   memcpy(&raw_radius, &tmp_radius, sizeof(tmp_radius));
   if (raw_radius != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_radius(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_radius(), target);
   }
 
-  // .Protocol.SPosition MyPos = 4;
+  // .Protocol.SPosition MyPos = 3;
   if (this->_internal_has_mypos()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::mypos(this),
+      InternalWriteMessage(3, _Internal::mypos(this),
         _Internal::mypos(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.SPosition Forward = 5;
+  // .Protocol.SPosition Forward = 4;
   if (this->_internal_has_forward()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::forward(this),
+      InternalWriteMessage(4, _Internal::forward(this),
         _Internal::forward(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.SPosition TargetPos = 6;
+  // .Protocol.SPosition TargetPos = 5;
   if (this->_internal_has_targetpos()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, _Internal::targetpos(this),
+      InternalWriteMessage(5, _Internal::targetpos(this),
         _Internal::targetpos(this).GetCachedSize(), target, stream);
   }
 
@@ -1047,34 +948,28 @@ size_t CSCircularSectorSkillRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Protocol.SPosition MyPos = 4;
+  // .Protocol.SPosition MyPos = 3;
   if (this->_internal_has_mypos()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *mypos_);
   }
 
-  // .Protocol.SPosition Forward = 5;
+  // .Protocol.SPosition Forward = 4;
   if (this->_internal_has_forward()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *forward_);
   }
 
-  // .Protocol.SPosition TargetPos = 6;
+  // .Protocol.SPosition TargetPos = 5;
   if (this->_internal_has_targetpos()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *targetpos_);
   }
 
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_messageid());
-  }
-
-  // float Theta = 2;
+  // float Theta = 1;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_theta = this->_internal_theta();
   uint32_t raw_theta;
@@ -1083,7 +978,7 @@ size_t CSCircularSectorSkillRequest::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float Radius = 3;
+  // float Radius = 2;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_radius = this->_internal_radius();
   uint32_t raw_radius;
@@ -1122,9 +1017,6 @@ void CSCircularSectorSkillRequest::MergeFrom(const CSCircularSectorSkillRequest&
   }
   if (from._internal_has_targetpos()) {
     _internal_mutable_targetpos()->::Protocol::SPosition::MergeFrom(from._internal_targetpos());
-  }
-  if (from._internal_messageid() != 0) {
-    _internal_set_messageid(from._internal_messageid());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_theta = from._internal_theta();
@@ -1186,17 +1078,12 @@ SCCircularSectorSkillResponse::SCCircularSectorSkillResponse(::PROTOBUF_NAMESPAC
 SCCircularSectorSkillResponse::SCCircularSectorSkillResponse(const SCCircularSectorSkillResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&messageid_, &from.messageid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&ishit_) -
-    reinterpret_cast<char*>(&messageid_)) + sizeof(ishit_));
+  ishit_ = from.ishit_;
   // @@protoc_insertion_point(copy_constructor:Protocol.SCCircularSectorSkillResponse)
 }
 
 inline void SCCircularSectorSkillResponse::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&messageid_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&ishit_) -
-    reinterpret_cast<char*>(&messageid_)) + sizeof(ishit_));
+ishit_ = false;
 }
 
 SCCircularSectorSkillResponse::~SCCircularSectorSkillResponse() {
@@ -1222,9 +1109,7 @@ void SCCircularSectorSkillResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&messageid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&ishit_) -
-      reinterpret_cast<char*>(&messageid_)) + sizeof(ishit_));
+  ishit_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1234,18 +1119,9 @@ const char* SCCircularSectorSkillResponse::_InternalParse(const char* ptr, ::_pb
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .Protocol.EPacketProtocol messageid = 1;
+      // bool IsHit = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_messageid(static_cast<::Protocol::EPacketProtocol>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      // bool IsHit = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           ishit_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
@@ -1280,17 +1156,10 @@ uint8_t* SCCircularSectorSkillResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_messageid(), target);
-  }
-
-  // bool IsHit = 2;
+  // bool IsHit = 1;
   if (this->_internal_ishit() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_ishit(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_ishit(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1309,13 +1178,7 @@ size_t SCCircularSectorSkillResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_messageid());
-  }
-
-  // bool IsHit = 2;
+  // bool IsHit = 1;
   if (this->_internal_ishit() != 0) {
     total_size += 1 + 1;
   }
@@ -1342,9 +1205,6 @@ void SCCircularSectorSkillResponse::MergeFrom(const SCCircularSectorSkillRespons
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_messageid() != 0) {
-    _internal_set_messageid(from._internal_messageid());
-  }
   if (from._internal_ishit() != 0) {
     _internal_set_ishit(from._internal_ishit());
   }
@@ -1365,12 +1225,7 @@ bool SCCircularSectorSkillResponse::IsInitialized() const {
 void SCCircularSectorSkillResponse::InternalSwap(SCCircularSectorSkillResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SCCircularSectorSkillResponse, ishit_)
-      + sizeof(SCCircularSectorSkillResponse::ishit_)
-      - PROTOBUF_FIELD_OFFSET(SCCircularSectorSkillResponse, messageid_)>(
-          reinterpret_cast<char*>(&messageid_),
-          reinterpret_cast<char*>(&other->messageid_));
+  swap(ishit_, other->ishit_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SCCircularSectorSkillResponse::GetMetadata() const {
@@ -1399,12 +1254,10 @@ CSBigTestRequest::CSBigTestRequest(const CSBigTestRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       list_(from.list_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  messageid_ = from.messageid_;
   // @@protoc_insertion_point(copy_constructor:Protocol.CSBigTestRequest)
 }
 
 inline void CSBigTestRequest::SharedCtor() {
-messageid_ = 0;
 }
 
 CSBigTestRequest::~CSBigTestRequest() {
@@ -1431,7 +1284,6 @@ void CSBigTestRequest::Clear() {
   (void) cached_has_bits;
 
   list_.Clear();
-  messageid_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1441,25 +1293,16 @@ const char* CSBigTestRequest::_InternalParse(const char* ptr, ::_pbi::ParseConte
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .Protocol.EPacketProtocol messageid = 1;
+      // repeated .Protocol.BigTest List = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_messageid(static_cast<::Protocol::EPacketProtocol>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .Protocol.BigTest List = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_list(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -1492,19 +1335,12 @@ uint8_t* CSBigTestRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_messageid(), target);
-  }
-
-  // repeated .Protocol.BigTest List = 2;
+  // repeated .Protocol.BigTest List = 1;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_list_size()); i < n; i++) {
     const auto& repfield = this->_internal_list(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1523,17 +1359,11 @@ size_t CSBigTestRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.BigTest List = 2;
+  // repeated .Protocol.BigTest List = 1;
   total_size += 1UL * this->_internal_list_size();
   for (const auto& msg : this->list_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_messageid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
@@ -1559,9 +1389,6 @@ void CSBigTestRequest::MergeFrom(const CSBigTestRequest& from) {
   (void) cached_has_bits;
 
   list_.MergeFrom(from.list_);
-  if (from._internal_messageid() != 0) {
-    _internal_set_messageid(from._internal_messageid());
-  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1580,7 +1407,6 @@ void CSBigTestRequest::InternalSwap(CSBigTestRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   list_.InternalSwap(&other->list_);
-  swap(messageid_, other->messageid_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CSBigTestRequest::GetMetadata() const {
@@ -1609,12 +1435,10 @@ SCBigTestResponse::SCBigTestResponse(const SCBigTestResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       list_(from.list_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  messageid_ = from.messageid_;
   // @@protoc_insertion_point(copy_constructor:Protocol.SCBigTestResponse)
 }
 
 inline void SCBigTestResponse::SharedCtor() {
-messageid_ = 0;
 }
 
 SCBigTestResponse::~SCBigTestResponse() {
@@ -1641,7 +1465,6 @@ void SCBigTestResponse::Clear() {
   (void) cached_has_bits;
 
   list_.Clear();
-  messageid_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1651,25 +1474,16 @@ const char* SCBigTestResponse::_InternalParse(const char* ptr, ::_pbi::ParseCont
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .Protocol.EPacketProtocol messageid = 1;
+      // repeated .Protocol.BigTest List = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_messageid(static_cast<::Protocol::EPacketProtocol>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .Protocol.BigTest List = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_list(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -1702,19 +1516,12 @@ uint8_t* SCBigTestResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_messageid(), target);
-  }
-
-  // repeated .Protocol.BigTest List = 2;
+  // repeated .Protocol.BigTest List = 1;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_list_size()); i < n; i++) {
     const auto& repfield = this->_internal_list(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1733,17 +1540,11 @@ size_t SCBigTestResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.BigTest List = 2;
+  // repeated .Protocol.BigTest List = 1;
   total_size += 1UL * this->_internal_list_size();
   for (const auto& msg : this->list_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // .Protocol.EPacketProtocol messageid = 1;
-  if (this->_internal_messageid() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_messageid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
@@ -1769,9 +1570,6 @@ void SCBigTestResponse::MergeFrom(const SCBigTestResponse& from) {
   (void) cached_has_bits;
 
   list_.MergeFrom(from.list_);
-  if (from._internal_messageid() != 0) {
-    _internal_set_messageid(from._internal_messageid());
-  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1790,7 +1588,6 @@ void SCBigTestResponse::InternalSwap(SCBigTestResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   list_.InternalSwap(&other->list_);
-  swap(messageid_, other->messageid_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SCBigTestResponse::GetMetadata() const {

@@ -237,6 +237,11 @@
     <None Include="Protocol.proto" />
     <None Include="Struct.proto" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServerCore\ServerCore.vcxproj">
+      <Project>{cbed3636-f263-4dbe-a6b2-adf733b6b32d}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
