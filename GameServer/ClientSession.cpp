@@ -27,3 +27,8 @@ void ClientSession::OnSend([[maybe_unused]]int32 len)
 {
 	//VIEW_WRITE_INFO("Send Complete{}", len);
 }
+
+void ClientSession::Send(uint16 protocol, google::protobuf::Message& pkt)
+{
+	PacketSession::Send(ClientPacketHandler::GetInstance().MakeSendBuffer(pkt, protocol));
+}

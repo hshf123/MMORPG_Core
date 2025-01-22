@@ -34,13 +34,14 @@ protected:
 		return func(session, pkt);
 	}
 
+public:
 	template<class T>
 	std::shared_ptr<SendBuffer> MakeSendBuffer(T& pkt, uint16 pktId)
 	{
 		const uint16 dataSize = static_cast<uint16>(pkt.ByteSizeLong());
 		const uint16 packetSize = dataSize + sizeof(PacketHeader);
 
-		std::shared_ptr<SendBuffer>  sendBuffer = SendBufferManager::GetInstance().Open(packetSize);
+		std::shared_ptr<SendBuffer> sendBuffer = SendBufferManager::GetInstance().Open(packetSize);
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
 		header->size = packetSize;
 		header->id = pktId;

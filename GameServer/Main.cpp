@@ -21,7 +21,7 @@
 uint32 GetThreadCount()
 {
 #ifdef DEV_TEST
-	return 16;
+	return 1;
 #else
 	std::thread t;
 	return t.hardware_concurrency();
@@ -79,6 +79,8 @@ int main()
 #endif
 					ThreadManager::DistributeReservedJobs();
 					ThreadManager::DoGlobalQueueWork();
+
+					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 				}
 			});
 	}

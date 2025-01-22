@@ -24,7 +24,7 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	packet.set_name(pkt.name());
 	packet.set_msg(pkt.msg());
 	//ClientSessionManager::GetInstance().Broadcast(packet);
-	cs->Send(ClientPacketHandler::GetInstance().MakeSendBuffer(packet, Protocol::SC_ChatResponse));
+	cs->Send(Protocol::EPacketProtocol::SC_ChatResponse, packet);
 	return true;
 }
 
@@ -44,8 +44,7 @@ bool ClientPacketHandler::OnCSCircularSectorSkillRequest(std::shared_ptr<PacketS
 
 	Protocol::SCCircularSectorSkillResponse packet;
 	packet.set_ishit(ret);
-	cs->Send(ClientPacketHandler::GetInstance().MakeSendBuffer(packet, Protocol::SC_CircularSectorSkillResponse));
-
+	cs->Send(Protocol::EPacketProtocol::SC_CircularSectorSkillResponse, packet);
 	return true;
 }
 
@@ -65,7 +64,6 @@ bool ClientPacketHandler::OnCSBigTestRequest(std::shared_ptr<PacketSession>& ses
 		t->set_c(p.c());
 	}
 
-	cs->Send(ClientPacketHandler::GetInstance().MakeSendBuffer(packet, Protocol::SC_BigTestResponse));
-
+	cs->Send(Protocol::EPacketProtocol::SC_BigTestResponse, packet);
 	return true;
 }

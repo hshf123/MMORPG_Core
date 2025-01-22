@@ -12,7 +12,6 @@
 #include <shared_mutex>
 #include <thread>
 #include <functional>
-#include <atomic>
 #include <format>
 #include <chrono>
 #include <winsock2.h>
@@ -37,6 +36,7 @@
 #include <unordered_set>
 #include <array>
 #include <atomic>
+#include <span>
 
 #include "Macro.h"
 #include "Types.h"

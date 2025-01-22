@@ -9,16 +9,15 @@ public:
 	void OnConnected(std::shared_ptr<PacketSession> session);
 	void OnDisconnected(std::shared_ptr<PacketSession> session);
 
-	void Broadcast(std::shared_ptr<SendBuffer> buffer);
-
 	template<class T>
-	void Broadcast(T& pkt)
+	void Broadcast(uint16 protocol, T& pkt)
 	{
-		Broadcast(ClientPacketHandler::GetInstance().MakeSendBuffer(pkt));
+		WRITE_LOCK;
+		for (auto& cs : _sessions)
+			cs->Send(protocol, pkt);
 	}
 
 private:
 	USE_LOCK;	// SessionLock;
 	std::unordered_set<std::shared_ptr<ClientSession>> _sessions;
 };
-

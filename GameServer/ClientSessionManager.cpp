@@ -23,10 +23,3 @@ void ClientSessionManager::OnDisconnected(std::shared_ptr<PacketSession> session
 	WRITE_LOCK;
 	_sessions.erase(cs);
 }
-
-void ClientSessionManager::Broadcast(std::shared_ptr<SendBuffer> buffer)
-{
-	WRITE_LOCK;
-	for (auto& cs : _sessions)
-		cs->Send(buffer);
-}
