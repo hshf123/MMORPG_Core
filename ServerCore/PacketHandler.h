@@ -22,8 +22,6 @@ public:
 				return (static_cast<HandlerType*>(this)->*handler)(session, pkt);
 			});
 	}
-	template<class T>
-	std::shared_ptr<SendBuffer> MakeSendBuffer(T& pkt) { return MakeSendBuffer(pkt, pkt.messageid()); }
 
 protected:
 	template<class PacketType, class ProcessFunc>
