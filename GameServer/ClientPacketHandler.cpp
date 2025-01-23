@@ -12,7 +12,7 @@ void ClientPacketHandler::Init()
 	_RegisterHandler(&ClientPacketHandler::OnCSBigTestRequest);
 }
 
-bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& session, Protocol::CSChatRequest& pkt)
+bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& session, CSChatRequest& pkt)
 {
 	std::shared_ptr<ClientSession> cs = static_pointer_cast<ClientSession>(session);
 	if (cs == nullptr)
@@ -20,15 +20,15 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 
 	//VIEW_INFO("Recv {} : {}", pkt.name(), pkt.msg());
 
-	Protocol::SCChatResponse packet;
+	SCChatResponse packet;
 	packet.set_name(pkt.name());
 	packet.set_msg(pkt.msg());
 	//ClientSessionManager::GetInstance().Broadcast(packet);
-	cs->Send(Protocol::EPacketProtocol::SC_ChatResponse, packet);
+	cs->Send(EPacketProtocol::SC_ChatResponse, packet);
 	return true;
 }
 
-bool ClientPacketHandler::OnCSCircularSectorSkillRequest(std::shared_ptr<PacketSession>& session, Protocol::CSCircularSectorSkillRequest& pkt)
+bool ClientPacketHandler::OnCSCircularSectorSkillRequest(std::shared_ptr<PacketSession>& session, CSCircularSectorSkillRequest& pkt)
 {
 	std::shared_ptr<ClientSession> cs = static_pointer_cast<ClientSession>(session);
 	if (cs == nullptr)
@@ -42,19 +42,19 @@ bool ClientPacketHandler::OnCSCircularSectorSkillRequest(std::shared_ptr<PacketS
 		Vec2(pkt.targetpos().x(), pkt.targetpos().y())
 	);
 
-	Protocol::SCCircularSectorSkillResponse packet;
+	SCCircularSectorSkillResponse packet;
 	packet.set_ishit(ret);
-	cs->Send(Protocol::EPacketProtocol::SC_CircularSectorSkillResponse, packet);
+	cs->Send(EPacketProtocol::SC_CircularSectorSkillResponse, packet);
 	return true;
 }
 
-bool ClientPacketHandler::OnCSBigTestRequest(std::shared_ptr<PacketSession>& session, Protocol::CSBigTestRequest& pkt)
+bool ClientPacketHandler::OnCSBigTestRequest(std::shared_ptr<PacketSession>& session, CSBigTestRequest& pkt)
 {
 	std::shared_ptr<ClientSession> cs = static_pointer_cast<ClientSession>(session);
 	if (cs == nullptr)
 		return false;
 
-	Protocol::SCBigTestResponse packet;
+	SCBigTestResponse packet;
 
 	for (const auto& p : pkt.list())
 	{
@@ -64,6 +64,6 @@ bool ClientPacketHandler::OnCSBigTestRequest(std::shared_ptr<PacketSession>& ses
 		t->set_c(p.c());
 	}
 
-	cs->Send(Protocol::EPacketProtocol::SC_BigTestResponse, packet);
+	cs->Send(EPacketProtocol::SC_BigTestResponse, packet);
 	return true;
 }

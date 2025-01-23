@@ -7,3 +7,5 @@
 #include "Enum.pb.h"
 #include "Struct.pb.h"
 #include "Protocol.pb.h"
+
+using namespace Protocol;

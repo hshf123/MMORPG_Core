@@ -58,7 +58,7 @@ int main()
 
 	LogManager::GetInstance().Launch();
 	tdbBalancer->Launch();
-	tdbBalancer->Push(PoolAlloc<DBData>(Protocol::EDBProtocol::SGDB_ServerStart));
+	tdbBalancer->Push(PoolAlloc<DBData>(EDBProtocol::SGDB_ServerStart));
 
 	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
 		NetAddress(L"0.0.0.0", 9999),

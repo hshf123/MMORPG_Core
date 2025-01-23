@@ -6,9 +6,9 @@ class ClientPacketHandler : public PacketHandler, public RefSingleton<ClientPack
 {
 public:
 	void Init() override;
-	bool OnCSChatRequest(std::shared_ptr<PacketSession>& session, Protocol::CSChatRequest& pkt);
-	bool OnCSCircularSectorSkillRequest(std::shared_ptr<PacketSession>& session, Protocol::CSCircularSectorSkillRequest& pkt);
-	bool OnCSBigTestRequest(std::shared_ptr<PacketSession>& session, Protocol::CSBigTestRequest& pkt);
+	bool OnCSChatRequest(std::shared_ptr<PacketSession>& session, CSChatRequest& pkt);
+	bool OnCSCircularSectorSkillRequest(std::shared_ptr<PacketSession>& session, CSCircularSectorSkillRequest& pkt);
+	bool OnCSBigTestRequest(std::shared_ptr<PacketSession>& session, CSBigTestRequest& pkt);
 
 private:
 	template<class HandlerType, class PacketType, typename = typename std::enable_if<std::is_base_of<PacketHandler, HandlerType>::value>::type>
@@ -17,8 +17,8 @@ private:
 		PacketType tempPacket;
 		std::string packetName = tempPacket.GetDescriptor()->name();
 		packetName.insert(2, "_");
-		Protocol::EPacketProtocol protocol;
-		if (Protocol::EPacketProtocol_Parse(packetName, &protocol))
+		EPacketProtocol protocol;
+		if (EPacketProtocol_Parse(packetName, &protocol))
 		{
 			return RegisterHandler(protocol, [=](std::shared_ptr<PacketSession>& session, BYTE* buffer, int32 len)
 				{
