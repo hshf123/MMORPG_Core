@@ -40,9 +40,9 @@ int main()
 	LogManager::GetInstance().Initialize("GameServer");
 	GameDBHandler::GetInstance().Init();
 	ClientPacketHandler::GetInstance().Init();
-	std::shared_ptr<GameDBLoadBalancer> tdbBalancer = PoolAlloc<GameDBLoadBalancer>();
+	//std::shared_ptr<GameDBLoadBalancer> tdbBalancer = PoolAlloc<GameDBLoadBalancer>();
 #ifdef DEV_TEST
-	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 1);
+	//tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 1);
 #else
 	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 8);
 #endif
@@ -57,8 +57,8 @@ int main()
 	//d.Accept(writer);
 
 	LogManager::GetInstance().Launch();
-	tdbBalancer->Launch();
-	tdbBalancer->Push(PoolAlloc<DBData>(EDBProtocol::SGDB_ServerStart));
+	//tdbBalancer->Launch();
+	//tdbBalancer->Push(PoolAlloc<DBData>(EDBProtocol::SGDB_ServerStart));
 
 	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
 		NetAddress(L"0.0.0.0", 9999),
@@ -89,13 +89,14 @@ int main()
 	uint64 tick = TimeUtils::GetTick64();
 	while (true)
 	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		if (tick > TimeUtils::GetTick64())
 			continue;
 		PDH_FMT_COUNTERVALUE counterVal;
 		::PdhCollectQueryData(cpuQuery);
 		::PdhGetFormattedCounterValue(cpuTotal, PDH_FMT_DOUBLE, NULL, &counterVal);
 		VIEW_INFO("CPU USAGE : {}", counterVal.doubleValue);
-		tick += TimeUtils::OneSec;
+		tick += (TimeUtils::OneMin / 2);
 	}
 #else
 	while (true)
