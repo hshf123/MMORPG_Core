@@ -29,5 +29,6 @@ public class ServerSession : PacketSession
 
     public override void OnSend(int numOfBytes)
     {
+        //Console.WriteLine($"Send Size : {numOfBytes}");
     }
 }

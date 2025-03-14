@@ -8,6 +8,7 @@ namespace DummyClient
     internal class Program
     {
         static readonly int SetSize = 8096;
+        static readonly int ConnectCount = 14000;
         //static int pakcetNum = 0;
 
         static KeyValuePair<float, float>[] targetPosList =
@@ -23,15 +24,27 @@ namespace DummyClient
             Thread.Sleep(1000);
 
             Connector connector = new Connector();
-            connector.Connect(
-                "127.0.0.1",                                                            // IP
-                9999,                                                                   // Port
-                () =>
-                {
-                    return ServerSessionManager.Instance.CreateSession();               // Session Create Func Ptr
-                },
-                1                                                                    // Dummy Client Count
-            );
+
+            int connCount = 0;
+            long tick = System.Environment.TickCount64;
+            while(connCount < ConnectCount)
+            {
+                if (tick > System.Environment.TickCount64)
+                    continue;
+                tick = System.Environment.TickCount64 + 1000;
+
+                connector.Connect(
+                    "127.0.0.1",                                                            // IP
+                    9999,                                                                   // Port
+                    () =>
+                    {
+                        return ServerSessionManager.Instance.CreateSession();               // Session Create Func Ptr
+                    },
+                    300                                                                    // Dummy Client Count
+                );
+
+                connCount += 300;
+            }
 
             while (true)
             {
