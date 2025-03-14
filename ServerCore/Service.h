@@ -14,6 +14,7 @@ using SessionFactory = std::function<std::shared_ptr<class Session>(void)>;
 class Session;
 class IocpCore;
 class Listener;
+class RIONotifyEvent;
 
 class Service : public std::enable_shared_from_this<Service>
 {
@@ -38,7 +39,7 @@ public:
 	NetAddress GetNetAddress() { return _netAddress; }
 	std::shared_ptr<IocpCore>& GetIocpCore() { return _iocpCore; }
 
-	RIO_CQ& GetRIOCQ() { return _rioCQList[LThreadId % 16]; }	// 일종의 로드밸런서..?
+	RIO_CQ& GetRIOCQ();
 	void Dispatch();
 
 protected:
@@ -52,7 +53,7 @@ protected:
 	int32 _maxSessionCount = 0;
 	SessionFactory _sessionFactory;
 
-	std::vector<RIO_CQ> _rioCQList;
+	std::vector<RIONotifyEvent*> _rioCQEventList;
 };
 
 class ClientService : public Service

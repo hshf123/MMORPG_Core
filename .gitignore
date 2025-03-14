@@ -49,3 +49,4 @@ Lib/Debug
 !libprotobuf.lib
 !libprotobufd.lib
 Server.slnLaunch.user
+logs

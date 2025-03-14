@@ -25,6 +25,7 @@ private:
 
 class Session;
 class SendBuffer;
+class Service;
 
 enum class EventType : uint8
 {
@@ -32,7 +33,8 @@ enum class EventType : uint8
 	Disconnect,
 	Accept,
 	Recv,
-	Send
+	Send,
+	Notify
 };
 
 class IocpEvent : public OVERLAPPED
@@ -45,6 +47,7 @@ public:
 public:
 	EventType eventType;
 	std::shared_ptr<IocpObject> owner;
+	std::shared_ptr<Service> ownerService;
 };
 
 class ConnectEvent : public IocpEvent
@@ -90,6 +93,21 @@ public:
 
 	EventType eventType;
 	std::shared_ptr<IocpObject> owner;
+};
+
+class RIONotifyEvent : public IocpEvent
+{
+public:
+	RIONotifyEvent(HANDLE iocpHandle) : IocpEvent(EventType::Notify) 
+	{
+		notify.Type = RIO_IOCP_COMPLETION;
+		notify.Iocp.IocpHandle = iocpHandle;
+		notify.Iocp.CompletionKey = (PVOID)RIO_IOCP_COMPLETION;
+		notify.Iocp.Overlapped = (PVOID)this;
+	}
+
+	RIO_NOTIFICATION_COMPLETION notify = {};
+	RIO_CQ rioCQ = {};
 };
 
 class RIORecvEvent : public RIOEvent

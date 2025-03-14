@@ -74,9 +74,6 @@ int main()
 				{
 					LEndTickCount = TimeUtils::GetTick64() + 64;
 					clientService->GetIocpCore()->Dispatch(10);
-#ifdef USE_RIO
-					clientService->Dispatch();
-#endif
 					ThreadManager::DistributeReservedJobs();
 					ThreadManager::DoGlobalQueueWork();
 

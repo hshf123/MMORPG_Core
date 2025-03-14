@@ -13,8 +13,8 @@ Service::Service(ServiceType type, NetAddress address, std::shared_ptr<IocpCore>
 Service::~Service()
 {
 #ifdef USE_RIO
-	for (const auto& cq : _rioCQList)
-		Socket::RIOEFTable.RIOCloseCompletionQueue(cq);
+	for (const auto* event : _rioCQEventList)
+		Socket::RIOEFTable.RIOCloseCompletionQueue(event->rioCQ);
 #endif
 }
 
@@ -26,7 +26,7 @@ void Service::CloseService()
 std::shared_ptr<Session> Service::CreateSession()
 {
 	std::shared_ptr<Session> session = _sessionFactory();
-	session->SetService(shared_from_this());
+	session->SetService(static_pointer_cast<Service>(shared_from_this()));
 
 	if (_iocpCore->Register(session) == false)
 		return nullptr;
@@ -48,6 +48,11 @@ void Service::ReleaseSession(std::shared_ptr<Session> session)
 	_sessionCount--;
 }
 
+RIO_CQ& Service::GetRIOCQ()
+{
+	return _rioCQEventList[LThreadId % 16]->rioCQ; 	// 일종의 로드밸런서..?
+}
+
 void Service::Dispatch()
 {
 	RIORESULT results[RIO_DISPATCH_RESULT_COUNT] = { 0, };
@@ -64,6 +69,8 @@ void Service::Dispatch()
 			VIEW_WRITE_ERROR("RIO Dispatch Error : {}", errCode);
 			return;
 		}
+
+		Socket::RIOEFTable.RIONotify(GetRIOCQ());
 	}
 
 	for (uint64 i = 0; i < numResult; i++)
@@ -123,13 +130,23 @@ bool ServerService::Start()
 
 	for (int32 i = 0; i < ThreadCount; i++)
 	{
-		_rioCQList.push_back(Socket::RIOEFTable.RIOCreateCompletionQueue(CompletionQueueSize, nullptr));
-		if (_rioCQList[i] == RIO_INVALID_CQ)
+		RIONotifyEvent* event = xnew<RIONotifyEvent>(GetIocpCore()->GetHandle());
+		event->rioCQ = Socket::RIOEFTable.RIOCreateCompletionQueue(CompletionQueueSize, &event->notify);
+		if (event->rioCQ == RIO_INVALID_CQ)
 		{
 			int32 errCode = ::GetLastError();
 			VIEW_WRITE_ERROR("CompletionQueue Create Fail Err : {}", errCode);
 			return false;
 		}
+		if (Socket::RIOEFTable.RIONotify(event->rioCQ) != ERROR_SUCCESS)
+		{
+			int32 errCode = ::GetLastError();
+			VIEW_WRITE_ERROR("CompletionQueue Create Fail Err : {}", errCode);
+			return false;
+		}
+
+		event->ownerService = shared_from_this();
+		_rioCQEventList.push_back(event);
 	}
 #endif
 

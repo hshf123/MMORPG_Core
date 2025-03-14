@@ -246,6 +246,13 @@ void Session::RegisterSend()
 	while (sendQueue.empty() == false)
 	{
 		std::shared_ptr<SendBuffer> sendBuffer = sendQueue.front();
+		if (_sendBuffer.FreeSize() < sendBuffer->WriteSize())
+		{
+			VIEW_WRITE_ERROR("There's no FreeSize Session({})", _workId);
+			Disconnect(L"SendBuffer Over");
+			return;
+		}
+
 		sendQueue.pop();
 		//::memcpy_s(_sendBuffer.WritePos(), *sendBuffer->Buffer(), sendBuffer->WriteSize());
 		::memcpy_s(_sendBuffer.WritePos(), sendBuffer->WriteSize(), sendBuffer->Buffer(), sendBuffer->WriteSize());
