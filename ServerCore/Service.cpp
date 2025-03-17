@@ -13,7 +13,7 @@ Service::Service(ServiceType type, NetAddress address, std::shared_ptr<IocpCore>
 Service::~Service()
 {
 #ifdef USE_RIO
-	for (const auto* event : _rioCQEventList)
+	for (const auto* event : std::views::values(_rioCQEventList))
 		Socket::RIOEFTable.RIOCloseCompletionQueue(event->rioCQ);
 #endif
 }
@@ -50,7 +50,7 @@ void Service::ReleaseSession(std::shared_ptr<Session> session)
 
 RIO_CQ& Service::GetRIOCQ()
 {
-	return _rioCQEventList[LThreadId % 16]->rioCQ; 	// 일종의 로드밸런서..?
+	return _rioCQEventList[LThreadId]->rioCQ; 	// 일종의 로드밸런서..?
 }
 
 void Service::Dispatch()
@@ -118,38 +118,6 @@ bool ServerService::Start()
 	if (_listener == nullptr)
 		return false;
 
-#ifdef USE_RIO
-	/*
-	잘못알고 있었다 여기서 말하는 사이즈는 버퍼 사이즈가 아니라 큐 사이즈다........
-	이러니 메모리가 너무 크게 잡히지....
-	*/
-	constexpr int PendingCount = 64;	// (Send + Recv) OutStandingCount
-	constexpr int ThreadCount = 16;
-	constexpr int MaxClientSize = 30000;
-	constexpr int CompletionQueueSize = (PendingCount * MaxClientSize) / ThreadCount;
-
-	for (int32 i = 0; i < ThreadCount; i++)
-	{
-		RIONotifyEvent* event = xnew<RIONotifyEvent>(GetIocpCore()->GetHandle());
-		event->rioCQ = Socket::RIOEFTable.RIOCreateCompletionQueue(CompletionQueueSize, &event->notify);
-		if (event->rioCQ == RIO_INVALID_CQ)
-		{
-			int32 errCode = ::GetLastError();
-			VIEW_WRITE_ERROR("CompletionQueue Create Fail Err : {}", errCode);
-			return false;
-		}
-		if (Socket::RIOEFTable.RIONotify(event->rioCQ) != ERROR_SUCCESS)
-		{
-			int32 errCode = ::GetLastError();
-			VIEW_WRITE_ERROR("CompletionQueue Create Fail Err : {}", errCode);
-			return false;
-		}
-
-		event->ownerService = shared_from_this();
-		_rioCQEventList.push_back(event);
-	}
-#endif
-
 	std::shared_ptr<ServerService> service = static_pointer_cast<ServerService>(shared_from_this());
 	if (_listener->StartAccept(service) == false)
 		return false;
@@ -160,4 +128,34 @@ bool ServerService::Start()
 void ServerService::CloseService()
 {
 	Service::CloseService();
+}
+
+bool ServerService::CreateRIOCQ()
+{
+	/*
+	잘못알고 있었다 여기서 말하는 사이즈는 버퍼 사이즈가 아니라 큐 사이즈다........
+	이러니 메모리가 너무 크게 잡히지....
+	*/
+	constexpr int PendingCount = 32;	// (Send + Recv) OutStandingCount
+	constexpr int MaxClientSize = 3000;
+	constexpr int CompletionQueueSize = (PendingCount * MaxClientSize);
+
+	RIONotifyEvent* event = xnew<RIONotifyEvent>(GetIocpCore()->GetHandle());
+	event->rioCQ = Socket::RIOEFTable.RIOCreateCompletionQueue(CompletionQueueSize, &event->notify);
+	if (event->rioCQ == RIO_INVALID_CQ)
+	{
+		int32 errCode = ::GetLastError();
+		VIEW_WRITE_ERROR("CompletionQueue Create Fail Err : {}", errCode);
+		return false;
+	}
+	if (Socket::RIOEFTable.RIONotify(event->rioCQ) != ERROR_SUCCESS)
+	{
+		int32 errCode = ::GetLastError();
+		VIEW_WRITE_ERROR("CompletionQueue Create Fail Err : {}", errCode);
+		return false;
+	}
+
+	event->ownerService = shared_from_this();
+	_rioCQEventList.insert_or_assign(LThreadId, event);
+	return true;
 }

@@ -37,6 +37,7 @@
 #include <array>
 #include <atomic>
 #include <span>
+#include <ranges>
 
 #include "Macro.h"
 #include "Types.h"

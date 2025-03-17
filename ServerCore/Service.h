@@ -53,7 +53,7 @@ protected:
 	int32 _maxSessionCount = 0;
 	SessionFactory _sessionFactory;
 
-	std::vector<RIONotifyEvent*> _rioCQEventList;
+	std::unordered_map<uint32, RIONotifyEvent*> _rioCQEventList;
 };
 
 class ClientService : public Service
@@ -73,6 +73,8 @@ public:
 
 	virtual bool Start() override;
 	virtual void CloseService() override;
+
+	bool CreateRIOCQ();
 
 private:
 	std::shared_ptr<Listener> _listener = nullptr;

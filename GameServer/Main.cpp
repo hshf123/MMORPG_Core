@@ -70,6 +70,7 @@ int main()
 	{
 		ThreadManager::GetInstance().Launch([&]()
 			{
+				clientService->CreateRIOCQ();
 				while (true)
 				{
 					LEndTickCount = TimeUtils::GetTick64() + 64;
