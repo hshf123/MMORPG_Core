@@ -7,7 +7,7 @@
 #include "GameDBLoadBalancer.h"
 #include "GameDBHandler.h"
 #include "ClientPacketHandler.h"
-
+#include "JobQueue.h"
 #include "pdh.h"
 #pragma comment(lib, "pdh.lib")
 
@@ -17,6 +17,16 @@
 	3. 리슨, 타 서버 커넥트(있으면)
 	4. 데이터 로딩 끝난 후 초기화
 */
+
+class TimerJobQueue : public JobQueue
+{
+public:
+	void UpdateTime()
+	{
+		VIEW_INFO("Server is running...");
+		DoTimer(TimeUtils::OneHour, &TimerJobQueue::UpdateTime);
+	}
+};
 
 uint32 GetThreadCount()
 {
@@ -59,7 +69,7 @@ int main()
 	GameDBLoadBalancer::Balancer->Launch();
 	std::shared_ptr<DBData> data =  PoolAlloc<DBData>();
 	data->ProtocolID = EDBProtocol::SGDB_ServerStart;
-	GameDBLoadBalancer::Balancer->Push(data);
+	//GameDBLoadBalancer::Balancer->Push(data);
 
 	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
 		NetAddress(L"0.0.0.0", 9999),
@@ -85,6 +95,9 @@ int main()
 	}
 
 #ifdef DEV_TEST
+	// 테스트용
+	std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
+	jobQueue->UpdateTime();
 	uint64 tick = TimeUtils::GetTick64();
 	while (true)
 	{
