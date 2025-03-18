@@ -50,9 +50,9 @@ std::wstring StrUtils::ToWideStr(const WCHAR* str)
 
 std::string StrUtils::ToString(const std::wstring& str)
 {
-	std::string ret;
-	ret.assign(str.begin(), str.end());
-	return ret;
+	char buffer[4096] = {};
+	auto len = ::WideCharToMultiByte(CP_ACP, 0, str.c_str(), -1, buffer, sizeof(buffer), nullptr, nullptr);
+	return buffer;
 }
 
 std::string StrUtils::ToString(const WCHAR* str)
@@ -69,4 +69,9 @@ std::string StrUtils::ToString(const WCHAR* str)
 	ret[bufferSize] = '\0'; // NULL 종료 문자열로 설정
 
 	return ret;
+}
+
+std::string StrUtils::ToString(const CHAR* str)
+{
+	return ToString(ToWideStr(str));
 }

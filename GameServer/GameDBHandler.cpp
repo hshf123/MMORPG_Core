@@ -28,7 +28,7 @@ bool GameDBHandler::OnSGDBServerStart(std::shared_ptr<DBData> data)
 	}
 	catch (Poco::Data::ODBC::StatementException& ex)
 	{
-		VIEW_WRITE_ERROR("\n{}", ex.message());
+		VIEW_WRITE_ERROR("\n{}", StrUtils::ToString(ex.message().c_str()));
 	}
 	catch (std::exception& e)
 	{
@@ -64,7 +64,7 @@ bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data)
 	}
 	catch (Poco::Data::ODBC::StatementException& ex)
 	{
-		VIEW_WRITE_ERROR("\n{}", ex.message().c_str());
+		VIEW_WRITE_ERROR("\n{}", StrUtils::ToString(ex.message().c_str()));
 	}
 	catch (std::exception& e)
 	{

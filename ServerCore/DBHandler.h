@@ -9,8 +9,8 @@ public:
 };
 
 class DBService;
-using DBHandlerFunc = std::function<bool(std::shared_ptr<DBData>, DBService*)>;
-bool Handle_INVALID(std::shared_ptr<DBData> data, DBService* service);
+using DBHandlerFunc = std::function<bool(std::shared_ptr<DBData>)>;
+bool Handle_INVALID(std::shared_ptr<DBData> data);
 
 class DBHandler
 {
@@ -23,7 +23,7 @@ public:
 	/// <param name="data">DB call에 필요한 데이터</param>
 	/// <param name="service">작업을 수행할 DB 스레드</param>
 	/// <returns></returns>
-	bool HandleData(uint16 protocolId, std::shared_ptr<DBData> data, DBService* service);
+	bool HandleData(uint16 protocolId, std::shared_ptr<DBData> data);
 	/// <summary>
 	/// 핸들러 등록
 	/// </summary>

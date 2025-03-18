@@ -12,5 +12,6 @@ public:
 
 	static std::string ToString(const std::wstring& str);
 	static std::string ToString(const WCHAR* str);
+	static std::string ToString(const CHAR* str);
 };
 

@@ -11,9 +11,9 @@ void DBHandler::Init()
 		_dbHandler[i] = Handle_INVALID;
 }
 
-bool DBHandler::HandleData(uint16 protocolId, std::shared_ptr<DBData> data, DBService* service)
+bool DBHandler::HandleData(uint16 protocolId, std::shared_ptr<DBData> data)
 {
-	return _dbHandler[protocolId](data, service);
+	return _dbHandler[protocolId](data);
 }
 
 bool DBHandler::RegisterHandler(const uint16& protocol, DBHandlerFunc fn)
@@ -31,7 +31,7 @@ bool DBHandler::RegisterHandler(const uint16& protocol, DBHandlerFunc fn)
 	return true;
 }
 
-bool Handle_INVALID(std::shared_ptr<DBData> data, DBService* service)
+bool Handle_INVALID(std::shared_ptr<DBData> data)
 {
 	if (data == nullptr)
 		return false;
