@@ -3,6 +3,7 @@
 #include "LockQueue.h"
 
 class JobQueue;
+class DBData;
 
 /// <summary>
 /// DB작업 제외, 로직 및 네트워크 패킷 작업 큐
@@ -14,6 +15,10 @@ public:
 	void									Push(std::shared_ptr<JobQueue> jobQueue);
 	std::shared_ptr<JobQueue>				Pop();
 
+	void									PushDBData(std::shared_ptr<DBData> data);
+	void									PopAllDBData(OUT std::vector<std::shared_ptr<DBData>>& datas);
+
 private:
 	LockQueue<std::shared_ptr<JobQueue>> _jobQueues;
+	LockQueue<std::shared_ptr<DBData>> _dbDataQueues;
 };

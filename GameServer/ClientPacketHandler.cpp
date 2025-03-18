@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "ClientPacketHandler.h"
 #include "ClientSessionManager.h"
-
+#include "GameDBData.h"
 #include "MathUtil.h"
+#include "GameDBLoadBalancer.h"
 
 void ClientPacketHandler::Init()
 {
@@ -18,13 +19,19 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	if (cs == nullptr)
 		return false;
 
-	//VIEW_INFO("Recv {} : {}", pkt.name(), pkt.msg());
-
-	SCChatResponse packet;
-	packet.set_name(pkt.name());
-	packet.set_msg(pkt.msg());
-	//ClientSessionManager::GetInstance().Broadcast(packet);
-	cs->Send(EPacketProtocol::SC_ChatResponse, packet);
+	std::shared_ptr<spChatReuqest> req = PoolAlloc<spChatReuqest>();
+	req->SessionID = cs->GetWorkId();
+	req->Name = pkt.name();
+	req->Msg = pkt.msg();
+	req->Response = [=](std::shared_ptr<DBData> data)
+		{
+			SCChatResponse packet;
+			packet.set_name(pkt.name());
+			packet.set_msg(pkt.msg());
+			ClientSessionManager::GetInstance().Broadcast(EPacketProtocol::SC_ChatResponse, packet);
+			return true;
+		};
+	GameDBLoadBalancer::Balancer->Push(cs->GetWorkId(), EDBProtocol::SGDB_ChatRequest, req);
 	return true;
 }
 

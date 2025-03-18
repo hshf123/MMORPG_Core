@@ -22,6 +22,7 @@ bool DBService::Push(const uint16& protocolId, std::shared_ptr<DBData> data, DBH
 	if (data == nullptr)
 		return false;
 
+	_queueCount.fetch_add(1);
 	_dbQueue.Push(PoolAlloc<DBQueueData>(protocolId, data, handler));
 	return true;
 }

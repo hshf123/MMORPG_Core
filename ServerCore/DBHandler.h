@@ -1,12 +1,18 @@
 #pragma once
 
+#define GetSession()		if (data == nullptr || service == nullptr)					 \
+								return false;											 \
+							Poco::Data::Session* dbSession = service->GetDBSession();	 \
+							if (dbSession == nullptr)									 \
+								return false;											 \
+							Poco::Data::Session& session = *dbSession;
+
 class DBData
 {
 public:
-	DBData(uint16 protocolId, int32 workId = 0) : ProtocolID(protocolId), WorkID(workId) {}
-
 	int32 WorkID = 0;		// 밸런싱 할 ID
 	uint16 ProtocolID = 0;	// 서버 내 프로토콜
+	std::function<bool(std::shared_ptr<DBData>)> Response = nullptr;
 };
 
 class DBService;

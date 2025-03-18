@@ -81,6 +81,8 @@ inline bool EPacketProtocol_Parse(
 enum EDBProtocol : int {
   DB_PROTOCOL_START = 0,
   SGDB_ServerStart = 1,
+  SGDB_ChatRequest = 2,
+  GDBS_ChatResponse = 3,
   DB_PROTOCOL_END = 65535,
   EDBProtocol_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   EDBProtocol_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()

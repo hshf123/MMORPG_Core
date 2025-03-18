@@ -29,8 +29,9 @@ namespace Protocol {
             "EwoPU0NfQ2hhdFJlc3BvbnNlEAISIQodQ1NfQ2lyY3VsYXJTZWN0b3JTa2ls",
             "bFJlcXVlc3QQAxIiCh5TQ19DaXJjdWxhclNlY3RvclNraWxsUmVzcG9uc2UQ",
             "BBIVChFDU19CaWdUZXN0UmVxdWVzdBAFEhYKElNDX0JpZ1Rlc3RSZXNwb25z",
-            "ZRAGEhkKE1BBQ0tFVF9QUk9UT0NPTF9FTkQQ//8DKlEKC0VEQlByb3RvY29s",
+            "ZRAGEhkKE1BBQ0tFVF9QUk9UT0NPTF9FTkQQ//8DKn4KC0VEQlByb3RvY29s",
             "EhUKEURCX1BST1RPQ09MX1NUQVJUEAASFAoQU0dEQl9TZXJ2ZXJTdGFydBAB",
+            "EhQKEFNHREJfQ2hhdFJlcXVlc3QQAhIVChFHREJTX0NoYXRSZXNwb25zZRAD",
             "EhUKD0RCX1BST1RPQ09MX0VORBD//wNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
@@ -54,6 +55,8 @@ namespace Protocol {
   public enum EDBProtocol {
     [pbr::OriginalName("DB_PROTOCOL_START")] DbProtocolStart = 0,
     [pbr::OriginalName("SGDB_ServerStart")] SgdbServerStart = 1,
+    [pbr::OriginalName("SGDB_ChatRequest")] SgdbChatRequest = 2,
+    [pbr::OriginalName("GDBS_ChatResponse")] GdbsChatResponse = 3,
     [pbr::OriginalName("DB_PROTOCOL_END")] DbProtocolEnd = 65535,
   }
 

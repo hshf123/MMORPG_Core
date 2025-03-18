@@ -8,8 +8,8 @@ namespace DummyClient
     internal class Program
     {
         static readonly int SetSize = 8096;
-        static readonly int ConnectCount = 30000;
-        static readonly int ConnectCountInOnce = 300;
+        static readonly int ConnectCount = 10;
+        static readonly int ConnectCountInOnce = 10;
         //static int pakcetNum = 0;
 
         static KeyValuePair<float, float>[] targetPosList =
@@ -47,6 +47,7 @@ namespace DummyClient
                 connCount += ConnectCountInOnce;
             }
             #endregion
+            Thread.Sleep(1000);
             int loopNum = 0;
             while (true)
             {
@@ -60,6 +61,7 @@ namespace DummyClient
                         await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsChatRequest, packet);
                     }
                     #endregion
+                    Thread.Sleep(1000);
                     #region CircularSector
                     {
                         CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
@@ -79,6 +81,7 @@ namespace DummyClient
                         await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
                     }
                     #endregion
+                    Thread.Sleep(1000);
                     #region Big
                     {
                         int listSize = SetSize / 24;
@@ -99,6 +102,7 @@ namespace DummyClient
                         await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsBigTestRequest, packet);
                     }
                     #endregion
+                    Thread.Sleep(1000);
                 }
                 catch (Exception e)
                 {

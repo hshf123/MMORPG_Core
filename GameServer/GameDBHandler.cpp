@@ -1,22 +1,20 @@
 #include "pch.h"
 #include "GameDBHandler.h"
 #include "DBService.h"
+#include "GameDBData.h"
+#include "GlobalQueue.h"
+#include "JobQueue.h"
 
 void GameDBHandler::Init()
 {
 	DBHandler::Init();
 	RegisterHandler(EDBProtocol::SGDB_ServerStart, &GameDBHandler::OnSTDBServerStart);
+	RegisterHandler(EDBProtocol::SGDB_ChatRequest, &GameDBHandler::OnSGDBChatRequest);
 }
 
 bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* service)
 {
-	if (data == nullptr || service == nullptr)
-		return false;
-
-	Poco::Data::Session* dbSession = service->GetDBSession();
-	if (dbSession == nullptr)
-		return false;
-	Poco::Data::Session& session = *dbSession;
+	GetSession();
 
 	int serverId = 1;
 	Poco::DateTime serverStartTime;
@@ -46,5 +44,33 @@ bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* s
 
 	TimeUtils::Init(serverStartTime);
 
+	return true;
+}
+
+bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data, DBService* service)
+{
+	GetSession();
+	std::shared_ptr<spChatReuqest> req = static_pointer_cast<spChatReuqest>(data);
+	if (req == nullptr)
+		return false;
+
+	try
+	{
+		session << "{CALL spChatReuqest(?,?)}",
+			out(req->Result),
+			in(req->SessionID),
+			now;
+	}
+	catch (Poco::Data::ODBC::StatementException& ex)
+	{
+		VIEW_WRITE_ERROR("\n{}", ex.message().c_str());
+	}
+	catch (std::exception& e)
+	{
+		VIEW_WRITE_ERROR("\nDB Error : {}", e.what());
+	}
+
+	// 로직 스레드로 전환
+	GlobalQueue::GetInstance().PushDBData(data);
 	return true;
 }

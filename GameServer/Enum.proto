@@ -21,5 +21,7 @@ enum EDBProtocol
 {
 	DB_PROTOCOL_START			= 0;
 	SGDB_ServerStart			= 1;
+	SGDB_ChatRequest			= 2;
+	GDBS_ChatResponse			= 3;
 	DB_PROTOCOL_END				= 65535;
 }

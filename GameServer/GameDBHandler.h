@@ -6,6 +6,8 @@ class GameDBHandler : public DBHandler, public RefSingleton<GameDBHandler>
 {
 public:
 	void Init() override;
+
 	bool OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* service);
+	bool OnSGDBChatRequest(std::shared_ptr<DBData> data, DBService* service);
 };
 

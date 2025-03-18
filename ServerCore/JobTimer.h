@@ -13,7 +13,7 @@ public:
 	}
 
 	std::weak_ptr<JobQueue>	owner;
-	std::shared_ptr<Job>				job;
+	std::shared_ptr<Job>	job;
 };
 
 class TimerItem

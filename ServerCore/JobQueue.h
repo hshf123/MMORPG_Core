@@ -37,15 +37,7 @@ public:
 		JobTimer::GetInstance().Reserve(tickAfter, shared_from_this(), job);
 	}
 
-	template<typename T, typename Ret, typename... Args>
-	void DoUpdate(uint64 tickAfter, Ret(T::* memFunc)(Args...), Args... args)
-	{
-		std::shared_ptr<T> owner = std::static_pointer_cast<T>(shared_from_this());
-		std::shared_ptr<Job> job = PoolAlloc<Job>(owner, memFunc, std::forward<Args>(args)...);
-		JobTimer::GetInstance().UpdateReserve(tickAfter, shared_from_this(), job);
-	}
-
-	void					ClearJobs() { _jobs.Clear(); }
+	void ClearJobs() { _jobs.Clear(); }
 
 public:
 	/// <summary>
@@ -56,7 +48,7 @@ public:
 	/// <param name="job">일감</param>
 	/// <param name="pushOnly">true : 일감을 처리하는 스레드가 없어도 무조건 GlobalQueue에 삽입</param>
 	void Push(std::shared_ptr<Job> job, bool pushOnly = false);
-	void					Execute();
+	void Execute();
 
 protected:
 	LockQueue<std::shared_ptr<Job>>		_jobs;

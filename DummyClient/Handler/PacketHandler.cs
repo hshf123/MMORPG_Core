@@ -14,7 +14,7 @@ public class PacketHandler
         if (pkt == null)
             return;
 
-        Console.WriteLine($"RecvFrom Server {pkt.Name} : {pkt.Msg}");
+        Console.WriteLine($"OnSCChatResponse");
     }
 
     public static void OnSCCircularSectorSkillResponse(PacketSession session, IMessage packet)
@@ -23,7 +23,7 @@ public class PacketHandler
         if (pkt == null)
             return;
 
-        Console.WriteLine($"RecvFrom Server IsHit : {(pkt.IsHit ? "Hit!" : "Nope")}");
+        Console.WriteLine($"OnSCCircularSectorSkillResponse");
     }
 
     public static void OnSCBigTestResponse(PacketSession session, IMessage packet)
@@ -31,5 +31,6 @@ public class PacketHandler
         SCBigTestResponse? pkt = packet as SCBigTestResponse;
         if (pkt == null)
             return;
+        Console.WriteLine($"OnSCBigTestResponse");
     }
 }

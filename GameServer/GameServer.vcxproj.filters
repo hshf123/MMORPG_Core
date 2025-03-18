@@ -16,6 +16,12 @@
     <Filter Include="Packet\proto">
       <UniqueIdentifier>{f5afaee3-7be6-4096-ad5d-1c56b0c8143a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DB\GameDB">
+      <UniqueIdentifier>{63dd7490-b60e-48a2-a0de-0a3ab4ac5f81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{e83a4ce7-5ec9-45e0-aec4-bb6cd2235b0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -33,12 +39,6 @@
     <ClCompile Include="ClientSessionManager.cpp">
       <Filter>Client</Filter>
     </ClCompile>
-    <ClCompile Include="GameDBHandler.cpp">
-      <Filter>DB</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDBLoadBalancer.cpp">
-      <Filter>DB</Filter>
-    </ClCompile>
     <ClCompile Include="Struct.pb.cc">
       <Filter>Packet\proto</Filter>
     </ClCompile>
@@ -47,6 +47,15 @@
     </ClCompile>
     <ClCompile Include="Enum.pb.cc">
       <Filter>Packet\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDBHandler.cpp">
+      <Filter>DB\GameDB</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDBLoadBalancer.cpp">
+      <Filter>DB\GameDB</Filter>
+    </ClCompile>
+    <ClCompile Include="Zone.cpp">
+      <Filter>Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,12 +71,6 @@
     <ClInclude Include="ClientSessionManager.h">
       <Filter>Client</Filter>
     </ClInclude>
-    <ClInclude Include="GameDBLoadBalancer.h">
-      <Filter>DB</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDBHandler.h">
-      <Filter>DB</Filter>
-    </ClInclude>
     <ClInclude Include="Struct.pb.h">
       <Filter>Packet\proto</Filter>
     </ClInclude>
@@ -76,6 +79,15 @@
     </ClInclude>
     <ClInclude Include="Enum.pb.h">
       <Filter>Packet\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDBHandler.h">
+      <Filter>DB\GameDB</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDBLoadBalancer.h">
+      <Filter>DB\GameDB</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDBData.h">
+      <Filter>DB\GameDB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

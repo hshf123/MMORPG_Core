@@ -35,13 +35,14 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "cularSectorSkillRequest\020\003\022\"\n\036SC_Circular"
   "SectorSkillResponse\020\004\022\025\n\021CS_BigTestReque"
   "st\020\005\022\026\n\022SC_BigTestResponse\020\006\022\031\n\023PACKET_P"
-  "ROTOCOL_END\020\377\377\003*Q\n\013EDBProtocol\022\025\n\021DB_PRO"
-  "TOCOL_START\020\000\022\024\n\020SGDB_ServerStart\020\001\022\025\n\017D"
-  "B_PROTOCOL_END\020\377\377\003b\006proto3"
+  "ROTOCOL_END\020\377\377\003*~\n\013EDBProtocol\022\025\n\021DB_PRO"
+  "TOCOL_START\020\000\022\024\n\020SGDB_ServerStart\020\001\022\024\n\020S"
+  "GDB_ChatRequest\020\002\022\025\n\021GDBS_ChatResponse\020\003"
+  "\022\025\n\017DB_PROTOCOL_END\020\377\377\003b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 346, descriptor_table_protodef_Enum_2eproto,
+    false, false, 391, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -83,6 +84,8 @@ bool EDBProtocol_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
+    case 3:
     case 65535:
       return true;
     default:

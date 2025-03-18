@@ -40,11 +40,10 @@ int main()
 	LogManager::GetInstance().Initialize("GameServer");
 	GameDBHandler::GetInstance().Init();
 	ClientPacketHandler::GetInstance().Init();
-	//std::shared_ptr<GameDBLoadBalancer> tdbBalancer = PoolAlloc<GameDBLoadBalancer>();
 #ifdef DEV_TEST
-	//tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 1);
+	GameDBLoadBalancer::Balancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 1);
 #else
-	tdbBalancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 8);
+	GameDBLoadBalancer::Balancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 8);
 #endif
 	
 	//const std::string json = "{\"project\":\"rapidjson\",\"stars\":10}";
@@ -57,8 +56,10 @@ int main()
 	//d.Accept(writer);
 
 	LogManager::GetInstance().Launch();
-	//tdbBalancer->Launch();
-	//tdbBalancer->Push(PoolAlloc<DBData>(EDBProtocol::SGDB_ServerStart));
+	GameDBLoadBalancer::Balancer->Launch();
+	std::shared_ptr<DBData> data =  PoolAlloc<DBData>();
+	data->ProtocolID = EDBProtocol::SGDB_ServerStart;
+	GameDBLoadBalancer::Balancer->Push(data);
 
 	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
 		NetAddress(L"0.0.0.0", 9999),
@@ -73,8 +74,8 @@ int main()
 				clientService->CreateRIOCQ();
 				while (true)
 				{
-					LEndTickCount = TimeUtils::GetTick64() + 64;
 					clientService->GetIocpCore()->Dispatch(10);
+					LEndTickCount = TimeUtils::GetTick64() + 64;
 					ThreadManager::DistributeReservedJobs();
 					ThreadManager::DoGlobalQueueWork();
 
@@ -94,7 +95,7 @@ int main()
 		::PdhCollectQueryData(cpuQuery);
 		::PdhGetFormattedCounterValue(cpuTotal, PDH_FMT_DOUBLE, NULL, &counterVal);
 		VIEW_INFO("CPU USAGE : {}", counterVal.doubleValue);
-		tick += (TimeUtils::OneMin / 2);
+		tick = TimeUtils::GetTick64() + (TimeUtils::OneMin / 2);
 	}
 #else
 	while (true)

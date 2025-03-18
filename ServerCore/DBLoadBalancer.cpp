@@ -37,21 +37,22 @@ void DBLoadBalancer::Launch()
 {
 	for (int32 i = 0; i < _serviceCount; i++)
 	{
-		ThreadManager::GetInstance().Launch([&, i]()
+		DBService& service = _serviceList[i];
+		ThreadManager::GetInstance().Launch([&]()
 			{
 				while (true)
 				{
-					if (_serviceList[i].GetDBSession() == nullptr)
+					if (service.GetDBSession() == nullptr)
 						continue;
 
-					if (_serviceList[i].GetDBSession()->isConnected() == false && LEndTickCount < TimeUtils::GetTick64())
+					if (service.GetDBSession()->isConnected() == false && LEndTickCount < TimeUtils::GetTick64())
 					{
-						_serviceList[i].Connect(_connectionString);
+						service.Connect(_connectionString);
 						LEndTickCount = TimeUtils::GetTick64() + DBRECONNECTTIME;
 						continue;
 					}
 
-					_serviceList[i].Execute();
+					service.Execute();
 
 					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 				}
