@@ -13,16 +13,18 @@
 ///   * microsecond is from 0 to 999.
 
 Poco::DateTime TimeUtils::_startTime = {};
+uint64 TimeUtils::_startTick = _startTime.timestamp().epochMicroseconds();
 uint64 TimeUtils::_updateTick = UINT64_C(0);
 
 void TimeUtils::Init(const Poco::DateTime& serverStartTime)
 {
 	_startTime = serverStartTime;
+	_startTick = _startTime.timestamp().epochMicroseconds();
 }
 
 const uint64 TimeUtils::GetTick64()
 {
-	return _startTime.timestamp().epochMicroseconds() + static_cast<uint64>(::clock() * 1000);
+	return _startTick + static_cast<uint64>(::clock() * 1000);
 }
 
 Poco::DateTime TimeUtils::GetPocoTime()
