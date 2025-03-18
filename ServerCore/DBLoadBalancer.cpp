@@ -16,12 +16,12 @@ bool DBLoadBalancer::Init(const std::string& connectionString, const int32& serv
 	return true;
 }
 
-bool DBLoadBalancer::Push(const int32& workId, const uint16& protocolId, std::shared_ptr<DBData> data, DBHandler& handler)
+bool DBLoadBalancer::Push(int32 workId, uint16 protocolId, std::shared_ptr<DBData> data, DBHandler& handler)
 {
 	if (_serviceList == nullptr)
 		return false;
 
-	_serviceList[workId % _serviceCount].Push(protocolId, data, handler);
+	GetDBService(workId).Push(protocolId, data, handler);
 	return true;
 }
 
@@ -58,4 +58,9 @@ void DBLoadBalancer::Launch()
 				}
 			});
 	}
+}
+
+DBService& DBLoadBalancer::GetDBService(int32 workId)
+{
+	return _serviceList[workId % _serviceCount];
 }

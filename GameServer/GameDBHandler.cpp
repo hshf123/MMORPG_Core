@@ -4,15 +4,16 @@
 #include "GameDBData.h"
 #include "GlobalQueue.h"
 #include "JobQueue.h"
+#include "GameDBLoadBalancer.h"
 
 void GameDBHandler::Init()
 {
 	DBHandler::Init();
-	RegisterHandler(EDBProtocol::SGDB_ServerStart, &GameDBHandler::OnSTDBServerStart);
+	RegisterHandler(EDBProtocol::SGDB_ServerStart, &GameDBHandler::OnSGDBServerStart);
 	RegisterHandler(EDBProtocol::SGDB_ChatRequest, &GameDBHandler::OnSGDBChatRequest);
 }
 
-bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* service)
+bool GameDBHandler::OnSGDBServerStart(std::shared_ptr<DBData> data)
 {
 	GetSession();
 
@@ -47,7 +48,7 @@ bool GameDBHandler::OnSTDBServerStart(std::shared_ptr<DBData> data, DBService* s
 	return true;
 }
 
-bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data, DBService* service)
+bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data)
 {
 	GetSession();
 	std::shared_ptr<spChatReuqest> req = static_pointer_cast<spChatReuqest>(data);

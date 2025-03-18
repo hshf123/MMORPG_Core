@@ -1,18 +1,11 @@
 #pragma once
 
-#define GetSession()		if (data == nullptr || service == nullptr)					 \
-								return false;											 \
-							Poco::Data::Session* dbSession = service->GetDBSession();	 \
-							if (dbSession == nullptr)									 \
-								return false;											 \
-							Poco::Data::Session& session = *dbSession;
-
 class DBData
 {
 public:
 	int32 WorkID = 0;		// 밸런싱 할 ID
 	uint16 ProtocolID = 0;	// 서버 내 프로토콜
-	std::function<bool(std::shared_ptr<DBData>)> Response = nullptr;
+	std::function<void()> Response = nullptr;
 };
 
 class DBService;
@@ -39,11 +32,11 @@ public:
 	/// <returns></returns>
 	bool RegisterHandler(const uint16& protocol, DBHandlerFunc fn);
 	template<class HandlerType, typename = typename std::enable_if<std::is_base_of<DBHandler, HandlerType>::value>::type>
-	bool RegisterHandler(const uint16& protocol, bool (HandlerType::* handler)(std::shared_ptr<DBData>, DBService*))
+	bool RegisterHandler(const uint16& protocol, bool (HandlerType::* handler)(std::shared_ptr<DBData>))
 	{
-		return RegisterHandler(protocol, [=](std::shared_ptr<DBData> data, DBService* service)
+		return RegisterHandler(protocol, [=](std::shared_ptr<DBData> data)
 			{
-				return (static_cast<HandlerType*>(this)->*handler)(data, service);
+				return (static_cast<HandlerType*>(this)->*handler)(data);
 			});
 	}
 

@@ -21,10 +21,12 @@ public:
 	/// <param name="data">DB스레드에 넘길 데이터, DBData를 상속 받은 데이터를 사용</param>
 	/// <param name="handler">작업을 수행할 핸들러</param>
 	/// <returns></returns>
-	bool Push(const int32& workId, const uint16& protocolId, std::shared_ptr<DBData> data, DBHandler& handler);
+	bool Push(int32 workId, uint16 protocolId, std::shared_ptr<DBData> data, DBHandler& handler);
 	bool Push(std::shared_ptr<DBData> data, DBHandler& handler);
 
 	void Launch();
+
+	DBService& GetDBService(int32 workId);
 
 private:
 	std::string _connectionString = "";

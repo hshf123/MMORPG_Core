@@ -48,10 +48,8 @@ void ThreadManager::DoGlobalQueueWork()
 			{
 				if (data->Response == nullptr)
 					continue;
-
-				data->Response(data);
+				data->Response();
 			}
-
 			continue;
 		}
 
