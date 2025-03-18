@@ -10,6 +10,7 @@ namespace DummyClient
         static readonly int SetSize = 8096;
         static readonly int ConnectCount = 10;
         static readonly int ConnectCountInOnce = 10;
+        static readonly int TickTerm = 3000;
         //static int pakcetNum = 0;
 
         static KeyValuePair<float, float>[] targetPosList =
@@ -22,7 +23,7 @@ namespace DummyClient
 
         static async Task Main(string[] args)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(TickTerm);
 
             Connector connector = new Connector();
             #region Connect
@@ -47,7 +48,7 @@ namespace DummyClient
                 connCount += ConnectCountInOnce;
             }
             #endregion
-            Thread.Sleep(1000);
+            Thread.Sleep(TickTerm);
             int loopNum = 0;
             while (true)
             {
@@ -61,7 +62,7 @@ namespace DummyClient
                         await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsChatRequest, packet);
                     }
                     #endregion
-                    Thread.Sleep(1000);
+                    Thread.Sleep(TickTerm);
                     #region CircularSector
                     {
                         CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
@@ -81,7 +82,7 @@ namespace DummyClient
                         await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
                     }
                     #endregion
-                    Thread.Sleep(1000);
+                    Thread.Sleep(TickTerm);
                     #region Big
                     {
                         int listSize = SetSize / 24;
@@ -102,14 +103,14 @@ namespace DummyClient
                         await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsBigTestRequest, packet);
                     }
                     #endregion
-                    Thread.Sleep(1000);
+                    Thread.Sleep(TickTerm);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
                 }
 
-                Thread.Sleep(1000);
+                Thread.Sleep(TickTerm);
             }
         }
     }
