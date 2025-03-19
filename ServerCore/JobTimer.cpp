@@ -38,6 +38,7 @@ void JobTimer::Distribute(uint64 now)
 	{
 		if (std::shared_ptr<JobQueue> owner = item.jobData->owner.lock())
 			owner->Push(item.jobData->job);
+		xdelete(item.jobData);
 	}
 
 	// 끝났으면 풀어준다
