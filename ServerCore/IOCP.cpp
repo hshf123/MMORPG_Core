@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "IOCP.h"
 #include "Service.h"
+#include "Monitor.h"
 
 IocpCore::IocpCore()
 {
@@ -26,6 +27,7 @@ bool IocpCore::Dispatch(uint32 timeoutMs /*= INFINITE*/)
 
 	if (::GetQueuedCompletionStatus(_iocpHandle, OUT & numOfBytes, OUT & key, OUT reinterpret_cast<LPOVERLAPPED*>(&iocpEvent), timeoutMs))
 	{
+		TimeMonitor tm(__FUNCTION__);
 #ifdef USE_RIO
 		if (key == RIO_IOCP_COMPLETION)
 		{

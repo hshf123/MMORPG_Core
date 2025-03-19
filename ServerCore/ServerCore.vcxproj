@@ -192,6 +192,7 @@
     <ClInclude Include="Macro.h" />
     <ClInclude Include="MathPch.h" />
     <ClInclude Include="MemoryPool.h" />
+    <ClInclude Include="Monitor.h" />
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RecvBuffer.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="MathPch.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
+    <ClCompile Include="Monitor.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

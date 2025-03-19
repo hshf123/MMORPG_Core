@@ -28,6 +28,9 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{2ba0a6c0-ced1-4c7a-a394-7e177b5a5d39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Monitor">
+      <UniqueIdentifier>{58390f8b-a673-4995-b3f0-5bbb7f9b144f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -129,6 +132,9 @@
     <ClInclude Include="SimpleMath.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Monitor.h">
+      <Filter>Monitor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -217,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp">
       <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Monitor.cpp">
+      <Filter>Monitor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

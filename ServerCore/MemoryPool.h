@@ -1,8 +1,9 @@
 #pragma once
 #include "Singleton.h"
 #include "LockFreeStack.h"
+#include "Monitor.h"
 
-#define USE_LOCK_FREE
+//#define USE_LOCK_FREE
 
 template<class T, class... Args>
 class MemoryPool : public RefSingleton<MemoryPool<T>>
@@ -26,11 +27,13 @@ public:
 
 	void* New(Args&&... args)
 	{
+		_useSize.fetch_add(1);
 #ifdef USE_LOCK_FREE
 		T* memory = nullptr;
 		_pools.TryPop(memory);
 		if(memory == nullptr)
-			return ::malloc(sizeof(T)); 
+			return ::malloc(sizeof(T));
+		_poolSize.fetch_add(-1);
 		return memory;
 #else
 		std::lock_guard<std::mutex> lock(_memoryLock);
@@ -46,18 +49,35 @@ public:
 	{
 		if (memory == nullptr)
 			return;
-
+		_useSize.fetch_add(-1);
 #ifdef USE_LOCK_FREE
 		_pools.Push(memory);
+		_poolSize.fetch_add(1);
 #else
 		std::lock_guard<std::mutex> lock(_memoryLock);
 		_pools.push(memory);
 #endif		
 	}
 
+	int32 GetPoolSize()
+	{
+#ifdef USE_LOCK_FREE
+		return _poolSize.load();
+#else
+		return static_cast<int32>(_pools.size());
+#endif
+	}
+
+	int32 GetUsingCount()
+	{
+		return _useSize.load();
+	}
+
 private:
+	std::atomic<int32> _useSize = 0;
 #ifdef USE_LOCK_FREE
 	LockFreeStack<T> _pools;
+	std::atomic<int32> _poolSize = 0;
 #else
 	std::mutex _memoryLock;
 	std::stack<void*> _pools;
@@ -69,6 +89,7 @@ Type* xnew(Args&&... args)
 {
 	Type* mem = static_cast<Type*>(MemoryPool<Type>::GetInstance().New());
 	new(mem)Type(std::forward<Args>(args)...);
+	Monitor::GetInstance().PoolSizeCheck(typeid(Type).name(), MemoryPool<Type>::GetInstance().GetPoolSize(), MemoryPool<Type>::GetInstance().GetUsingCount());
 	return mem;
 }
 
