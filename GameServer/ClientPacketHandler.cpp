@@ -23,15 +23,21 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	req->SessionID = cs->GetWorkId();
 	req->Name = pkt.name();
 	req->Msg = pkt.msg();
-	req->Response = [=]()
-		{
-			SCChatResponse packet;
-			packet.set_name(req->Name);
-			packet.set_msg(req->Msg);
-			ClientSessionManager::GetInstance().Broadcast(EPacketProtocol::SC_ChatResponse, packet);
-			return true;
-		};
+	//req->Response = [=](std::shared_ptr<DBData> data)
+	//	{
+	//		SCChatResponse packet;
+	//		packet.set_name(req->Name);
+	//		packet.set_msg(req->Msg);
+	//		ClientSessionManager::GetInstance().Broadcast(EPacketProtocol::SC_ChatResponse, packet);
+	//		req->Response = nullptr;
+	//		return true;
+	//	};
 	GameDBLoadBalancer::Balancer->Push(cs->GetWorkId(), EDBProtocol::SGDB_ChatRequest, req);
+
+	SCChatResponse packet;
+	packet.set_name(req->Name);
+	packet.set_msg(req->Msg);
+	ClientSessionManager::GetInstance().Broadcast(EPacketProtocol::SC_ChatResponse, packet);
 	return true;
 }
 
