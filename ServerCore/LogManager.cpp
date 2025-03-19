@@ -132,7 +132,7 @@ void LogManager::Log(const uint64& time, const LogType& type, const std::string_
 		break;
 	}
 
-	std::chrono::microseconds duration(time);
+	std::chrono::milliseconds duration(time);
 	duration -= _offset;
 	std::chrono::system_clock::time_point time_point(duration);
 	logger->log(time_point, spdlog::source_loc{}, lvl, log);
