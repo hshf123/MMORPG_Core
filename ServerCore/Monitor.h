@@ -12,7 +12,7 @@ public:
 
 private:
 	uint64 _tick = INT64_C(0);
-	const char* _fn = nullptr;
+	std::string _fn = {};
 };
 
 class Monitor : public RefSingleton<Monitor>
@@ -28,7 +28,7 @@ public:
 	const uint64 GetMemoryUsage_MB();
 
 	// 함수 소요 시간 체크
-	void TimeMonitorCheck(const char* fn, uint64 tick);
+	void TimeMonitorCheck(const std::string& fn, uint64 tick);
 	// 일정 시간 이상 걸린 함수 출력
 	void PrintTimeMonitorList(uint64 tick);
 

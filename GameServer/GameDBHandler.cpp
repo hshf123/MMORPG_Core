@@ -21,10 +21,9 @@ bool GameDBHandler::OnSGDBServerStart(std::shared_ptr<DBData> data)
 	Poco::DateTime serverStartTime;
 	try
 	{
-		session << "{CALL spServerStart(?)}",
-			in(serverId),
-			into(serverStartTime),
-			now;
+		Poco::Data::Statement state(session);
+		state << std::format("EXEC spServerStart {}", serverId), into(serverStartTime);
+		state.execute();
 	}
 	catch (Poco::Data::ODBC::StatementException& ex)
 	{
@@ -57,7 +56,17 @@ bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data)
 
 	try
 	{
-		session << "{CALL spChatReuqest(?,?)}",
+		/*Poco::Data::Statement state(session);
+		state << std::format("							\
+			DECLARE @result INT;						\
+			EXEC spChatRequest @result OUTPUT, {};		\
+			SELECT @result;								\
+		"
+		, req->SessionID)
+		, into(req->Result);
+		state.execute();*/
+
+		session << "EXEC spChatRequest ?,?",
 			out(req->Result),
 			in(req->SessionID),
 			now;

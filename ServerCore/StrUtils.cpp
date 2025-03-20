@@ -28,7 +28,7 @@ std::wstring StrUtils::ToWideStr(const std::string& str)
 std::wstring StrUtils::ToWideStr(const CHAR* str)
 {
 	wchar_t buffer[4096] = {};
-	auto len = ::MultiByteToWideChar(CP_ACP, 0, str, -1, buffer, sizeof(buffer) / sizeof(wchar_t));
+	auto len = ::MultiByteToWideChar(CP_UTF8, 0, str, -1, buffer, sizeof(buffer) / sizeof(wchar_t));
 	if (len == 0)
 		return L"";
 	return buffer;

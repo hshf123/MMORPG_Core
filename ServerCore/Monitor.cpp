@@ -4,7 +4,7 @@
 TimeMonitor::TimeMonitor(const char* fn)
 {
 	_tick = TimeUtils::GetTick64();
-	_fn = fn;
+	_fn = StrUtils::ToString(fn);
 }
 
 TimeMonitor::~TimeMonitor()
@@ -18,7 +18,7 @@ TimeMonitor::~TimeMonitor()
 Monitor::Monitor()
 {
 	::PdhOpenQuery(NULL, NULL, &_cpuQuery);
-	::PdhAddCounter(_cpuQuery, L"\\Processor(_Total)\\% Processor Time", NULL, &_cpuTotal);
+	::PdhAddCounterW(_cpuQuery, L"\\Processor(_Total)\\% Processor Time", NULL, &_cpuTotal);
 }
 
 const double Monitor::GetCPUUsage()
@@ -46,12 +46,11 @@ const uint64 Monitor::GetMemoryUsage_MB()
 	return GetMemoryUsage_KB() / 1024;
 }
 
-void Monitor::TimeMonitorCheck(const char* fn, uint64 tick)
+void Monitor::TimeMonitorCheck(const std::string& fn, uint64 tick)
 {
-	std::string fnStr = StrUtils::ToString(fn);
-	auto findIt = _timeMonitorList.find(fnStr);
+	auto findIt = _timeMonitorList.find(fn);
 	if (findIt == _timeMonitorList.end() || findIt->second.first < tick)
-		_timeMonitorList.insert_or_assign(fnStr, std::make_pair(tick, TimeUtils::GetTick64()));
+		_timeMonitorList.insert_or_assign(fn, std::make_pair(tick, TimeUtils::GetTick64()));
 }
 
 void Monitor::PrintTimeMonitorList(uint64 tick)
