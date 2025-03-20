@@ -24,8 +24,8 @@ public:
 	const double GetCPUUsage();
 	// 메모리 사용량
 	const uint64 GetMemoryUsage_Byte();
-	const uint64 GetMemoryUsage_KB();
-	const uint64 GetMemoryUsage_MB();
+	const double GetMemoryUsage_KB();
+	const double GetMemoryUsage_MB();
 
 	// 함수 소요 시간 체크
 	void TimeMonitorCheck(const std::string& fn, uint64 tick);

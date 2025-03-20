@@ -26,7 +26,7 @@ public:
 	void UpdateTime()
 	{
 		VIEW_INFO("Server is running...");
-		VIEW_INFO("CPU ({:.2f}), MEOMORY ({})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
+		VIEW_INFO("CPU ({:.2f}), MEOMORY ({:.2f})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
 		Monitor::GetInstance().PrintTimeMonitorList(100);
 		DoTimer(TimeUtils::OneMin / 2, &TimerJobQueue::UpdateTime);
 	}
@@ -91,6 +91,8 @@ int main()
 		LEndTickCount = TimeUtils::GetTick64() + 64;
 		ThreadManager::DistributeReservedJobs();
 		ThreadManager::DoGlobalQueueWork();
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 	return 0;
 }

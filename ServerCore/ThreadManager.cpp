@@ -41,7 +41,7 @@ void ThreadManager::DoGlobalQueueWork()
 
 		// DB 결과 처리 우선으로
 		std::vector<std::shared_ptr<DBData>> items;
-		GlobalQueue::GetInstance().PopAllDBData(OUT items);
+		GlobalQueue::GetInstance().PopDBData(OUT items);
 		if (items.empty() == false)
 		{
 			for (std::shared_ptr<DBData> data : items)
@@ -50,7 +50,7 @@ void ThreadManager::DoGlobalQueueWork()
 					continue;
 				data->Response();
 			}
-			continue;
+			break;
 		}
 
 		std::shared_ptr<JobQueue> jobQueue = GlobalQueue::GetInstance().Pop();

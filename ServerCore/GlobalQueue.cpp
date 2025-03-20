@@ -16,7 +16,7 @@ void GlobalQueue::PushDBData(std::shared_ptr<DBData> data)
 	_dbDataQueues.Push(data);
 }
 
-void GlobalQueue::PopAllDBData(OUT std::vector<std::shared_ptr<DBData>>& datas)
+void GlobalQueue::PopDBData(OUT std::vector<std::shared_ptr<DBData>>& items)
 {
-	return _dbDataQueues.PopAll(OUT datas);
+	return _dbDataQueues.PopAll(OUT items);
 }

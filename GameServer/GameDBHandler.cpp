@@ -35,12 +35,14 @@ bool GameDBHandler::OnSGDBServerStart(std::shared_ptr<DBData> data)
 	}
 
 	//Poco::Data::Statement select(session); // SELECT 시에 사용, range(0,1)
-	/*while (!select.done())
+	/*
+	while (!select.done())
 	{
 		if (select.execute() > 0)
 		{
 		}
-	}*/
+	}
+	*/
 
 	TimeUtils::Init(serverStartTime);
 
@@ -56,20 +58,20 @@ bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data)
 
 	try
 	{
-		/*Poco::Data::Statement state(session);
+		Poco::Data::Statement state(session);
 		state << std::format("							\
 			DECLARE @result INT;						\
 			EXEC spChatRequest @result OUTPUT, {};		\
 			SELECT @result;								\
 		"
-		, req->SessionID)
-		, into(req->Result);
-		state.execute();*/
+			, req->SessionID)
+			, into(req->Result);
+		state.execute();
 
-		session << "EXEC spChatRequest ?,?",
-			out(req->Result),
-			in(req->SessionID),
-			now;
+		//session << "EXEC spChatRequest ?,?",
+		//	out(req->Result),
+		//	in(req->SessionID),
+		//	now;
 	}
 	catch (Poco::Data::ODBC::StatementException& ex)
 	{

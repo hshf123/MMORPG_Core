@@ -36,14 +36,14 @@ const uint64 Monitor::GetMemoryUsage_Byte()
 	return 0;
 }
 
-const uint64 Monitor::GetMemoryUsage_KB()
+const double Monitor::GetMemoryUsage_KB()
 {
-	return GetMemoryUsage_Byte() / 1024;
+	return static_cast<double>(GetMemoryUsage_Byte()) / 1024.0;
 }
 
-const uint64 Monitor::GetMemoryUsage_MB()
+const double Monitor::GetMemoryUsage_MB()
 {
-	return GetMemoryUsage_KB() / 1024;
+	return GetMemoryUsage_KB() / 1024.0;
 }
 
 void Monitor::TimeMonitorCheck(const std::string& fn, uint64 tick)

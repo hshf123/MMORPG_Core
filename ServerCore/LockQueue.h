@@ -26,14 +26,21 @@ public:
 
 	void PopAll(OUT std::vector<T>& items)
 	{
-		WRITE_LOCK;
-		while (T item = Pop())
-			items.push_back(item);
+		std::queue<T> q;
+		{
+			WRITE_LOCK;
+			q.swap(_items);
+		}
+
+		while (q.empty() == false)
+		{
+			items.push_back(q.front());
+			q.pop();
+		}
 	}
 
 	void PopCount(OUT std::vector<T>& items, const int32& count)
 	{
-		WRITE_LOCK;
 		for (int32 i = 0; i < count; i++)
 		{
 			if (T item = Pop())
