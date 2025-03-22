@@ -31,7 +31,7 @@ public class ServerSessionManager
         }
     }
 
-    public async Task BroadcastAsync(EPacketProtocol protocol, IMessage packet)
+    public void BroadcastAsync(EPacketProtocol protocol, IMessage packet)
     {
         List<ServerSession> sessions;
         using (WriteLock wLock = new WriteLock(_lock))
@@ -43,11 +43,10 @@ public class ServerSessionManager
         {
             try
             {
-                await session.SendAsync(protocol, packet);
+                session.SendAsync(protocol, packet);
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it accordingly
                 Console.WriteLine($"Failed to send packet to session: {ex.Message}");
             }
         }

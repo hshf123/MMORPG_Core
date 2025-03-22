@@ -39,14 +39,14 @@ public abstract class PacketSession : Session
 
     public abstract void OnRecvPacket(ArraySegment<byte> buffer);
 
-    public async Task SendAsync(EPacketProtocol protocol, IMessage packet)
+    public void SendAsync(EPacketProtocol protocol, IMessage packet)
     {
         ushort size = (ushort)packet.CalculateSize();
         byte[] sendBuffer = new byte[size + 4];
         Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
         Array.Copy(BitConverter.GetBytes((ushort)protocol), 0, sendBuffer, 2, sizeof(ushort));
         Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
-        await SendAsync(new ArraySegment<byte>(sendBuffer));
+        SendAsync(new ArraySegment<byte>(sendBuffer));
     }
 }
 
@@ -83,7 +83,7 @@ public abstract class Session
         await RegisterRecv();
     }
 
-    public async Task Send(List<ArraySegment<byte>> sendBuffList)
+    public void Send(List<ArraySegment<byte>> sendBuffList)
     {
         if (sendBuffList.Count == 0)
             return;
@@ -95,16 +95,16 @@ public abstract class Session
         }
 
         if (_pendingList.Count == 0)
-            await RegisterSend();
+            RegisterSend();
     }
 
-    public async Task SendAsync(ArraySegment<byte> sendBuff)
+    public void SendAsync(ArraySegment<byte> sendBuff)
     {
         using (WriteLock wLock = new WriteLock(_lock))
         {
             _sendQueue.Enqueue(sendBuff);
             if (_pendingList.Count == 0)
-                await RegisterSend();
+                RegisterSend();
         }
     }
 
@@ -144,10 +144,10 @@ public abstract class Session
             return;
         }
 
-        await OnSendCompleted(sendLen);
+        OnSendCompleted(sendLen);
     }
 
-    async Task OnSendCompleted(int sendLen)
+    void OnSendCompleted(int sendLen)
     {
         // 위에서 락 잡고 들어옴
         if (sendLen > 0)
@@ -159,7 +159,7 @@ public abstract class Session
                 OnSend(sendLen);
 
                 if (_sendQueue.Count > 0)
-                    await RegisterSend();
+                    RegisterSend();
             }
             catch (Exception e)
             {
@@ -223,9 +223,7 @@ public abstract class Session
                     return;
                 }
 
-#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
                 RegisterRecv();
-#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             }
             catch (Exception e)
             {

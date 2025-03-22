@@ -2,39 +2,25 @@
 using Protocol;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace DummyClient
 {
     internal class Program
     {
-        static readonly int SetSize = 8096;
-        static readonly int ConnectCount = 10;
-        static readonly int ConnectCountInOnce = 10;
+        static readonly int ConnectCount = 1;
+        static readonly int ConnectCountInOnce = 1;
         static readonly int TickTerm = 3000;
-        //static int pakcetNum = 0;
-
-        static KeyValuePair<float, float>[] targetPosList =
-        {
-            new KeyValuePair<float, float>(3.0f, 2.0f),
-            new KeyValuePair<float, float>(5.0f, 3.0f),
-            new KeyValuePair<float, float>(4.0f, 10.0f),
-            new KeyValuePair<float, float>(12.0f, 7.0f)
-        };
 
         static async Task Main(string[] args)
         {
-            Thread.Sleep(TickTerm);
-
+            await Task.Delay(TickTerm);
             Connector connector = new Connector();
             #region Connect
             int connCount = 0;
             long tick = System.Environment.TickCount64;
-            while(connCount < ConnectCount)
+            while (connCount < ConnectCount)
             {
-                if (tick > System.Environment.TickCount64)
-                    continue;
-                tick = System.Environment.TickCount64 + 1500;
-
                 connector.Connect(
                     "127.0.0.1",                                                            // IP
                     9999,                                                                   // Port
@@ -44,74 +30,12 @@ namespace DummyClient
                     },
                     ConnectCountInOnce                                                      // Dummy Client Count
                 );
-
                 connCount += ConnectCountInOnce;
+                await Task.Delay(TickTerm);
             }
             #endregion
-            Thread.Sleep(TickTerm);
-            int loopNum = 0;
             while (true)
-            {
-                try
-                {
-                    #region Echo
-                    {
-                        CSChatRequest packet = new CSChatRequest();
-                        packet.Name = "Client";
-                        packet.Msg = "Hello Server!!";
-                        await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsChatRequest, packet);
-                    }
-                    #endregion
-                    Thread.Sleep(TickTerm);
-                    #region CircularSector
-                    {
-                        CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
-                        packet.Theta = 60.0f;
-                        packet.Radius = 5.0f;
-                        packet.MyPos = new SPosition();
-                        packet.MyPos.X = 2.0f;
-                        packet.MyPos.Y = 1.0f;
-                        packet.Forward = new SPosition();
-                        packet.Forward.X = 3.0f;
-                        packet.Forward.Y = 2.0f;
-
-                        KeyValuePair<float, float> pair = targetPosList[loopNum++ % 4];
-                        packet.TargetPos = new SPosition();
-                        packet.TargetPos.X = pair.Key;
-                        packet.TargetPos.Y = pair.Value;
-                        await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
-                    }
-                    #endregion
-                    Thread.Sleep(TickTerm);
-                    #region Big
-                    {
-                        int listSize = SetSize / 24;
-
-                        CSBigTestRequest packet = new CSBigTestRequest();
-                        int size = packet.CalculateSize();
-                        for (int i = 0; i < listSize; i++)
-                        {
-                            BigTest t = new BigTest();
-                            t.A = Int64.MaxValue;
-                            t.B = Int64.MaxValue;
-                            t.C = Int64.MaxValue;
-                            packet.List.Add(t);
-                        }
-
-                        size = packet.CalculateSize();
-
-                        await ServerSessionManager.Instance.BroadcastAsync(EPacketProtocol.CsBigTestRequest, packet);
-                    }
-                    #endregion
-                    Thread.Sleep(TickTerm);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
-
-                Thread.Sleep(TickTerm);
-            }
+                await Task.Delay(TickTerm);
         }
     }
 }

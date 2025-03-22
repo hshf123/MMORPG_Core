@@ -18,9 +18,7 @@ public class Connector
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
             args.RemoteEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
             args.UserToken = socket;
-#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             RegisterConnect(args);
-#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
         }
     }
 
@@ -48,9 +46,7 @@ public class Connector
         if (args.SocketError == SocketError.Success)
         {
             Session session = _sessionFactory!.Invoke();
-#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             session.Start(args.UserToken as Socket);
-#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             session.OnConnected(args.RemoteEndPoint!);
         }
         else
