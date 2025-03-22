@@ -32,8 +32,7 @@ bool IocpCore::Dispatch(uint32 timeoutMs /*= INFINITE*/)
 		if (key == RIO_IOCP_COMPLETION)
 		{
 			std::shared_ptr<Service> service = iocpEvent->ownerService;
-			service->Dispatch();
-			Socket::RIOEFTable.RIONotify(service->GetRIOCQ());
+			service->Dispatch(static_cast<RIONotifyEvent*>(iocpEvent));
 			return true;
 		}
 #endif
@@ -53,8 +52,7 @@ bool IocpCore::Dispatch(uint32 timeoutMs /*= INFINITE*/)
 			if (key == RIO_IOCP_COMPLETION)
 			{
 				std::shared_ptr<Service> service = iocpEvent->ownerService;
-				service->Dispatch();
-				Socket::RIOEFTable.RIONotify(service->GetRIOCQ());
+				service->Dispatch(static_cast<RIONotifyEvent*>(iocpEvent));
 				return true;
 			}
 #endif

@@ -27,11 +27,6 @@ public:
 	const double GetMemoryUsage_KB();
 	const double GetMemoryUsage_MB();
 
-	// 함수 소요 시간 체크
-	void TimeMonitorCheck(const std::string& fn, uint64 tick);
-	// 일정 시간 이상 걸린 함수 출력
-	void PrintTimeMonitorList(uint64 tick);
-
 	void PoolSizeCheck(const char* c, int32 poolSize, int32 useCount);
 private:
 	PDH_HQUERY _cpuQuery = {};

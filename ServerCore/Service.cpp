@@ -13,7 +13,7 @@ Service::Service(ServiceType type, NetAddress address, std::shared_ptr<IocpCore>
 Service::~Service()
 {
 #ifdef USE_RIO
-	for (const auto* event : std::views::values(_rioCQEventList))
+	for (const RIONotifyEvent* event : _rioCQEventList)
 		Socket::RIOEFTable.RIOCloseCompletionQueue(event->rioCQ);
 #endif
 }
@@ -48,27 +48,30 @@ void Service::ReleaseSession(std::shared_ptr<Session> session)
 	_sessionCount--;
 }
 
-RIO_CQ& Service::GetRIOCQ()
+RIO_CQ& Service::GetRIOCQ(int32 index)
 {
-	return _rioCQEventList[LThreadId]->rioCQ; 	// 일종의 로드밸런서..?
+	return _rioCQEventList[index % _rioCQEventList.size()]->rioCQ; 	// 일종의 로드밸런서..?
 }
 
-void Service::Dispatch()
+void Service::Dispatch(RIONotifyEvent* event)
 {
+	if (event == nullptr)
+		return;
+
 	RIORESULT results[RIO_DISPATCH_RESULT_COUNT] = { 0, };
 
 	uint64 numResult = INT64_C(0);
 	{
 		WRITE_LOCK;
-		numResult = Socket::RIOEFTable.RIODequeueCompletion(GetRIOCQ(), results, RIO_DISPATCH_RESULT_COUNT);
-		if (numResult == 0)
-			return;
-		if (numResult == RIO_CORRUPT_CQ)
-		{
-			int32 errCode = ::GetLastError();
-			VIEW_WRITE_ERROR("RIO Dispatch Error : {}", errCode);
-			return;
-		}
+		numResult = Socket::RIOEFTable.RIODequeueCompletion(event->rioCQ, results, RIO_DISPATCH_RESULT_COUNT);
+		Socket::RIOEFTable.RIONotify(event->rioCQ);
+	}
+
+	if (numResult == 0 || numResult == RIO_CORRUPT_CQ)
+	{
+		int32 errCode = ::GetLastError();
+		VIEW_WRITE_ERROR("RIO Dispatch Error : {}", errCode);
+		return;
 	}
 
 	for (uint64 i = 0; i < numResult; i++)
@@ -154,6 +157,6 @@ bool ServerService::CreateRIOCQ()
 	}
 
 	event->ownerService = shared_from_this();
-	_rioCQEventList.insert_or_assign(LThreadId, event);
+	_rioCQEventList.push_back(event);
 	return true;
 }

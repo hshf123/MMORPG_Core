@@ -57,6 +57,7 @@ public abstract class Session
 
     RecvBuffer _recvBuffer = new RecvBuffer();
 
+    Lock _lock = new Lock();
     Queue<ArraySegment<byte>> _sendQueue = new Queue<ArraySegment<byte>>();
     List<ArraySegment<byte>> _pendingList = new List<ArraySegment<byte>>();
 
@@ -67,33 +68,46 @@ public abstract class Session
 
     void Clear()
     {
-        _sendQueue.Clear();
-        _pendingList.Clear();
+        using (WriteLock wLock = new WriteLock(_lock))
+        {
+            _sendQueue.Clear();
+            _pendingList.Clear();
+        }
     }
-    public void Start(Socket? socket)
+
+    public async Task Start(Socket? socket)
     {
         if (socket == null)
             return;
         _socket = socket;
-        TaskManager.Instance.AddTask(RegisterRecv());
+        await RegisterRecv();
     }
+
     public void Send(List<ArraySegment<byte>> sendBuffList)
     {
         if (sendBuffList.Count == 0)
             return;
 
-        foreach (ArraySegment<byte> sendBuff in sendBuffList)
-            _sendQueue.Enqueue(sendBuff);
+        using (WriteLock wLock = new WriteLock(_lock))
+        {
+            foreach (ArraySegment<byte> sendBuff in sendBuffList)
+                _sendQueue.Enqueue(sendBuff);
+        }
 
         if (_pendingList.Count == 0)
-            TaskManager.Instance.AddTask(RegisterSend());
+            RegisterSend();
     }
+
     public void SendAsync(ArraySegment<byte> sendBuff)
     {
-        _sendQueue.Enqueue(sendBuff);
-        if (_pendingList.Count == 0)
-            TaskManager.Instance.AddTask(RegisterSend());
+        using (WriteLock wLock = new WriteLock(_lock))
+        {
+            _sendQueue.Enqueue(sendBuff);
+            if (_pendingList.Count == 0)
+                RegisterSend();
+        }
     }
+
     public void Disconnect()
     {
         if (Interlocked.Exchange(ref _disconnected, 1) == 1)
@@ -145,7 +159,7 @@ public abstract class Session
                 OnSend(sendLen);
 
                 if (_sendQueue.Count > 0)
-                    TaskManager.Instance.AddTask(RegisterSend());
+                    RegisterSend();
             }
             catch (Exception e)
             {
@@ -173,8 +187,8 @@ public abstract class Session
         }
         catch (Exception e)
         {
+            //Debug.Log($"RegisterRecv Failed {e}");
             Console.WriteLine($"RegisterRecv Failed {e}");
-            Clear();
             return;
         }
 
@@ -209,10 +223,11 @@ public abstract class Session
                     return;
                 }
 
-                TaskManager.Instance.AddTask(RegisterRecv());
+                RegisterRecv();
             }
             catch (Exception e)
             {
+                //Debug.Log($"OnRecvCompleted Failed {e}");
                 Console.WriteLine($"OnRecvCompleted Failed {e}");
             }
         }

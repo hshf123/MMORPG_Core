@@ -27,19 +27,14 @@ public:
 	{
 		VIEW_INFO("Server is running...");
 		VIEW_INFO("CPU ({:.2f}), MEOMORY ({:.2f})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
-		Monitor::GetInstance().PrintTimeMonitorList(100);
 		DoTimer(TimeUtils::OneMin / 2, &TimerJobQueue::UpdateTime);
 	}
 };
 
 uint32 GetThreadCount()
 {
-#ifdef DEV_TEST
-	return 8;
-#else
 	std::thread t;
 	return t.hardware_concurrency();
-#endif
 }
 
 int main()
@@ -73,8 +68,8 @@ int main()
 					TimeMonitor tm(__FUNCTION__);
 					clientService->GetIocpCore()->Dispatch(10);
 					LEndTickCount = TimeUtils::GetTick64() + 64;
-					ThreadManager::DistributeReservedJobs();
-					ThreadManager::DoGlobalQueueWork();
+					ThreadManager::GetInstance().DistributeReservedJobs();
+					ThreadManager::GetInstance().DoGlobalQueueWork();
 
 					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 				}
@@ -89,8 +84,8 @@ int main()
 	while (true)
 	{
 		LEndTickCount = TimeUtils::GetTick64() + 64;
-		ThreadManager::DistributeReservedJobs();
-		ThreadManager::DoGlobalQueueWork();
+		ThreadManager::GetInstance().DistributeReservedJobs();
+		ThreadManager::GetInstance().DoGlobalQueueWork();
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}

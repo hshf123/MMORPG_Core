@@ -18,7 +18,7 @@ public class Connector
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
             args.RemoteEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
             args.UserToken = socket;
-            TaskManager.Instance.AddTask(RegisterConnect(args));
+            RegisterConnect(args);
         }
     }
 

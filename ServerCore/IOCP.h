@@ -47,7 +47,9 @@ public:
 public:
 	EventType eventType;
 	std::shared_ptr<IocpObject> owner;
+#ifdef USE_RIO
 	std::shared_ptr<Service> ownerService;
+#endif
 };
 
 class ConnectEvent : public IocpEvent
