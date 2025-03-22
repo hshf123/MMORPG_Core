@@ -67,7 +67,7 @@ void Monitor::PrintTimeMonitorList(uint64 tick)
 
 void Monitor::PoolSizeCheck(const char* c, int32 poolSize, int32 useCount)
 {
-	if (100 > useCount)
+	if (100'000 > useCount)
 		return;
 
 	std::string className = StrUtils::ToString(c);

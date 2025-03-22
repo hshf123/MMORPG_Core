@@ -69,8 +69,6 @@ void Service::Dispatch()
 			VIEW_WRITE_ERROR("RIO Dispatch Error : {}", errCode);
 			return;
 		}
-
-		Socket::RIOEFTable.RIONotify(GetRIOCQ());
 	}
 
 	for (uint64 i = 0; i < numResult; i++)

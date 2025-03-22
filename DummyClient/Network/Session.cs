@@ -39,14 +39,14 @@ public abstract class PacketSession : Session
 
     public abstract void OnRecvPacket(ArraySegment<byte> buffer);
 
-    public async Task SendAsync(EPacketProtocol protocol, IMessage packet)
+    public void SendAsync(EPacketProtocol protocol, IMessage packet)
     {
         ushort size = (ushort)packet.CalculateSize();
         byte[] sendBuffer = new byte[size + 4];
         Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
         Array.Copy(BitConverter.GetBytes((ushort)protocol), 0, sendBuffer, 2, sizeof(ushort));
         Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
-        await SendAsync(new ArraySegment<byte>(sendBuffer));
+        SendAsync(new ArraySegment<byte>(sendBuffer));
     }
 }
 
@@ -57,7 +57,6 @@ public abstract class Session
 
     RecvBuffer _recvBuffer = new RecvBuffer();
 
-    Lock _lock = new Lock();
     Queue<ArraySegment<byte>> _sendQueue = new Queue<ArraySegment<byte>>();
     List<ArraySegment<byte>> _pendingList = new List<ArraySegment<byte>>();
 
@@ -68,46 +67,33 @@ public abstract class Session
 
     void Clear()
     {
-        using (WriteLock wLock = new WriteLock(_lock))
-        {
-            _sendQueue.Clear();
-            _pendingList.Clear();
-        }
+        _sendQueue.Clear();
+        _pendingList.Clear();
     }
-
-    public async Task Start(Socket? socket)
+    public void Start(Socket? socket)
     {
         if (socket == null)
             return;
         _socket = socket;
-        await RegisterRecv();
+        TaskManager.Instance.AddTask(RegisterRecv());
     }
-
-    public async Task Send(List<ArraySegment<byte>> sendBuffList)
+    public void Send(List<ArraySegment<byte>> sendBuffList)
     {
         if (sendBuffList.Count == 0)
             return;
 
-        using (WriteLock wLock = new WriteLock(_lock))
-        {
-            foreach (ArraySegment<byte> sendBuff in sendBuffList)
-                _sendQueue.Enqueue(sendBuff);
-        }
+        foreach (ArraySegment<byte> sendBuff in sendBuffList)
+            _sendQueue.Enqueue(sendBuff);
 
         if (_pendingList.Count == 0)
-            await RegisterSend();
+            TaskManager.Instance.AddTask(RegisterSend());
     }
-
-    public async Task SendAsync(ArraySegment<byte> sendBuff)
+    public void SendAsync(ArraySegment<byte> sendBuff)
     {
-        using (WriteLock wLock = new WriteLock(_lock))
-        {
-            _sendQueue.Enqueue(sendBuff);
-            if (_pendingList.Count == 0)
-                await RegisterSend();
-        }
+        _sendQueue.Enqueue(sendBuff);
+        if (_pendingList.Count == 0)
+            TaskManager.Instance.AddTask(RegisterSend());
     }
-
     public void Disconnect()
     {
         if (Interlocked.Exchange(ref _disconnected, 1) == 1)
@@ -144,10 +130,10 @@ public abstract class Session
             return;
         }
 
-        await OnSendCompleted(sendLen);
+        OnSendCompleted(sendLen);
     }
 
-    async Task OnSendCompleted(int sendLen)
+    void OnSendCompleted(int sendLen)
     {
         // 위에서 락 잡고 들어옴
         if (sendLen > 0)
@@ -159,7 +145,7 @@ public abstract class Session
                 OnSend(sendLen);
 
                 if (_sendQueue.Count > 0)
-                    await RegisterSend();
+                    TaskManager.Instance.AddTask(RegisterSend());
             }
             catch (Exception e)
             {
@@ -187,8 +173,8 @@ public abstract class Session
         }
         catch (Exception e)
         {
-            //Debug.Log($"RegisterRecv Failed {e}");
             Console.WriteLine($"RegisterRecv Failed {e}");
+            Clear();
             return;
         }
 
@@ -223,13 +209,10 @@ public abstract class Session
                     return;
                 }
 
-#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
-                RegisterRecv();
-#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
+                TaskManager.Instance.AddTask(RegisterRecv());
             }
             catch (Exception e)
             {
-                //Debug.Log($"OnRecvCompleted Failed {e}");
                 Console.WriteLine($"OnRecvCompleted Failed {e}");
             }
         }
