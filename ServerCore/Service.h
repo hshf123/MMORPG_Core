@@ -39,8 +39,8 @@ public:
 	NetAddress GetNetAddress() { return _netAddress; }
 	std::shared_ptr<IocpCore>& GetIocpCore() { return _iocpCore; }
 
-	RIO_CQ& GetRIOCQ();
-	void Dispatch();
+	RIO_CQ& GetRIOCQ(int32 index);
+	void Dispatch(RIONotifyEvent* event);
 
 protected:
 	USE_LOCK;
@@ -53,7 +53,7 @@ protected:
 	int32 _maxSessionCount = 0;
 	SessionFactory _sessionFactory;
 
-	std::unordered_map<uint32, RIONotifyEvent*> _rioCQEventList;
+	std::vector<RIONotifyEvent*> _rioCQEventList;
 };
 
 class ClientService : public Service

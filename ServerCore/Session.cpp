@@ -70,8 +70,8 @@ bool Session::CreateRIORQ()
 		, 1									// Recv Buffer Count Must be 1?
 		, OUTSTANDING_COUNT					// Max OutStanding Send
 		, 1									// Send Buffer Count Must be 1?
-		, GetService()->GetRIOCQ()
-		, GetService()->GetRIOCQ()
+		, GetService()->GetRIOCQ(GetWorkId())
+		, GetService()->GetRIOCQ(GetWorkId())
 		, nullptr);
 	if (_rioRQ == RIO_INVALID_RQ)
 	{

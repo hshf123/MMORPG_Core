@@ -34,12 +34,8 @@ public:
 
 uint32 GetThreadCount()
 {
-#ifdef DEV_TEST
-	return 8;
-#else
 	std::thread t;
 	return t.hardware_concurrency();
-#endif
 }
 
 int main()
