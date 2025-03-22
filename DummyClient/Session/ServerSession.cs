@@ -82,7 +82,7 @@ public class ServerSession : PacketSession
                 Console.WriteLine(e.ToString());
             }
 
-            if (loopNum > 2000)
+            if (loopNum > 9)
             {
                 Disconnect();
                 break;

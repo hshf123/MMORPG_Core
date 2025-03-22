@@ -14,7 +14,7 @@ public class PacketHandler
         ServerSession? ss = session as ServerSession;
         if (pkt == null || ss == null)
             return;
-        Console.WriteLine($"OnSCChatResponse");
+        //Console.WriteLine($"OnSCChatResponse");
     }
 
     public static void OnSCCircularSectorSkillResponse(PacketSession session, IMessage packet)
@@ -24,7 +24,7 @@ public class PacketHandler
         if (pkt == null || ss == null)
             return;
 
-        Console.WriteLine($"OnSCCircularSectorSkillResponse");
+        //Console.WriteLine($"OnSCCircularSectorSkillResponse");
     }
 
     public static void OnSCBigTestResponse(PacketSession session, IMessage packet)
@@ -33,6 +33,6 @@ public class PacketHandler
         ServerSession? ss = session as ServerSession;
         if (pkt == null || ss == null)
             return;
-        Console.WriteLine($"OnSCBigTestResponse");
+        //Console.WriteLine($"OnSCBigTestResponse");
     }
 }

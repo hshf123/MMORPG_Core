@@ -10,9 +10,9 @@ TimeMonitor::TimeMonitor(const char* fn)
 TimeMonitor::~TimeMonitor()
 {
 	_tick = TimeUtils::GetTick64() - _tick;
-	if (_tick == 0)
+	if (_tick < 100)
 		return;
-	Monitor::GetInstance().TimeMonitorCheck(_fn, _tick);
+	VIEW_WRITE_WARNING("ThreadID({}) Execution time of function {}: {}ms", LThreadId, _fn, _tick);
 }
 
 Monitor::Monitor()
@@ -46,28 +46,9 @@ const double Monitor::GetMemoryUsage_MB()
 	return GetMemoryUsage_KB() / 1024.0;
 }
 
-void Monitor::TimeMonitorCheck(const std::string& fn, uint64 tick)
-{
-	auto findIt = _timeMonitorList.find(fn);
-	if (findIt == _timeMonitorList.end() || findIt->second.first < tick)
-		_timeMonitorList.insert_or_assign(fn, std::make_pair(tick, TimeUtils::GetTick64()));
-}
-
-void Monitor::PrintTimeMonitorList(uint64 tick)
-{
-	for (const auto& [fn, p] : _timeMonitorList)
-	{
-		if (p.first < tick)
-			continue;
-		std::string formattedTime = Poco::DateTimeFormatter::format(TimeUtils::TickToPocoTime(p.second), "%Y-%m-%d %H:%M:%S");
-		VIEW_INFO("Function({}) ExecutionTick([{}] ms) LastCheckTime({}) ThreadID({})", fn, p.first, formattedTime, LThreadId);
-	}
-	_timeMonitorList.clear();
-}
-
 void Monitor::PoolSizeCheck(const char* c, int32 poolSize, int32 useCount)
 {
-	if (100 > useCount)
+	if (100'000 > useCount)
 		return;
 
 	std::string className = StrUtils::ToString(c);

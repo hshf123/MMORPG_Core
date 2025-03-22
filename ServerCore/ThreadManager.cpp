@@ -40,17 +40,21 @@ void ThreadManager::DoGlobalQueueWork()
 			break;
 
 		// DB 결과 처리 우선으로
-		std::vector<std::shared_ptr<DBData>> items;
-		GlobalQueue::GetInstance().PopDBData(OUT items);
-		if (items.empty() == false)
+		if (_dbWorking.exchange(true) == false)
 		{
-			for (std::shared_ptr<DBData> data : items)
+			std::vector<std::shared_ptr<DBData>> items;
+			GlobalQueue::GetInstance().PopDBData(OUT items);
+			if (items.empty() == false)
 			{
-				if (data->Response == nullptr)
-					continue;
-				data->Response();
+				for (std::shared_ptr<DBData> data : items)
+				{
+					if (data->Response == nullptr)
+						continue;
+					data->Response();
+				}
+				_dbWorking.store(false);
+				break;
 			}
-			break;
 		}
 
 		std::shared_ptr<JobQueue> jobQueue = GlobalQueue::GetInstance().Pop();
