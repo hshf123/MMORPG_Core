@@ -113,9 +113,12 @@ public abstract class Session
         if (Interlocked.Exchange(ref _disconnected, 1) == 1)
             return;
 
+        if (false == _socket!.DisconnectAsync(new SocketAsyncEventArgs()))
+            return;
+
         OnDisconnected(_socket!.RemoteEndPoint!);
-        _socket.Shutdown(SocketShutdown.Both);
-        _socket.Close();
+        //_socket.Shutdown(SocketShutdown.Both);
+        //_socket.Close();
         Clear();
     }
 

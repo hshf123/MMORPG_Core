@@ -57,6 +57,9 @@
     <ClCompile Include="Zone.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
+    <ClCompile Include="ZoneManager.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -88,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="GameDBData.h">
       <Filter>DB\GameDB</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager.h">
+      <Filter>Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,12 @@ Session::~Session()
 	Socket::RIOEFTable.RIODeregisterBuffer(_rioSendBufferId);
 #endif
 	Socket::Close(_socket);
+	{
+		std::queue<std::shared_ptr<SendBuffer>> tq;
+		WRITE_LOCKS(SEND_QUEUE_LOCK);
+		tq.swap(_sendQueue);
+	}
+	_sendRegistered.store(false);
 }
 
 void Session::Send(std::shared_ptr<SendBuffer> buffer)
@@ -325,12 +331,12 @@ void Session::ProcessConnect()
 {
 	_connected.store(true);
 	GetService()->AddSession(GetSession());
-	OnConnected(GetService()->GetNetAddress());
-	SetWorkId();
 #ifdef USE_RIO
 	RegisterRIOBuffer();
 	CreateRIORQ();
 #endif
+	SetWorkId();
+	OnConnected(GetService()->GetNetAddress());
 	RegisterRecv();
 }
 

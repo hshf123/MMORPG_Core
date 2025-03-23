@@ -4,6 +4,7 @@
 #include "GameDBData.h"
 #include "MathUtil.h"
 #include "GameDBLoadBalancer.h"
+#include "ZoneManager.h"
 
 void ClientPacketHandler::Init()
 {
@@ -23,21 +24,16 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	req->SessionID = cs->GetWorkId();
 	req->Name = pkt.name();
 	req->Msg = pkt.msg();
-	//req->Response = [=](std::shared_ptr<DBData> data)
-	//	{
-	//		SCChatResponse packet;
-	//		packet.set_name(req->Name);
-	//		packet.set_msg(req->Msg);
-	//		ClientSessionManager::GetInstance().Broadcast(EPacketProtocol::SC_ChatResponse, packet);
-	//		req->Response = nullptr;
-	//		return true;
-	//	};
 	GameDBLoadBalancer::Balancer->Push(cs->GetWorkId(), EDBProtocol::SGDB_ChatRequest, req);
-
-	SCChatResponse packet;
-	packet.set_name(req->Name);
-	packet.set_msg(req->Msg);
-	ClientSessionManager::GetInstance().Broadcast(EPacketProtocol::SC_ChatResponse, packet);
+	
+	auto fn = [=]() 
+		{
+			SCChatResponse packet;
+			packet.set_name(pkt.name());
+			packet.set_msg(pkt.msg());
+			ZoneManager::GetInstance().GetZone(cs->GetWorkId())->Broadcast(EPacketProtocol::SC_ChatResponse, packet);
+		};
+	ZoneManager::GetInstance().GetZone(cs->GetWorkId())->DoAsync(fn);
 	return true;
 }
 

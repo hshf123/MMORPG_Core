@@ -18,7 +18,7 @@ public class ServerSession : PacketSession
     static readonly int SetSize = 8096;
 
     static int SessionNumber = 1;
-    int ID { get; set; } = 0;
+    public int ID { get; set; } = 0;
 
     async Task UpdateProcess()
     {
@@ -35,7 +35,7 @@ public class ServerSession : PacketSession
                     SendAsync(EPacketProtocol.CsChatRequest, packet);
                 }
                 #endregion
-                await Task.Delay(1500);
+                await Task.Delay(1500 + ID);
                 #region CircularSector
                 {
                     CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
@@ -55,7 +55,7 @@ public class ServerSession : PacketSession
                     SendAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
                 }
                 #endregion
-                await Task.Delay(1500);
+                await Task.Delay(1500 + ID);
                 #region Big
                 {
                     int listSize = SetSize / 24;
@@ -75,17 +75,11 @@ public class ServerSession : PacketSession
                     SendAsync(EPacketProtocol.CsBigTestRequest, packet);
                 }
                 #endregion
-                await Task.Delay(1500);
+                await Task.Delay(1500 + ID);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-            }
-
-            if (loopNum > 9)
-            {
-                Disconnect();
-                break;
             }
         }
     }

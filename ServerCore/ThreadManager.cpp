@@ -46,6 +46,7 @@ void ThreadManager::DoGlobalQueueWork()
 			GlobalQueue::GetInstance().PopDBData(OUT items);
 			if (items.empty() == false)
 			{
+				TimeMonitor tm(__FUNCTION__);
 				for (std::shared_ptr<DBData> data : items)
 				{
 					if (data->Response == nullptr)
@@ -55,12 +56,14 @@ void ThreadManager::DoGlobalQueueWork()
 				_dbWorking.store(false);
 				break;
 			}
+			_dbWorking.store(false);
 		}
 
 		std::shared_ptr<JobQueue> jobQueue = GlobalQueue::GetInstance().Pop();
 		if (jobQueue == nullptr)
 			break;
 
+		TimeMonitor tm(__FUNCTION__);
 		jobQueue->Execute();
 	}
 }

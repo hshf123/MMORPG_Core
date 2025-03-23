@@ -219,6 +219,8 @@
     </ClCompile>
     <ClCompile Include="GameDBHandler.cpp" />
     <ClCompile Include="GameDBLoadBalancer.cpp" />
+    <ClCompile Include="Zone.cpp" />
+    <ClCompile Include="ZoneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientPacketHandler.h" />
@@ -231,6 +233,8 @@
     <ClInclude Include="Struct.pb.h" />
     <ClInclude Include="GameDBHandler.h" />
     <ClInclude Include="GameDBLoadBalancer.h" />
+    <ClInclude Include="Zone.h" />
+    <ClInclude Include="ZoneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Enum.proto" />

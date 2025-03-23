@@ -76,6 +76,7 @@ void Service::Dispatch(RIONotifyEvent* event)
 
 	for (uint64 i = 0; i < numResult; i++)
 	{
+		TimeMonitor tm(__FUNCTION__);
 		RIOEvent* context = reinterpret_cast<RIOEvent*>(results[i].RequestContext);
 		std::shared_ptr<IocpObject> iocpObject = context->owner;
 		iocpObject->Dispatch(context, results[i].BytesTransferred);

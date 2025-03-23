@@ -59,13 +59,14 @@ int main()
 		10);
 	ASSERT_CRASH(clientService->Start());
 	for (uint32 i = UINT32_C(0); i < GetThreadCount(); i++)
+		clientService->CreateRIOCQ();
+	for (uint32 i = UINT32_C(0); i < GetThreadCount(); i++)
 	{
 		ThreadManager::GetInstance().Launch([&]()
 			{
 				clientService->CreateRIOCQ();
 				while (true)
 				{
-					TimeMonitor tm(__FUNCTION__);
 					clientService->GetIocpCore()->Dispatch(10);
 					LEndTickCount = TimeUtils::GetTick64() + 64;
 					ThreadManager::GetInstance().DistributeReservedJobs();
