@@ -4,7 +4,7 @@
 #include "Service.h"
 #include "SendBuffer.h"
 
-Session::Session() : _recvBuffer(BUFFER_SIZE), _sendBuffer(BUFFER_SIZE)
+Session::Session() : _recvBuffer(RECV_BUFFER_SIZE), _sendBuffer(SEND_BUFFER_SIZE)
 {
 	_socket = Socket::CreateSocket();
 }
@@ -398,8 +398,6 @@ void Session::ProcessSend(int32 numOfBytes)
 	OnSend(numOfBytes);
 
 	WRITE_LOCKS(SEND_QUEUE_LOCK);
-#ifdef DEV_TEST
-#else
 	if (_sendQueue.size() >= WARN_SENDQUEUE_SIZE)
 		VIEW_WRITE_WARNING("WorkId({}) SendQueueSize Over {}!! QueueSize({})", GetWorkId(), WARN_SENDQUEUE_SIZE, _sendQueue.size());
 	if (_sendQueue.size() >= WARN_SENDQUEUE_SIZE)
@@ -408,7 +406,6 @@ void Session::ProcessSend(int32 numOfBytes)
 		Disconnect(L"SendQueue Size Over");
 		return;
 	}
-#endif
 	if (_sendQueue.empty())
 		_sendRegistered.store(false);
 	else

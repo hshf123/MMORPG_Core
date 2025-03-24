@@ -8,7 +8,7 @@ void ClientSessionManager::OnConnected(std::shared_ptr<PacketSession> session)
 	std::shared_ptr<ClientSession> cs = static_pointer_cast<ClientSession>(session);
 	if (cs == nullptr)
 		return;
-	//VIEW_INFO("Client Connected {}", StrUtils::ToString(cs->GetAddress().GetIpAddress()));
+	VIEW_INFO("Client Connected {}", StrUtils::ToString(cs->GetAddress().GetIpAddress()));
 	WRITE_LOCK;
 	_sessions.insert(cs);
 }

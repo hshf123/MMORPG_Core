@@ -139,7 +139,7 @@ bool ServerService::CreateRIOCQ()
 	이러니 메모리가 너무 크게 잡히지....
 	*/
 	constexpr int PendingCount = 32;	// (Send + Recv) OutStandingCount
-	constexpr int MaxClientSize = 3000;
+	constexpr int MaxClientSize = 5000 * 2;
 	constexpr int CompletionQueueSize = (PendingCount * MaxClientSize);
 
 	RIONotifyEvent* event = xnew<RIONotifyEvent>(GetIocpCore()->GetHandle());

@@ -9,7 +9,7 @@ namespace DummyClient
     internal class Program
     {
         static readonly int ConnectCount = 5000;
-        static readonly int ConnectCountInOnce = 50;
+        static readonly int ConnectCountInOnce = 100;
         static readonly int TickTerm = 3000;
 
         static async Task Main(string[] args)

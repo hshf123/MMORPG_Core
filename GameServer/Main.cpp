@@ -34,7 +34,7 @@ public:
 uint32 GetThreadCount()
 {
 	std::thread t;
-	return t.hardware_concurrency();
+	return t.hardware_concurrency() / 4;
 }
 
 int main()
@@ -43,7 +43,7 @@ int main()
 	LogManager::GetInstance().Initialize("GameServer");
 	GameDBHandler::GetInstance().Init();
 	ClientPacketHandler::GetInstance().Init();
-	GameDBLoadBalancer::Balancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", 4);
+	GameDBLoadBalancer::Balancer->Init("Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;", GetThreadCount());
 
 	LogManager::GetInstance().Launch();
 	GameDBLoadBalancer::Balancer->Launch();
@@ -53,18 +53,20 @@ int main()
 	TimeUtils::WaitInit();
 
 	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
-		NetAddress(L"0.0.0.0", 9999),
+		NetAddress(L"127.0.0.1", 9999),
 		PoolAlloc<IocpCore>(),
 		PoolAlloc<ClientSession>,
 		10);
 	ASSERT_CRASH(clientService->Start());
 	for (uint32 i = UINT32_C(0); i < GetThreadCount(); i++)
-		clientService->CreateRIOCQ();
+	{
+		if (clientService->CreateRIOCQ() == false)
+			return 0;
+	}
 	for (uint32 i = UINT32_C(0); i < GetThreadCount(); i++)
 	{
 		ThreadManager::GetInstance().Launch([&]()
 			{
-				clientService->CreateRIOCQ();
 				while (true)
 				{
 					clientService->GetIocpCore()->Dispatch(10);

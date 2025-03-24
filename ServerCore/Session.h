@@ -18,7 +18,8 @@ class Session : public IocpObject
 	enum
 	{
 		OUTSTANDING_COUNT = 0x0010,
-		BUFFER_SIZE = 0x2000,
+		RECV_BUFFER_SIZE = 0x2000,
+		SEND_BUFFER_SIZE = 0x4000,
 	};
 
 public:
