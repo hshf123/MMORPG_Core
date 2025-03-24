@@ -60,6 +60,9 @@
     <ClCompile Include="ZoneManager.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
+    <ClCompile Include="GameServer.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="ZoneManager.h">
       <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
