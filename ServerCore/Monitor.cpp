@@ -30,9 +30,9 @@ const double Monitor::GetCPUUsage()
 
 const uint64 Monitor::GetMemoryUsage_Byte()
 {
-	PROCESS_MEMORY_COUNTERS pmc;
-	if (::GetProcessMemoryInfo(::GetCurrentProcess(), &pmc, sizeof(pmc)))
-		return pmc.WorkingSetSize;
+	PROCESS_MEMORY_COUNTERS_EX pmc;
+	if (::GetProcessMemoryInfo(::GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc)))
+		return pmc.PrivateUsage;
 	return 0;
 }
 
