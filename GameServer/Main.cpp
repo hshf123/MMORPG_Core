@@ -25,8 +25,7 @@ class TimerJobQueue : public JobQueue
 public:
 	void UpdateTime()
 	{
-		VIEW_INFO("Server is running...");
-		VIEW_INFO("CPU ({:.2f}), MEOMORY ({:.2f})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
+		VIEW_WRITE_INFO("CPU ({:.2f}), MEOMORY ({:.2f})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
 		DoTimer(TimeUtils::OneMin / 2, &TimerJobQueue::UpdateTime);
 	}
 };
@@ -79,11 +78,8 @@ int main()
 			});
 	}
 
-#ifdef DEV_TEST
-	// 테스트용
 	std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
 	jobQueue->UpdateTime();
-#endif
 	while (true)
 	{
 		LEndTickCount = TimeUtils::GetTick64() + 64;
