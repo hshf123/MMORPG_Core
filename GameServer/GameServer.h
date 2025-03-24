@@ -1,8 +1,6 @@
 #pragma once
 #include "JobQueue.h"
 
-#define THREAD_COUNT 4
-
 class TimerJobQueue : public JobQueue
 {
 public:
@@ -16,8 +14,15 @@ public:
 	bool Update();
 
 private:
+	bool _ReadConfig();
 	bool _InitGameDB();
 	bool _InitClientService();
 	void _InitWorkerThread(std::shared_ptr<class ServerService> service);
+
+private:
+	std::string _processName = {};
+	std::string _gameDBConnectionString = {};
+	int32 _gameDBThreadCount = 0;
+	int32 _clientServiceThreadCount = 0;
 };
 

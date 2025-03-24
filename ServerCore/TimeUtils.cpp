@@ -13,8 +13,7 @@
 ///   * microsecond is from 0 to 999.
 
 Poco::DateTime TimeUtils::_startTime = {};
-uint64 TimeUtils::_startTick = UINT64_C(0);
-uint64 TimeUtils::_updateTick = UINT64_C(0);
+uint64 TimeUtils::_startTick = _startTime.timestamp().epochMicroseconds() / 1000;
 
 void TimeUtils::WaitInit()
 {

@@ -38,5 +38,4 @@ public:
 private:
 	static Poco::DateTime _startTime;
 	static uint64 _startTick;
-	static uint64 _updateTick;
 };

@@ -118,5 +118,6 @@
     <None Include="Protocol.proto">
       <Filter>Packet</Filter>
     </None>
+    <None Include="Config.json" />
   </ItemGroup>
 </Project>

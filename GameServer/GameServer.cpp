@@ -7,6 +7,10 @@
 #include "Service.h"
 #include "ClientSession.h"
 #include "ThreadManager.h"
+#include <filesystem>
+#include <fstream>
+
+namespace fs = std::filesystem;
 
 void TimerJobQueue::UpdateTime()
 {
@@ -16,8 +20,11 @@ void TimerJobQueue::UpdateTime()
 
 bool GameServer::Init()
 {
+	if (_ReadConfig() == false)
+		return false;
+
 	Socket::Init();
-	LogManager::GetInstance().Initialize("GameServer");
+	LogManager::GetInstance().Initialize(_processName);
 	GameDBHandler::GetInstance().Init();
 	ClientPacketHandler::GetInstance().Init();
 
@@ -53,11 +60,51 @@ bool GameServer::Update()
 	return true;
 }
 
+bool GameServer::_ReadConfig()
+{
+	std::string config = "Config.json";
+	if (fs::exists(config) == false)
+		return false;
+	std::ifstream file(config, std::ios::binary);
+	if (file.fail())
+		return false;
+	std::string json((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+	rapidjson::Document doc;
+	doc.Parse(json.c_str());
+
+	rapidjson::Value& mainValue = doc["Main"];
+	_processName = mainValue["ProcessName"].GetString();
+	VIEW_INFO("{}", _processName);
+	_clientServiceThreadCount = mainValue["ThreadCount"].GetInt();
+	VIEW_INFO("ClientService ThreadCount : {}", _clientServiceThreadCount);
+
+	rapidjson::Value& gdbValue = doc["GameDB"];
+	_gameDBConnectionString = gdbValue["ConnectionString"].GetString();
+	_gameDBThreadCount = gdbValue["ThreadCount"].GetInt();
+	VIEW_INFO("GameDB Connection Count : {}", _gameDBThreadCount);
+
+	//{
+	//	// 쓰기 테스트
+	//	const std::string json = "{\"project\":\"rapidjson\",\"stars\":10}";
+	//	rapidjson::Document d;
+	//	d.Parse(json.c_str());
+	//	rapidjson::Value& s = d["stars"];
+	//	s.SetInt(s.GetInt() + 1);
+	//	rapidjson::StringBuffer buffer;
+	//	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	//	d.Accept(writer);
+	//	std::string str = buffer.GetString();
+	//}
+
+	return true;
+}
+
 bool GameServer::_InitGameDB()
 {
 	return GameDBLoadBalancer::Balancer->Init(
 		"Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;"
-		, THREAD_COUNT);
+		, _gameDBThreadCount);
 }
 
 bool GameServer::_InitClientService()
@@ -68,7 +115,7 @@ bool GameServer::_InitClientService()
 		PoolAlloc<ClientSession>,
 		100);
 	ASSERT_CRASH(clientService->Start());
-	for (uint32 i = UINT32_C(0); i < THREAD_COUNT; i++)
+	for (int32 i = UINT32_C(0); i < _clientServiceThreadCount; i++)
 	{
 		if (clientService->CreateRIOCQ() == false)
 			return false;
@@ -80,7 +127,7 @@ bool GameServer::_InitClientService()
 
 void GameServer::_InitWorkerThread(std::shared_ptr<ServerService> service)
 {
-	for (uint32 i = UINT32_C(0); i < THREAD_COUNT; i++)
+	for (int32 i = UINT32_C(0); i < _clientServiceThreadCount; i++)
 	{
 		ThreadManager::GetInstance().Launch([service]()
 			{

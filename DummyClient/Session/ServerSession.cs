@@ -58,7 +58,7 @@ public class ServerSession : PacketSession
                 await Task.Delay(1500 + ID);
                 #region Big
                 {
-                    int listSize = SetSize / 24;
+                    int listSize = SetSize / 48;
                     CSBigTestRequest packet = new CSBigTestRequest();
                     int size = packet.CalculateSize();
                     for (int i = 0; i < listSize; i++)

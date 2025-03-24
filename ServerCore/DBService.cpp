@@ -14,6 +14,7 @@ bool DBService::Connect(const std::string& connectionString)
 		return false;
 	}
 
+	VIEW_INFO("[DB: {}] Connect Success!!", _connectionString);
 	return true;
 }
 

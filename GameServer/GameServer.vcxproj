@@ -242,6 +242,7 @@
     <ClInclude Include="ZoneManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config.json" />
     <None Include="Enum.proto" />
     <None Include="ParseProto.bat" />
     <None Include="Protocol.proto" />
