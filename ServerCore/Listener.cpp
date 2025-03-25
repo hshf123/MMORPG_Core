@@ -113,5 +113,6 @@ void Listener::ProcessAccept(AcceptEvent* acceptEvent)
 
 	session->SetNetAddr(NetAddress(sockAddress));
 	session->ProcessConnect();
+	Monitor::GetInstance().AddAcceptCount(1);
 	RegisterAccept(acceptEvent);
 }

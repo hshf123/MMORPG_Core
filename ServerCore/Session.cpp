@@ -260,7 +260,6 @@ void Session::RegisterSend()
 		}
 
 		sendQueue.pop();
-		//::memcpy_s(_sendBuffer.WritePos(), *sendBuffer->Buffer(), sendBuffer->WriteSize());
 		::memcpy_s(_sendBuffer.WritePos(), sendBuffer->WriteSize(), sendBuffer->Buffer(), sendBuffer->WriteSize());
 
 		RIOSendEvent* rioSendEvent = xnew<RIOSendEvent>();
@@ -382,9 +381,9 @@ void Session::ProcessRecv(int32 numOfBytes)
 void Session::ProcessSend(int32 numOfBytes)
 {
 #ifdef USE_RIO
-	_sendRegistered.store(false);
 	_sendBuffer.OnRead(numOfBytes);
 	_sendBuffer.Clean();
+	_sendRegistered.store(false);
 #else
 	_sendEvent.owner = nullptr;
 	_sendEvent.SendBuffers.clear();

@@ -46,6 +46,36 @@ const double Monitor::GetMemoryUsage_MB()
 	return GetMemoryUsage_KB() / 1024.0;
 }
 
+void Monitor::PrintServerCounting()
+{
+	int64_t now = TimeUtils::GetTick64();
+	// 최소 1분은 수집
+	if (_lastCountingTick + (1000 * 60) > now)
+		return;
+
+	VIEW_WRITE_INFO("Accept({}) Recv({}) Send({})", _acceptCount.load(), _sendCount.load(), _recvCount.load());
+	_acceptCount = 0;
+	_sendCount = 0;
+	_recvCount = 0;
+
+	_lastCountingTick = now;
+}
+
+void Monitor::AddAcceptCount(int32 acceptCount)
+{
+	_acceptCount.fetch_add(acceptCount);
+}
+
+void Monitor::AddRecvCount(int32 recvCount)
+{
+	_recvCount.fetch_add(recvCount);
+}
+
+void Monitor::AddSendCount(int32 sendCount)
+{
+	_sendCount.fetch_add(sendCount);
+}
+
 void Monitor::PoolSizeCheck(const char* c, int32 poolSize, int32 useCount)
 {
 	if (100'000 > useCount)
