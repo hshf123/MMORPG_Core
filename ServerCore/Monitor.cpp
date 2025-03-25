@@ -53,7 +53,7 @@ void Monitor::PrintServerCounting()
 	if (_lastCountingTick + (1000 * 60) > now)
 		return;
 
-	VIEW_WRITE_INFO("Accept({}) Recv({}) Send({})", _acceptCount.load(), _sendCount.load(), _recvCount.load());
+	VIEW_WRITE_INFO("Accept({}) Recv({}) Send({})", _acceptCount.load(), _recvCount.load(), _sendCount.load());
 	_acceptCount = 0;
 	_sendCount = 0;
 	_recvCount = 0;

@@ -20,6 +20,10 @@ public class ServerSession : PacketSession
     static int SessionNumber = 1;
     public int ID { get; set; } = 0;
 
+    long _ping1 = 0;
+    long _ping2 = 0;
+    long _ping3 = 0;
+
     async Task UpdateProcess()
     {
         int loopNum = 0;
@@ -29,6 +33,7 @@ public class ServerSession : PacketSession
             {
                 #region Echo
                 {
+                    Interlocked.Exchange(ref _ping1, System.Environment.TickCount64);
                     CSChatRequest packet = new CSChatRequest();
                     packet.Name = "Client";
                     packet.Msg = "Hello Server!!";
@@ -37,7 +42,9 @@ public class ServerSession : PacketSession
                 #endregion
                 await Task.Delay(1500 + ID);
                 #region CircularSector
+                if (ID % 5 == 0)
                 {
+                    Interlocked.Exchange(ref _ping2, System.Environment.TickCount64);
                     CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
                     packet.Theta = 60.0f;
                     packet.Radius = 5.0f;
@@ -58,6 +65,7 @@ public class ServerSession : PacketSession
                 await Task.Delay(1500 + ID);
                 #region Big
                 {
+                    Interlocked.Exchange(ref _ping3, System.Environment.TickCount64);
                     int listSize = SetSize / 48;
                     CSBigTestRequest packet = new CSBigTestRequest();
                     int size = packet.CalculateSize();
@@ -83,27 +91,67 @@ public class ServerSession : PacketSession
             }
         }
     }
+    public void CheckPing(long tick, int pingType)
+    {
+        long ping;
+        switch(pingType)
+        {
+            case 1:
+                ping = Interlocked.Exchange(ref _ping1, 0);
+                break;
+            case 2:
+                ping = Interlocked.Exchange(ref _ping2, 0);
+                break;
+            case 3:
+                ping = Interlocked.Exchange(ref _ping3, 0);
+                break;
+            default:
+                return;
+        }
+        long pong = System.Environment.TickCount64 - ping;
+        if (pong >= 100)
+        {
+            switch (pingType)
+            {
+                case 1:
+                    Console.WriteLine($"CSChatRequest Ping ({pong})");
+                    break;
+                case 2:
+                    Console.WriteLine($"CSCircularSectorSkillRequest Ping ({pong})");
+                    break;
+                case 3:
+                    Console.WriteLine($"CSBigTestRequest Ping ({pong})");
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
 
     #region Packet
     public override void OnConnected(EndPoint endPoint)
     {
         ServerSessionManager.Instance.Add(this);
         ID = SessionNumber++;
+        Interlocked.Increment(ref Program.ConnCount);
         Console.WriteLine($"OnConnected : {endPoint}, Session Number : {ID}");
         UpdateProcess();
     }
     public override void OnDisconnected(EndPoint endPoint)
     {
         ServerSessionManager.Instance.Remove(this);
+        Interlocked.Decrement(ref Program.ConnCount);
         Console.WriteLine($"OnDisconnected : {endPoint}");
     }
     public override void OnRecvPacket(ArraySegment<byte> buffer)
     {
         // TODO : packetId 대역 체크
+        Interlocked.Increment(ref Program.RecvCount);
         PacketManager.Instance.OnRecvPacket(this, buffer);
     }
     public override void OnSend(int numOfBytes)
     {
+        Interlocked.Increment(ref Program.SendCount);
     }
     #endregion
 }

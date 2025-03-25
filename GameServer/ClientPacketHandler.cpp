@@ -26,14 +26,10 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	req->Msg = pkt.msg();
 	GameDBLoadBalancer::Balancer->Push(cs->GetWorkId(), EDBProtocol::SGDB_ChatRequest, req);
 	
-	auto fn = [=]() 
-		{
-			SCChatResponse packet;
-			packet.set_name(pkt.name());
-			packet.set_msg(pkt.msg());
-			ZoneManager::GetInstance().GetZone(cs->GetWorkId())->Broadcast(EPacketProtocol::SC_ChatResponse, packet);
-		};
-	ZoneManager::GetInstance().GetZone(cs->GetWorkId())->DoAsync(fn);
+	SCChatResponse packet;
+	packet.set_name(pkt.name());
+	packet.set_msg(pkt.msg());
+	cs->Send(EPacketProtocol::SC_ChatResponse, packet);
 	return true;
 }
 
@@ -51,9 +47,13 @@ bool ClientPacketHandler::OnCSCircularSectorSkillRequest(std::shared_ptr<PacketS
 		Vec2(pkt.targetpos().x(), pkt.targetpos().y())
 	);
 
-	SCCircularSectorSkillResponse packet;
-	packet.set_ishit(ret);
-	cs->Send(EPacketProtocol::SC_CircularSectorSkillResponse, packet);
+	auto fn = [=]()
+		{
+			SCCircularSectorSkillResponse packet;
+			packet.set_ishit(ret);
+			ZoneManager::GetInstance().GetZone(cs->GetWorkId())->Broadcast(EPacketProtocol::SC_CircularSectorSkillResponse, packet);
+		};
+	ZoneManager::GetInstance().GetZone(cs->GetWorkId())->DoAsync(fn);
 	return true;
 }
 

@@ -3,7 +3,7 @@
 #include "LockFreeStack.h"
 #include "Monitor.h"
 
-//#define USE_LOCK_FREE
+#define USE_LOCK_FREE
 
 template<class T, class... Args>
 class MemoryPool : public RefSingleton<MemoryPool<T>>
@@ -98,6 +98,21 @@ void xdelete(Type* ptr)
 {
 	ptr->~Type();
 	MemoryPool<Type>::GetInstance().Delete(ptr);
+}
+
+template<class Type>
+void xreserve(int32 size)
+{
+	std::vector<Type*> vec;
+	vec.reserve(size);
+	for (int32 i = 0; i < size; i++)
+	{
+		Type* mem = static_cast<Type*>(MemoryPool<Type>::GetInstance().New());
+		new(mem)Type();
+		vec.push_back(mem);
+	}
+	for (int32 i = 0; i < size; i++)
+		xdelete(vec[i]);
 }
 
 /// <summary>

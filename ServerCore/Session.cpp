@@ -247,29 +247,34 @@ void Session::RegisterSend()
 		WRITE_LOCKS(SEND_QUEUE_LOCK);
 		sendQueue.swap(_sendQueue);
 	}
-
-	WRITE_LOCKS(RIO_RQ_LOCK);
-	while (sendQueue.empty() == false)
+	std::vector<RIOSendEvent*> eventList;
 	{
-		std::shared_ptr<SendBuffer> sendBuffer = sendQueue.front();
-		if (_sendBuffer.FreeSize() < sendBuffer->WriteSize())
+		WRITE_LOCKS(RIO_RQ_LOCK);
+		while (sendQueue.empty() == false)
 		{
-			VIEW_WRITE_ERROR("There's no FreeSize Session({})", _workId);
-			Disconnect(L"SendBuffer Over");
-			return;
+			std::shared_ptr<SendBuffer> sendBuffer = sendQueue.front();
+			if (_sendBuffer.FreeSize() < sendBuffer->WriteSize())
+			{
+				VIEW_WRITE_ERROR("There's no FreeSize Session({})", _workId);
+				Disconnect(L"SendBuffer Over");
+				return;
+			}
+
+			sendQueue.pop();
+			::memcpy_s(_sendBuffer.WritePos(), sendBuffer->WriteSize(), sendBuffer->Buffer(), sendBuffer->WriteSize());
+
+			RIOSendEvent* rioSendEvent = xnew<RIOSendEvent>();
+			rioSendEvent->Init();
+			rioSendEvent->owner = shared_from_this();
+			rioSendEvent->BufferId = _rioSendBufferId;
+			rioSendEvent->Length = sendBuffer->WriteSize();
+			rioSendEvent->Offset = _sendBuffer.WriteOffset();
+			_sendBuffer.OnWrite(sendBuffer->WriteSize());
+			eventList.push_back(rioSendEvent);
 		}
-
-		sendQueue.pop();
-		::memcpy_s(_sendBuffer.WritePos(), sendBuffer->WriteSize(), sendBuffer->Buffer(), sendBuffer->WriteSize());
-
-		RIOSendEvent* rioSendEvent = xnew<RIOSendEvent>();
-		rioSendEvent->Init();
-		rioSendEvent->owner = shared_from_this();
-		rioSendEvent->BufferId = _rioSendBufferId;
-		rioSendEvent->Length = sendBuffer->WriteSize();
-		rioSendEvent->Offset = _sendBuffer.WriteOffset();
-		_sendBuffer.OnWrite(sendBuffer->WriteSize());
-
+	}
+	for (RIOSendEvent* rioSendEvent : eventList)
+	{
 		DWORD sendbytes = 0;
 		DWORD flags = 0;
 		if (Socket::RIOEFTable.RIOSend(_rioRQ, static_cast<PRIO_BUF>(rioSendEvent), 1, flags, rioSendEvent) == false)

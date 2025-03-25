@@ -15,6 +15,7 @@ public class PacketHandler
         if (pkt == null || ss == null)
             return;
         //Console.WriteLine($"OnSCChatResponse");
+        
     }
 
     public static void OnSCCircularSectorSkillResponse(PacketSession session, IMessage packet)
