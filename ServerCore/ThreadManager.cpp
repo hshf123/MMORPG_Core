@@ -49,9 +49,10 @@ void ThreadManager::DoGlobalQueueWork()
 				TimeMonitor tm(__FUNCTION__);
 				for (std::shared_ptr<DBData> data : items)
 				{
-					if (data->Response == nullptr)
+					if (data->Owner == nullptr || data->Response == nullptr)
 						continue;
-					data->Response();
+					data->Owner->Push(data->Response, true);
+					data->Response = nullptr;
 				}
 				_dbWorking.store(false);
 				break;

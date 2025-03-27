@@ -23,6 +23,18 @@ public:
 		Push(PoolAlloc<Job>(owner, memFunc, std::forward<Args>(args)...));
 	}
 
+	std::shared_ptr<Job> MakeJob(CallbackType&& callback)
+	{
+		return PoolAlloc<Job>(std::move(callback));
+	}
+
+	template<typename T, typename Ret, typename... Args>
+	std::shared_ptr<Job> MakeJob(Ret(T::* memFunc)(Args...), Args... args)
+	{
+		std::shared_ptr<T> owner = std::static_pointer_cast<T>(shared_from_this());
+		return PoolAlloc<Job>(owner, memFunc, std::forward<Args>(args)...);
+	}
+
 	void DoTimer(uint64 tickAfter, CallbackType&& callback)
 	{
 		std::shared_ptr<Job> job = PoolAlloc<Job>(std::move(callback));
@@ -54,4 +66,3 @@ protected:
 	LockQueue<std::shared_ptr<Job>>		_jobs;
 	std::atomic_int32_t					_jobCount = 0;
 };
-

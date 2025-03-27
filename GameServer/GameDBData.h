@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "DBHandler.h"
 
 class spChatReuqest : public DBData

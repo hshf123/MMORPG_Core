@@ -134,8 +134,8 @@ void GameServer::_InitWorkerThread(std::shared_ptr<ServerService> service)
 			{
 				while (true)
 				{
-					service->GetIocpCore()->Dispatch(10);
 					LEndTickCount = TimeUtils::GetTick64() + 64;
+					service->GetIocpCore()->Dispatch(10);
 					ThreadManager::GetInstance().DistributeReservedJobs();
 					ThreadManager::GetInstance().DoGlobalQueueWork();
 

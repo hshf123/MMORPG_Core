@@ -9,3 +9,5 @@
 #include "Protocol.pb.h"
 
 using namespace Protocol;
+
+#include "GameDBData.h"

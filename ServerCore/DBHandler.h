@@ -5,7 +5,8 @@ class DBData
 public:
 	int32 WorkID = 0;		// 밸런싱 할 ID
 	uint16 ProtocolID = 0;	// 서버 내 프로토콜
-	std::function<void()> Response = nullptr;
+	std::shared_ptr<class JobQueue> Owner = nullptr;
+	std::shared_ptr<class Job> Response = nullptr;
 };
 
 class DBService;

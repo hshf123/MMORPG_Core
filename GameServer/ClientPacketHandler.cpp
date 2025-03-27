@@ -24,12 +24,14 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	req->SessionID = cs->GetWorkId();
 	req->Name = pkt.name();
 	req->Msg = pkt.msg();
-	GameDBLoadBalancer::Balancer->Push(cs->GetWorkId(), EDBProtocol::SGDB_ChatRequest, req);
 	
-	SCChatResponse packet;
-	packet.set_name(pkt.name());
-	packet.set_msg(pkt.msg());
-	cs->Send(EPacketProtocol::SC_ChatResponse, packet);
+	std::shared_ptr<Zone> zone = ZoneManager::GetInstance().GetZone(cs->GetWorkId());
+	if (zone == nullptr)
+		return false;
+	std::shared_ptr<Job> job = zone->MakeJob(&Zone::OnSCChatResponse, req);
+	req->Owner = zone;
+	req->Response = job;
+	GameDBLoadBalancer::Balancer->Push(cs->GetWorkId(), EDBProtocol::SGDB_ChatRequest, req);
 	return true;
 }
 
