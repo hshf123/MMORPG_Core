@@ -19,6 +19,7 @@ public class ServerSession : PacketSession
 
     static int SessionNumber = 1;
     public int ID { get; set; } = 0;
+    public int RandomTick { get; set; } = 0;
 
     long _ping1 = 0;
     long _ping2 = 0;
@@ -40,7 +41,7 @@ public class ServerSession : PacketSession
                     SendAsync(EPacketProtocol.CsChatRequest, packet);
                 }
                 #endregion
-                await Task.Delay(1500 + ID);
+                await Task.Delay(RandomTick);
                 #region CircularSector
                 if (ID % 5 == 0)
                 {
@@ -62,7 +63,7 @@ public class ServerSession : PacketSession
                     SendAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
                 }
                 #endregion
-                await Task.Delay(1500 + ID);
+                await Task.Delay(RandomTick);
                 #region Big
                 {
                     Interlocked.Exchange(ref _ping3, System.Environment.TickCount64);
@@ -83,7 +84,7 @@ public class ServerSession : PacketSession
                     SendAsync(EPacketProtocol.CsBigTestRequest, packet);
                 }
                 #endregion
-                await Task.Delay(1500 + ID);
+                await Task.Delay(RandomTick);
             }
             catch (Exception e)
             {
@@ -133,6 +134,8 @@ public class ServerSession : PacketSession
     {
         ServerSessionManager.Instance.Add(this);
         ID = SessionNumber++;
+        Random rd = new Random();
+        RandomTick = rd.Next(1000, 3000);
         Interlocked.Increment(ref Program.ConnCount);
         Console.WriteLine($"OnConnected : {endPoint}, Session Number : {ID}");
         UpdateProcess();

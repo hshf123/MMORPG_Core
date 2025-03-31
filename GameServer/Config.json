@@ -1,11 +1,11 @@
 {
   "Main": {
     "ProcessName": "GameServer",
-    "ThreadCount": 4
+    "ThreadCount": 8
   },
 
   "GameDB": {
     "ConnectionString": "Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;",
-    "ThreadCount": 1
+    "ThreadCount": 8
   }
 }

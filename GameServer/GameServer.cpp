@@ -116,12 +116,13 @@ bool GameServer::_InitClientService()
 		PoolAlloc<ClientSession>,
 		100);
 	ASSERT_CRASH(clientService->Start());
+#ifdef USE_RIO
 	for (int32 i = UINT32_C(0); i < _clientServiceThreadCount; i++)
 	{
 		if (clientService->CreateRIOCQ() == false)
 			return false;
 	}
-
+#endif
 	_InitWorkerThread(clientService);
 	return true;
 }
