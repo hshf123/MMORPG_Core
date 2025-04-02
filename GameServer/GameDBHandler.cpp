@@ -161,6 +161,6 @@ bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data)
 	}
 
 	// 로직 스레드로 전환
-	GlobalQueue::GetInstance().PushDBData(data);
+	data->ProcessDBWorking();
 	return true;
 }

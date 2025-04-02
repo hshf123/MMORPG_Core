@@ -30,7 +30,7 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 		return false;
 	std::shared_ptr<Job> job = zone->MakeJob(&Zone::OnSCChatResponse, req);
 	req->Owner = zone;
-	req->Response = job;
+	req->ResponseJob = job;
 	GameDBLoadBalancer::Balancer->Push(cs->GetWorkId(), EDBProtocol::SGDB_ChatRequest, req);
 	return true;
 }
@@ -75,6 +75,6 @@ bool ClientPacketHandler::OnCSBigTestRequest(std::shared_ptr<PacketSession>& ses
 		t->set_c(p.c());
 	}
 
-	cs->Send(EPacketProtocol::SC_BigTestResponse, packet);
+	cs->SendAsync(EPacketProtocol::SC_BigTestResponse, packet);
 	return true;
 }

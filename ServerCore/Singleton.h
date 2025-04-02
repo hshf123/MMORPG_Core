@@ -15,11 +15,11 @@ template<class T>
 class PtrSingleton
 {
 public:
-	static T* GetInstance()
+	static std::shared_ptr<T> GetInstance()
 	{
-		static T* instance;
+		static std::shared_ptr<T> instance;
 		if (instance == nullptr)
-			instance = new T();
+			instance = std::make_shared<T>();
 
 		return instance;
 	}

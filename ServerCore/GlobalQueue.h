@@ -15,10 +15,6 @@ public:
 	void									Push(std::shared_ptr<JobQueue> jobQueue);
 	std::shared_ptr<JobQueue>				Pop();
 
-	void									PushDBData(std::shared_ptr<DBData> data);
-	void									PopDBData(OUT std::vector<std::shared_ptr<DBData>>& items);
-
 private:
 	LockQueue<std::shared_ptr<JobQueue>> _jobQueues;
-	LockQueue<std::shared_ptr<DBData>> _dbDataQueues;
 };

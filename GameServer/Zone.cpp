@@ -22,7 +22,7 @@ void Zone::Leave(std::shared_ptr<ClientSession> cs)
 void Zone::Broadcast(uint16 protocol, google::protobuf::Message& pkt)
 {
 	for (auto& cs : std::views::values(_sessions))
-		cs->Send(protocol, pkt);
+		cs->SendAsync(protocol, pkt);
 }
 
 std::shared_ptr<ClientSession> Zone::GetClient(int32 workId)
@@ -44,5 +44,5 @@ void Zone::OnSCChatResponse(std::shared_ptr<spChatReuqest> res)
 	SCChatResponse packet;
 	packet.set_name(res->Name);
 	packet.set_msg(res->Msg);
-	cs->Send(EPacketProtocol::SC_ChatResponse, packet);
+	cs->SendAsync(EPacketProtocol::SC_ChatResponse, packet);
 }

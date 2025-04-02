@@ -1,6 +1,19 @@
 #include "pch.h"
 #include "DBHandler.h"
 #include "DBService.h"
+#include "JobQueue.h"
+
+void DBData::ProcessDBWorking()
+{
+	if (Owner == nullptr || ResponseJob == nullptr)
+	{
+		Owner = nullptr;
+		ResponseJob = nullptr;
+		return;
+	}
+
+	Owner->Push(ResponseJob, true);
+}
 
 void DBHandler::Init()
 {

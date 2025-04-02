@@ -39,27 +39,6 @@ void ThreadManager::DoGlobalQueueWork()
 		if (now > LEndTickCount)
 			break;
 
-		// DB 결과 처리 우선으로
-		if (_dbWorking.exchange(true) == false)
-		{
-			std::vector<std::shared_ptr<DBData>> items;
-			GlobalQueue::GetInstance().PopDBData(OUT items);
-			if (items.empty() == false)
-			{
-				TimeMonitor tm(__FUNCTION__);
-				for (std::shared_ptr<DBData> data : items)
-				{
-					if (data->Owner == nullptr || data->Response == nullptr)
-						continue;
-					data->Owner->Push(data->Response, true);
-					data->Response = nullptr;
-				}
-				_dbWorking.store(false);
-				break;
-			}
-			_dbWorking.store(false);
-		}
-
 		std::shared_ptr<JobQueue> jobQueue = GlobalQueue::GetInstance().Pop();
 		if (jobQueue == nullptr)
 			break;

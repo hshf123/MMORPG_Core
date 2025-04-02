@@ -1,5 +1,7 @@
 #pragma once
 #include "Session.h"
+#include "JobQueue.h"
+#include "Singleton.h"
 
 class ClientSession : public PacketSession
 {
@@ -13,5 +15,11 @@ public:
 	void OnSend(int32 len) override;
 
 public:
-	void Send(uint16 protocol, google::protobuf::Message& pkt);
+	void SendAsync(uint16 protocol, google::protobuf::Message& pkt);
+};
+
+class ClientSessionSender : public JobQueue, public PtrSingleton<ClientSessionSender>
+{
+public:
+	void SendAsync(std::shared_ptr<ClientSession> cs, std::shared_ptr<SendBuffer> buffer);
 };

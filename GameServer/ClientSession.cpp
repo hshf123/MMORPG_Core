@@ -31,7 +31,16 @@ void ClientSession::OnSend([[maybe_unused]]int32 len)
 	//VIEW_WRITE_INFO("Send Complete{}", len);
 }
 
-void ClientSession::Send(uint16 protocol, google::protobuf::Message& pkt)
+void ClientSession::SendAsync(uint16 protocol, google::protobuf::Message& pkt)
 {
-	PacketSession::Send(ClientPacketHandler::GetInstance().MakeSendBuffer(pkt, protocol));
+	std::shared_ptr<SendBuffer> buffer = ClientPacketHandler::GetInstance().MakeSendBuffer(pkt, protocol);
+	ClientSessionSender::GetInstance()->SendAsync(std::static_pointer_cast<ClientSession>(shared_from_this()), buffer);
+}
+
+void ClientSessionSender::SendAsync(std::shared_ptr<ClientSession> cs, std::shared_ptr<SendBuffer> buffer)
+{
+	if (cs == nullptr)
+		return;
+	std::shared_ptr<Job> job = MakeJob([=]() { cs->Send(buffer); });
+	Push(job, true);
 }

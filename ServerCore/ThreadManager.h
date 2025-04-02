@@ -27,6 +27,5 @@ public:
 private:
 	USE_LOCK;
 	std::vector<std::jthread> _threads;
-	std::atomic<bool> _dbWorking = false;
 };
 
