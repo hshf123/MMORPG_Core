@@ -99,7 +99,7 @@ private:
 	RIO_BUFFERID _rioSendBufferId;
 	RIO_RQ _rioRQ;
 	RIORecvEvent _rioRecvEvent;
-	//RIOSendEvent _rioSendEvent;
+	RIOSendEvent _rioSendEvent;
 };
 
 struct PacketHeader

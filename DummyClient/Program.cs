@@ -37,11 +37,11 @@ public class Program
                 continue;
             }
 
+            Thread.Sleep(60000);
+
             long sendCount = Interlocked.Exchange(ref SendCount, 0);
             long recvCount = Interlocked.Exchange(ref RecvCount, 0);
-
             Console.WriteLine($"Client Send({Interlocked.Read(ref sendCount)}) Recv({Interlocked.Read(ref recvCount)})");
-            Thread.Sleep(30000);
         }
     }
 }

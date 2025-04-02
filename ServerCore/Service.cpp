@@ -125,7 +125,6 @@ bool ClientService::Start()
 ServerService::ServerService(NetAddress targetAddress, std::shared_ptr<IocpCore> core, SessionFactory factory, int32 maxSessionCount /*= 1*/)
 	: Service(ServiceType::Server, targetAddress, core, factory, maxSessionCount)
 {
-	xreserve<RIOSendEvent>(1'000'000);
 }
 
 bool ServerService::Start()
