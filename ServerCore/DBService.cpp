@@ -32,6 +32,9 @@ void DBService::Execute()
 {
 	while (true)
 	{
+		if (_queueCount == 0)
+			return;
+
 		std::vector<std::shared_ptr<DBQueueData>> jobs;
 		_dbQueue.PopAll(OUT jobs);
 

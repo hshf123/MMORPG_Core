@@ -75,6 +75,6 @@ bool ClientPacketHandler::OnCSBigTestRequest(std::shared_ptr<PacketSession>& ses
 		t->set_c(p.c());
 	}
 
-	cs->SendAsync(EPacketProtocol::SC_BigTestResponse, packet);
+	cs->Send(EPacketProtocol::SC_BigTestResponse, packet);
 	return true;
 }

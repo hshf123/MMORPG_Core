@@ -13,6 +13,7 @@ void DBData::ProcessDBWorking()
 	}
 
 	Owner->Push(ResponseJob, true);
+	ResponseJob = nullptr;
 }
 
 void DBHandler::Init()
