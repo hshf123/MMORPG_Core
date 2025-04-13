@@ -2,6 +2,8 @@
 #include "Singleton.h"
 #include "LockFreeStack.h"
 #include "Monitor.h"
+#include "LogManager.h"
+#include "TimeUtils.h"
 
 #define USE_LOCK_FREE
 
@@ -113,6 +115,12 @@ void xreserve(int32 size)
 	}
 	for (int32 i = 0; i < size; i++)
 		xdelete(vec[i]);
+}
+
+template<class Type>
+void log_poolsize()
+{
+	VIEW_WARNING("{} PoolSize({}) UseCount({})", typeid(Type).name(), MemoryPool<Type>::GetInstance().GetPoolSize(), MemoryPool<Type>::GetInstance().GetUsingCount());
 }
 
 /// <summary>
