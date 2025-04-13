@@ -15,7 +15,7 @@ public:
 	std::shared_ptr<ClientSession> GetClient(int32 workId);
 
 public:
-	void OnSCChatResponse(std::shared_ptr<spChatReuqest> res);
+	void OnSCChatResponse(std::shared_ptr<spChatRequest> res);
 
 private:
 	static int32 ZoneID;

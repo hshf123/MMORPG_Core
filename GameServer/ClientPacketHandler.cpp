@@ -20,10 +20,11 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	if (cs == nullptr)
 		return false;
 
-	std::shared_ptr<spChatReuqest> req = PoolAlloc<spChatReuqest>();
+	std::shared_ptr<spChatRequest> req = PoolAlloc<spChatRequest>();
 	req->SessionID = cs->GetWorkId();
 	req->Name = pkt.name();
 	req->Msg = pkt.msg();
+	req->Ping = TimeUtils::GetTick64();
 	
 	std::shared_ptr<Zone> zone = ZoneManager::GetInstance().GetZone(cs->GetWorkId());
 	if (zone == nullptr)

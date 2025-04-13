@@ -84,7 +84,7 @@ bool GameDBHandler::OnSGDBServerStart(std::shared_ptr<DBData> data)
 bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data)
 {
 	GetSession();
-	std::shared_ptr<spChatReuqest> req = static_pointer_cast<spChatReuqest>(data);
+	std::shared_ptr<spChatRequest> req = static_pointer_cast<spChatRequest>(data);
 	if (req == nullptr)
 		return false;
 

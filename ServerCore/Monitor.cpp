@@ -78,7 +78,7 @@ void Monitor::AddSendCount(int32 sendCount)
 
 void Monitor::PoolSizeCheck(const char* c, int32 poolSize, int32 useCount)
 {
-	if (100'000 > useCount)
+	if (100'000 > useCount || poolSize != 0)
 		return;
 
 	std::string className = StrUtils::ToString(c);

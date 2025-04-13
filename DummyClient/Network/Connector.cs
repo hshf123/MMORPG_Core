@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 public class Connector
 {
+    static int _connectFailCount = 0;
+
     Func<Session>? _sessionFactory;
     public void Connect(string serverIP, int serverPort, Func<Session> sessionFactory, int count = 1)
     {
@@ -34,7 +36,8 @@ public class Connector
         catch (SocketException e)
         {
             //Debug.Log(e.ToString());
-            Console.WriteLine($"{e}");
+            //Console.WriteLine($"{e}");
+            Console.WriteLine($"FailCount : {++_connectFailCount}");
             return;
         }
         OnConnectCompletedAsync(args);

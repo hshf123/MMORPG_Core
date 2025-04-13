@@ -109,9 +109,11 @@ void Session::Dispatch(IocpEvent* iocpEvent, int32 numOfBytes /*= 0*/)
 #else
 	case EventType::Recv:
 		ProcessRecv(numOfBytes);
+		Monitor::GetInstance().AddRecvCount(1);
 		break;
 	case EventType::Send:
 		ProcessSend(numOfBytes);
+		Monitor::GetInstance().AddSendCount(1);
 		break;
 #endif
 	default:

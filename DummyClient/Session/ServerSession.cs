@@ -42,49 +42,49 @@ public class ServerSession : PacketSession
                 }
                 #endregion
                 await Task.Delay(RandomTick);
-                #region CircularSector
-                if (ID % 5 == 0)
-                {
-                    Interlocked.Exchange(ref _ping2, System.Environment.TickCount64);
-                    CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
-                    packet.Theta = 60.0f;
-                    packet.Radius = 5.0f;
-                    packet.MyPos = new SPosition();
-                    packet.MyPos.X = 2.0f;
-                    packet.MyPos.Y = 1.0f;
-                    packet.Forward = new SPosition();
-                    packet.Forward.X = 3.0f;
-                    packet.Forward.Y = 2.0f;
+                //#region CircularSector
+                //if (ID % 5 == 0)
+                //{
+                //    Interlocked.Exchange(ref _ping2, System.Environment.TickCount64);
+                //    CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
+                //    packet.Theta = 60.0f;
+                //    packet.Radius = 5.0f;
+                //    packet.MyPos = new SPosition();
+                //    packet.MyPos.X = 2.0f;
+                //    packet.MyPos.Y = 1.0f;
+                //    packet.Forward = new SPosition();
+                //    packet.Forward.X = 3.0f;
+                //    packet.Forward.Y = 2.0f;
 
-                    KeyValuePair<float, float> pair = targetPosList[loopNum++ % 4];
-                    packet.TargetPos = new SPosition();
-                    packet.TargetPos.X = pair.Key;
-                    packet.TargetPos.Y = pair.Value;
-                    SendAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
-                }
-                #endregion
+                //    KeyValuePair<float, float> pair = targetPosList[loopNum++ % 4];
+                //    packet.TargetPos = new SPosition();
+                //    packet.TargetPos.X = pair.Key;
+                //    packet.TargetPos.Y = pair.Value;
+                //    SendAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
+                //}
+                //#endregion
                 await Task.Delay(RandomTick);
-                #region Big
-                {
-                    Interlocked.Exchange(ref _ping3, System.Environment.TickCount64);
-                    int listSize = SetSize / 48;
-                    CSBigTestRequest packet = new CSBigTestRequest();
-                    int size = packet.CalculateSize();
-                    for (int i = 0; i < listSize; i++)
-                    {
-                        BigTest t = new BigTest();
-                        t.A = Int64.MaxValue;
-                        t.B = Int64.MaxValue;
-                        t.C = Int64.MaxValue;
-                        packet.List.Add(t);
-                    }
+                //#region Big
+                //{
+                //    Interlocked.Exchange(ref _ping3, System.Environment.TickCount64);
+                //    int listSize = SetSize / 48;
+                //    CSBigTestRequest packet = new CSBigTestRequest();
+                //    int size = packet.CalculateSize();
+                //    for (int i = 0; i < listSize; i++)
+                //    {
+                //        BigTest t = new BigTest();
+                //        t.A = Int64.MaxValue;
+                //        t.B = Int64.MaxValue;
+                //        t.C = Int64.MaxValue;
+                //        packet.List.Add(t);
+                //    }
 
-                    size = packet.CalculateSize();
+                //    size = packet.CalculateSize();
 
-                    SendAsync(EPacketProtocol.CsBigTestRequest, packet);
-                }
-                #endregion
-                await Task.Delay(RandomTick);
+                //    SendAsync(EPacketProtocol.CsBigTestRequest, packet);
+                //}
+                //#endregion
+                //await Task.Delay(RandomTick);
             }
             catch (Exception e)
             {

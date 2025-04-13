@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Zone.h"
 #include "ClientSession.h"
+#include "ZoneManager.h"
 
 int32 Zone::ZoneID = 0;
 
@@ -33,7 +34,7 @@ std::shared_ptr<ClientSession> Zone::GetClient(int32 workId)
 	return findIt->second;
 }
 
-void Zone::OnSCChatResponse(std::shared_ptr<spChatReuqest> res)
+void Zone::OnSCChatResponse(std::shared_ptr<spChatRequest> res)
 {
 	if (res == nullptr)
 		return;
