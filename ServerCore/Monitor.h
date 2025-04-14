@@ -29,8 +29,10 @@ public:
 
 	void PrintServerCounting();
 	void AddAcceptCount(int32 acceptCount);
-	void AddRecvCount(int32 recvCount);
-	void AddSendCount(int32 sendCount);
+	void AddRecvCount(int32 recvCount, int32 size = 0);
+	void AddSendCount(int32 sendCount, int32 size = 0);
+
+	void AddProcessCount();
 
 	void PoolSizeCheck(const char* c, int32 poolSize, int32 useCount);
 private:
@@ -44,5 +46,9 @@ private:
 	std::atomic_int32_t _acceptCount = 0;
 	std::atomic_int64_t _recvCount = 0;
 	std::atomic_int64_t _sendCount = 0;
+	std::atomic_int64_t _recvSize = 0;
+	std::atomic_int64_t _sendSize = 0;
+
+	std::atomic_int32_t _processCount = 0;
 };
 

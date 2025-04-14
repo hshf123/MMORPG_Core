@@ -162,5 +162,6 @@ bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data)
 
 	// 로직 스레드로 전환
 	data->ProcessDBWorking();
+	Monitor::GetInstance().AddProcessCount();
 	return true;
 }

@@ -120,7 +120,7 @@ void xreserve(int32 size)
 template<class Type>
 void log_poolsize()
 {
-	VIEW_WARNING("{} PoolSize({}) UseCount({})", typeid(Type).name(), MemoryPool<Type>::GetInstance().GetPoolSize(), MemoryPool<Type>::GetInstance().GetUsingCount());
+	VIEW_INFO("{} PoolSize({}) UseCount({})", typeid(Type).name(), MemoryPool<Type>::GetInstance().GetPoolSize(), MemoryPool<Type>::GetInstance().GetUsingCount());
 }
 
 /// <summary>

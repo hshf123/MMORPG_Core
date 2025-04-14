@@ -77,6 +77,7 @@ void Service::Dispatch(RIONotifyEvent* event)
 	int32 recvCount = 0;
 	int32 sendCount = 0;
 	int64 recvSize = 0;
+	int64 sendSize = 0;
 	for (uint64 i = 0; i < numResult; i++)
 	{
 		TimeMonitor tm(__FUNCTION__);
@@ -91,13 +92,14 @@ void Service::Dispatch(RIONotifyEvent* event)
 			break;
 		case EventType::Send:
 			++sendCount;
+			sendSize += results[i].BytesTransferred;
 			break;
 		default:
 			break;
 		}
 	}
-	Monitor::GetInstance().AddRecvCount(recvCount);
-	Monitor::GetInstance().AddSendCount(sendCount);
+	Monitor::GetInstance().AddRecvCount(recvCount, recvSize);
+	Monitor::GetInstance().AddSendCount(sendCount, sendSize);
 }
 
 ClientService::ClientService(NetAddress targetAddress, std::shared_ptr<IocpCore> core, SessionFactory factory, int32 maxSessionCount /*= 1*/)

@@ -53,11 +53,13 @@ void Monitor::PrintServerCounting()
 	if (_lastCountingTick + (1000 * 60) > now)
 		return;
 
-	VIEW_WRITE_INFO("Accept({}) Recv({}) Send({})", _acceptCount.load(), _recvCount.load(), _sendCount.load());
+	VIEW_WRITE_INFO("Accept({}) Recv({} / {}) Send({} / {}) Process({})", _acceptCount.load(), _recvCount.load(), _recvSize.load(), _sendCount.load(), _sendSize.load(), _processCount.load());
 	_acceptCount = 0;
 	_sendCount = 0;
+	_sendSize = 0;
 	_recvCount = 0;
-
+	_recvSize = 0;
+	_processCount = 0;
 	_lastCountingTick = now;
 }
 
@@ -66,14 +68,21 @@ void Monitor::AddAcceptCount(int32 acceptCount)
 	_acceptCount.fetch_add(acceptCount);
 }
 
-void Monitor::AddRecvCount(int32 recvCount)
+void Monitor::AddRecvCount(int32 recvCount, int32 size /*= 0*/)
 {
 	_recvCount.fetch_add(recvCount);
+	_recvSize.fetch_add(size);
 }
 
-void Monitor::AddSendCount(int32 sendCount)
+void Monitor::AddSendCount(int32 sendCount, int32 size /*= 0*/)
 {
 	_sendCount.fetch_add(sendCount);
+	_sendSize.fetch_add(size);
+}
+
+void Monitor::AddProcessCount()
+{
+	_processCount.fetch_add(1);
 }
 
 void Monitor::PoolSizeCheck(const char* c, int32 poolSize, int32 useCount)
