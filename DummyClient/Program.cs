@@ -10,6 +10,7 @@ public class Program
     static readonly int ConnectCountInOnce = 150;
     static readonly int TickTerm = 500;
 
+    public static long TryConnCount = 0;
     public static long ConnCount = 0;
     public static long SendCount = 0;
     public static long RecvCount = 0;
@@ -21,6 +22,8 @@ public class Program
         while (true)
         {
             long connCount = Interlocked.Read(ref ConnCount);
+            long tryCount = Interlocked.Read(ref TryConnCount);
+            connCount += tryCount;
             if (connCount < ConnectCount)
             {
                 connector.Connect

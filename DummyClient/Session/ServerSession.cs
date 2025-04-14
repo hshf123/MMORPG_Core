@@ -63,7 +63,7 @@ public class ServerSession : PacketSession
                 //    SendAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
                 //}
                 //#endregion
-                await Task.Delay(RandomTick);
+                //await Task.Delay(RandomTick);
                 //#region Big
                 //{
                 //    Interlocked.Exchange(ref _ping3, System.Environment.TickCount64);

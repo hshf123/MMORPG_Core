@@ -30,6 +30,7 @@ public class Connector
             return;
         try
         {
+            Interlocked.Increment(ref Program.TryConnCount);
             if (args.RemoteEndPoint != null)
                 await socket.ConnectAsync(args.RemoteEndPoint);
         }
@@ -38,8 +39,10 @@ public class Connector
             //Debug.Log(e.ToString());
             //Console.WriteLine($"{e}");
             Console.WriteLine($"FailCount : {++_connectFailCount}");
+            Interlocked.Decrement(ref Program.TryConnCount);
             return;
         }
+        Interlocked.Decrement(ref Program.TryConnCount);
         OnConnectCompletedAsync(args);
     }
 
