@@ -165,3 +165,37 @@ bool GameDBHandler::OnSGDBChatRequest(std::shared_ptr<DBData> data)
 	Monitor::GetInstance().AddProcessCount();
 	return true;
 }
+
+bool GameDBHandler::OnSGDBSkillUse(std::shared_ptr<DBData> data)
+{
+	GetSession();
+	std::shared_ptr<spSkillUse> req = static_pointer_cast<spSkillUse>(data);
+	if (req == nullptr)
+		return false;
+
+	try
+	{
+		Poco::Data::Statement state(session);
+		state << std::format("							\
+			DECLARE @result INT;						\
+			EXEC spSkillUse @result OUTPUT, {};			\
+			SELECT @result;								\
+		"
+			,	req->SessionID)
+			,	into(req->Result);
+				state.execute();
+	}
+	catch (Poco::Data::ODBC::StatementException& ex)
+	{
+		VIEW_WRITE_ERROR("\n{}", StrUtils::ToString(ex.message().c_str()));
+	}
+	catch (std::exception& e)
+	{
+		VIEW_WRITE_ERROR("\nDB Error : {}", e.what());
+	}
+
+	// 로직 스레드로 전환
+	data->ProcessDBWorking();
+	Monitor::GetInstance().AddProcessCount();
+	return true;
+}

@@ -24,7 +24,6 @@ bool ClientPacketHandler::OnCSChatRequest(std::shared_ptr<PacketSession>& sessio
 	req->SessionID = cs->GetWorkId();
 	req->Name = pkt.name();
 	req->Msg = pkt.msg();
-	req->Ping = TimeUtils::GetTick64();
 	
 	std::shared_ptr<Zone> zone = ZoneManager::GetInstance().GetZone(cs->GetWorkId());
 	if (zone == nullptr)
@@ -50,13 +49,17 @@ bool ClientPacketHandler::OnCSCircularSectorSkillRequest(std::shared_ptr<PacketS
 		Vec2(pkt.targetpos().x(), pkt.targetpos().y())
 	);
 
-	auto fn = [=]()
-		{
-			SCCircularSectorSkillResponse packet;
-			packet.set_ishit(ret);
-			ZoneManager::GetInstance().GetZone(cs->GetWorkId())->Broadcast(EPacketProtocol::SC_CircularSectorSkillResponse, packet);
-		};
-	ZoneManager::GetInstance().GetZone(cs->GetWorkId())->DoAsync(fn);
+	std::shared_ptr<spSkillUse> req = PoolAlloc<spSkillUse>();
+	req->SessionID = cs->GetWorkId();
+	req->IsHit = ret;
+
+	std::shared_ptr<Zone> zone = ZoneManager::GetInstance().GetZone(cs->GetWorkId());
+	if (zone == nullptr)
+		return false;
+	std::shared_ptr<Job> job = zone->MakeJob(&Zone::OnSCCircularSectorSkillResponse, req);
+	req->Owner = zone;
+	req->ResponseJob = job;
+	GameDBLoadBalancer::Balancer->Push(cs->GetWorkId(), EDBProtocol::SGDB_ChatRequest, req);
 	return true;
 }
 

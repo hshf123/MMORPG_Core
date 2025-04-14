@@ -15,6 +15,7 @@ namespace fs = std::filesystem;
 void TimerJobQueue::UpdateTime()
 {
 	log_poolsize<spChatRequest>();
+	log_poolsize<spSkillUse>();
 	VIEW_WRITE_INFO("CPU ({:.2f}), MEOMORY ({:.2f})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
 	Monitor::GetInstance().PrintServerCounting();
 	DoTimer(TimeUtils::OneMin / 2, &TimerJobQueue::UpdateTime);

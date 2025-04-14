@@ -20,7 +20,7 @@ bool DBLoadBalancer::Push(int32 workId, uint16 protocolId, std::shared_ptr<DBDat
 {
 	if (_serviceList == nullptr)
 		return false;
-
+	Monitor::GetInstance().IncProcessCount();
 	GetDBService(workId).Push(protocolId, data, handler);
 	return true;
 }

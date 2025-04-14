@@ -14,6 +14,8 @@ void DBData::ProcessDBWorking()
 
 	Owner->Push(ResponseJob, true);
 	ResponseJob = nullptr;
+
+	Monitor::GetInstance().DecProcessCount();
 }
 
 void DBHandler::Init()

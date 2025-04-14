@@ -53,7 +53,7 @@ void Monitor::PrintServerCounting()
 	if (_lastCountingTick + (1000 * 60) > now)
 		return;
 
-	VIEW_WRITE_INFO("Accept({}) Recv({} / {}) Send({} / {}) Process({})", _acceptCount.load(), _recvCount.load(), _recvSize.load(), _sendCount.load(), _sendSize.load(), _processCount.load());
+	VIEW_WRITE_INFO("Accept({}) Recv({} / {}) Send({} / {}) Process({} / {})", _acceptCount.load(), _recvCount.load(), _recvSize.load(), _sendCount.load(), _sendSize.load(), _processCount.load(), _processingCount.load());
 	_acceptCount = 0;
 	_sendCount = 0;
 	_sendSize = 0;
@@ -80,6 +80,16 @@ void Monitor::AddSendCount(int32 sendCount, int32 size /*= 0*/)
 	_sendSize.fetch_add(size);
 }
 
+void Monitor::IncProcessCount()
+{
+	_processingCount.fetch_add(1);
+}
+
+void Monitor::DecProcessCount()
+{
+	_processingCount.fetch_add(-1);
+}
+
 void Monitor::AddProcessCount()
 {
 	_processCount.fetch_add(1);
@@ -87,9 +97,9 @@ void Monitor::AddProcessCount()
 
 void Monitor::PoolSizeCheck(const char* c, int32 poolSize, int32 useCount)
 {
-	if (100'000 > useCount || poolSize != 0)
+	/*if (100'000 > useCount || poolSize != 0)
 		return;
 
 	std::string className = StrUtils::ToString(c);
-	VIEW_WARNING("{} PoolSize({}) UseCount({})", className, poolSize, useCount);
+	VIEW_WARNING("{} PoolSize({}) UseCount({})", className, poolSize, useCount);*/
 }

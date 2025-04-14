@@ -41,30 +41,30 @@ public class ServerSession : PacketSession
                     SendAsync(EPacketProtocol.CsChatRequest, packet);
                 }
                 #endregion
-                await Task.Delay(RandomTick);
-                //#region CircularSector
-                //if (ID % 5 == 0)
-                //{
-                //    Interlocked.Exchange(ref _ping2, System.Environment.TickCount64);
-                //    CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
-                //    packet.Theta = 60.0f;
-                //    packet.Radius = 5.0f;
-                //    packet.MyPos = new SPosition();
-                //    packet.MyPos.X = 2.0f;
-                //    packet.MyPos.Y = 1.0f;
-                //    packet.Forward = new SPosition();
-                //    packet.Forward.X = 3.0f;
-                //    packet.Forward.Y = 2.0f;
+                await Task.Delay(500);
+                #region CircularSector
+                if (ID % 5 == 0)
+                {
+                    Interlocked.Exchange(ref _ping2, System.Environment.TickCount64);
+                    CSCircularSectorSkillRequest packet = new CSCircularSectorSkillRequest();
+                    packet.Theta = 60.0f;
+                    packet.Radius = 5.0f;
+                    packet.MyPos = new SPosition();
+                    packet.MyPos.X = 2.0f;
+                    packet.MyPos.Y = 1.0f;
+                    packet.Forward = new SPosition();
+                    packet.Forward.X = 3.0f;
+                    packet.Forward.Y = 2.0f;
 
-                //    KeyValuePair<float, float> pair = targetPosList[loopNum++ % 4];
-                //    packet.TargetPos = new SPosition();
-                //    packet.TargetPos.X = pair.Key;
-                //    packet.TargetPos.Y = pair.Value;
-                //    SendAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
-                //}
-                //#endregion
+                    KeyValuePair<float, float> pair = targetPosList[loopNum++ % 4];
+                    packet.TargetPos = new SPosition();
+                    packet.TargetPos.X = pair.Key;
+                    packet.TargetPos.Y = pair.Value;
+                    SendAsync(EPacketProtocol.CsCircularSectorSkillRequest, packet);
+                }
+                #endregion
                 //await Task.Delay(RandomTick);
-                //#region Big
+                #region Big
                 //{
                 //    Interlocked.Exchange(ref _ping3, System.Environment.TickCount64);
                 //    int listSize = SetSize / 48;
@@ -83,7 +83,7 @@ public class ServerSession : PacketSession
 
                 //    SendAsync(EPacketProtocol.CsBigTestRequest, packet);
                 //}
-                //#endregion
+                #endregion
                 //await Task.Delay(RandomTick);
             }
             catch (Exception e)

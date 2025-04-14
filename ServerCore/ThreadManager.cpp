@@ -43,7 +43,6 @@ void ThreadManager::DoGlobalQueueWork()
 		if (jobQueue == nullptr)
 			break;
 
-		TimeMonitor tm(__FUNCTION__);
 		jobQueue->Execute();
 	}
 }

@@ -16,6 +16,7 @@ public:
 
 public:
 	void OnSCChatResponse(std::shared_ptr<spChatRequest> res);
+	void OnSCCircularSectorSkillResponse(std::shared_ptr<spSkillUse> res);
 
 private:
 	static int32 ZoneID;

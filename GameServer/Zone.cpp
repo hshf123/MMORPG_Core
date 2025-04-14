@@ -47,3 +47,10 @@ void Zone::OnSCChatResponse(std::shared_ptr<spChatRequest> res)
 	packet.set_msg(res->Msg);
 	cs->Send(EPacketProtocol::SC_ChatResponse, packet);
 }
+
+void Zone::OnSCCircularSectorSkillResponse(std::shared_ptr<spSkillUse> res)
+{
+	SCCircularSectorSkillResponse packet;
+	packet.set_ishit(res->IsHit);
+	Broadcast(EPacketProtocol::SC_CircularSectorSkillResponse, packet);
+}

@@ -34,7 +34,10 @@ void JobQueue::Execute()
 
 		const int32 jobCount = static_cast<int32>(jobs.size());
 		for (int32 i = 0; i < jobCount; i++)
+		{
+			TimeMonitor tm(__FUNCTION__);
 			jobs[i]->Execute();
+		}
 
 		// 남은 일감이 0개라면 종료
 		if (_jobCount.fetch_sub(jobCount) == jobCount)

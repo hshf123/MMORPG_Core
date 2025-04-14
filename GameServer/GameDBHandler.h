@@ -16,5 +16,6 @@ public:
 
 	bool OnSGDBServerStart(std::shared_ptr<DBData> data);
 	bool OnSGDBChatRequest(std::shared_ptr<DBData> data);
+	bool OnSGDBSkillUse(std::shared_ptr<DBData> data);
 };
 
