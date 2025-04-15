@@ -77,7 +77,7 @@ bool GameDBHandler::OnSGDBServerStart(std::shared_ptr<DBData> data)
 	*/
 
 	TimeUtils::Init(serverStartTime);
-
+	data->ProcessDBWorking();
 	return true;
 }
 

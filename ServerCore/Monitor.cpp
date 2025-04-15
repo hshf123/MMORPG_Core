@@ -53,7 +53,16 @@ void Monitor::PrintServerCounting()
 	if (_lastCountingTick + (1000 * 60) > now)
 		return;
 
-	VIEW_WRITE_INFO("Accept({}) Recv({} / {}) Send({} / {}) Process({} / {})", _acceptCount.load(), _recvCount.load(), _recvSize.load(), _sendCount.load(), _sendSize.load(), _processCount.load(), _processingCount.load());
+	VIEW_WRITE_INFO("Accept({}) Connect({}) Recv(Count({}) / Size({})) Send(Count({}) / Size({})) DB(Count({}) / Remain({}))",
+		_acceptCount.load(),
+		_connectCount.load(),
+		_recvCount.load(),
+		_recvSize.load(),
+		_sendCount.load(),
+		_sendSize.load(),
+		_processCount.load(),
+		_processingCount.load());
+
 	_acceptCount = 0;
 	_sendCount = 0;
 	_sendSize = 0;
@@ -63,9 +72,15 @@ void Monitor::PrintServerCounting()
 	_lastCountingTick = now;
 }
 
-void Monitor::AddAcceptCount(int32 acceptCount)
+void Monitor::IncAcceptCount()
 {
-	_acceptCount.fetch_add(acceptCount);
+	_acceptCount.fetch_add(1);
+	_connectCount.fetch_add(1);
+}
+
+void Monitor::DecDisconnectCount()
+{
+	_connectCount.fetch_add(-1);
 }
 
 void Monitor::AddRecvCount(int32 recvCount, int32 size /*= 0*/)
@@ -97,9 +112,12 @@ void Monitor::AddProcessCount()
 
 void Monitor::PoolSizeCheck(const char* c, int32 poolSize, int32 useCount)
 {
-	/*if (100'000 > useCount || poolSize != 0)
+	/*
+	// 일단 당연히 많이 사용할거라..
+	if (100'000 > useCount || poolSize != 0)
 		return;
 
 	std::string className = StrUtils::ToString(c);
-	VIEW_WARNING("{} PoolSize({}) UseCount({})", className, poolSize, useCount);*/
+	VIEW_WARNING("{} PoolSize({}) UseCount({})", className, poolSize, useCount);
+	*/
 }

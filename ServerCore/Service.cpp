@@ -60,7 +60,7 @@ void Service::Dispatch(RIONotifyEvent* event)
 
 	RIORESULT results[RIO_DISPATCH_RESULT_COUNT] = { 0, };
 
-	uint64 numResult = INT64_C(0);
+	uint32 numResult = INT32_C(0);
 	{
 		WRITE_LOCK;
 		numResult = Socket::RIOEFTable.RIODequeueCompletion(event->rioCQ, results, RIO_DISPATCH_RESULT_COUNT);
@@ -78,9 +78,8 @@ void Service::Dispatch(RIONotifyEvent* event)
 	int32 sendCount = 0;
 	int64 recvSize = 0;
 	int64 sendSize = 0;
-	for (uint64 i = 0; i < numResult; i++)
+	for (uint32 i = 0; i < numResult; i++)
 	{
-		TimeMonitor tm(__FUNCTION__);
 		RIOEvent* context = reinterpret_cast<RIOEvent*>(results[i].RequestContext);
 		std::shared_ptr<IocpObject> iocpObject = context->owner;
 		iocpObject->Dispatch(context, results[i].BytesTransferred);

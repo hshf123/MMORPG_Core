@@ -28,7 +28,8 @@ public:
 	const double GetMemoryUsage_MB();
 
 	void PrintServerCounting();
-	void AddAcceptCount(int32 acceptCount);
+	void IncAcceptCount();
+	void DecDisconnectCount();
 	void AddRecvCount(int32 recvCount, int32 size = 0);
 	void AddSendCount(int32 sendCount, int32 size = 0);
 
@@ -46,6 +47,7 @@ private:
 
 	int64_t _lastCountingTick = INT64_C(0);
 	std::atomic_int32_t _acceptCount = 0;
+	std::atomic_int32_t _connectCount = 0;
 	std::atomic_int64_t _recvCount = 0;
 	std::atomic_int64_t _sendCount = 0;
 	std::atomic_int64_t _recvSize = 0;

@@ -5,6 +5,7 @@
 
 void DBData::ProcessDBWorking()
 {
+	Monitor::GetInstance().DecProcessCount();
 	if (Owner == nullptr || ResponseJob == nullptr)
 	{
 		Owner = nullptr;
@@ -14,8 +15,6 @@ void DBData::ProcessDBWorking()
 
 	Owner->Push(ResponseJob, true);
 	ResponseJob = nullptr;
-
-	Monitor::GetInstance().DecProcessCount();
 }
 
 void DBHandler::Init()

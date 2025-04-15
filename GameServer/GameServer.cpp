@@ -14,11 +14,9 @@ namespace fs = std::filesystem;
 
 void TimerJobQueue::UpdateTime()
 {
-	log_poolsize<spChatRequest>();
-	log_poolsize<spSkillUse>();
 	VIEW_WRITE_INFO("CPU ({:.2f}), MEOMORY ({:.2f})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
 	Monitor::GetInstance().PrintServerCounting();
-	DoTimer(TimeUtils::OneMin / 2, &TimerJobQueue::UpdateTime);
+	DoTimer(TimeUtils::OneMin, &TimerJobQueue::UpdateTime);
 }
 
 bool GameServer::Init()
@@ -87,6 +85,9 @@ bool GameServer::_ReadConfig()
 	_gameDBThreadCount = gdbValue["ThreadCount"].GetInt();
 	VIEW_INFO("GameDB Connection Count : {}", _gameDBThreadCount);
 
+	xreserve<Job>(100'000, nullptr);
+	xreserve<DBQueueData>(100'000, 0, nullptr, GameDBHandler::GetInstance());
+
 	//{
 	//	// 쓰기 테스트
 	//	const std::string json = "{\"project\":\"rapidjson\",\"stars\":10}";
@@ -119,7 +120,7 @@ bool GameServer::_InitClientService()
 		100);
 	ASSERT_CRASH(clientService->Start());
 #ifdef USE_RIO
-	for (int32 i = UINT32_C(0); i < _clientServiceThreadCount; i++)
+	for (int32 i = 0; i < _clientServiceThreadCount; i++)
 	{
 		if (clientService->CreateRIOCQ() == false)
 			return false;
@@ -131,7 +132,7 @@ bool GameServer::_InitClientService()
 
 void GameServer::_InitWorkerThread(std::shared_ptr<ServerService> service)
 {
-	for (int32 i = UINT32_C(0); i < _clientServiceThreadCount; i++)
+	for (int32 i = 0; i < _clientServiceThreadCount; i++)
 	{
 		ThreadManager::GetInstance().Launch([service]()
 			{

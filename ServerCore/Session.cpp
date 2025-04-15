@@ -341,6 +341,7 @@ void Session::ProcessDisconnect()
 
 	OnDisconnected();
 	GetService()->ReleaseSession(GetSession());
+	Monitor::GetInstance().DecDisconnectCount();
 }
 
 void Session::ProcessRecv(int32 numOfBytes)
