@@ -11,6 +11,7 @@ public class Connector
     Func<Session>? _sessionFactory;
     public void Connect(string serverIP, int serverPort, Func<Session> sessionFactory, int count = 1)
     {
+        Interlocked.Exchange(ref Program.TryConnCount, Interlocked.Read(ref Program.TryConnCount) + count);
         for (int i = 0; i < count; i++)
         {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -30,7 +31,6 @@ public class Connector
             return;
         try
         {
-            Interlocked.Increment(ref Program.TryConnCount);
             if (args.RemoteEndPoint != null)
                 await socket.ConnectAsync(args.RemoteEndPoint);
         }
