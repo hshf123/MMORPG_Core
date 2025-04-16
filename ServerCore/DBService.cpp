@@ -24,7 +24,7 @@ bool DBService::Push(const uint16& protocolId, std::shared_ptr<DBData> data, DBH
 		return false;
 
 	_queueCount.fetch_add(1);
-	_dbQueue.Push(PoolAlloc<DBQueueData>(protocolId, data, handler));
+	_dbQueue.Push(xnew<DBQueueData>(protocolId, data, handler));
 	return true;
 }
 
@@ -35,7 +35,7 @@ void DBService::Execute()
 		if (_queueCount == 0)
 			return;
 
-		std::vector<std::shared_ptr<DBQueueData>> jobs;
+		std::vector<DBQueueData*> jobs;
 		_dbQueue.PopAll(OUT jobs);
 
 		const int32 queueCount = static_cast<int32>(jobs.size());
@@ -43,6 +43,7 @@ void DBService::Execute()
 		{
 			jobs[i]->handler.HandleData(jobs[i]->ProtocolId, jobs[i]->data);
 			jobs[i]->data = nullptr;
+			xdelete(jobs[i]);
 		}
 
 		// 남은 일감이 0개라면 종료

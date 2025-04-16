@@ -46,5 +46,5 @@ private:
 	Poco::Data::Session* _session = nullptr;
 
 	std::atomic_int32_t _queueCount = 0;
-	LockQueue<std::shared_ptr<DBQueueData>> _dbQueue;	// DB 작업 큐
+	LockQueue<DBQueueData*> _dbQueue;	// DB 작업 큐
 };
