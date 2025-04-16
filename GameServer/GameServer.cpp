@@ -21,6 +21,7 @@ void TimerJobQueue::UpdateTime()
 
 bool GameServer::Init()
 {
+	ThreadManager::GetInstance();	// 메인스레드 ID 생성 위해
 	if (_ReadConfig() == false)
 		return false;
 

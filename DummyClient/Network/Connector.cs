@@ -36,10 +36,14 @@ public class Connector
         }
         catch (SocketException e)
         {
-            //Debug.Log(e.ToString());
-            //Console.WriteLine($"{e}");
-            Console.WriteLine($"FailCount : {++_connectFailCount}");
             Interlocked.Decrement(ref Program.TryConnCount);
+            if (e.ErrorCode == 10061)
+            {
+                Console.WriteLine($"FailCount : {++_connectFailCount}");
+                return;
+            }
+
+            Console.WriteLine($"{e}");
             return;
         }
         Interlocked.Decrement(ref Program.TryConnCount);

@@ -42,6 +42,7 @@ void LogManager::Initialize(const std::string& loggerName /*= "basic_logger"*/, 
 
 		auto localTime = std::chrono::zoned_time(std::chrono::current_zone(), std::chrono::system_clock::now());
 		_offset = localTime.get_info().offset;
+		std::cout << "Log init success" << std::endl;
 	}
 	catch (const spdlog::spdlog_ex& ex)
 	{
