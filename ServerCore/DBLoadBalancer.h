@@ -13,6 +13,7 @@ public:
 	/// <param name="serviceCount">DB 스레드 개수</param>
 	/// <returns></returns>
 	bool Init(const std::string& connectionString, const int32& serviceCount);
+	bool Init(const std::string& driver, const std::string& id, const std::string& pwd, const std::string& db, const std::string& host, const std::string& port, const int32& serviceCount);
 	/// <summary>
 	/// 로드밸런싱할 DB 작업 Push
 	/// </summary>

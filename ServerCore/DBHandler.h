@@ -3,6 +3,9 @@
 class DBData
 {
 public:
+	DBData();
+	~DBData();
+
 	int32 WorkID = 0;		// 밸런싱 할 ID
 	uint16 ProtocolID = 0;	// 서버 내 프로토콜
 

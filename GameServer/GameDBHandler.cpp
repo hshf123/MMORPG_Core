@@ -53,9 +53,10 @@ bool GameDBHandler::OnSGDBServerStart(std::shared_ptr<DBData> data)
 			END;
 
 		*/
-		Poco::Data::Statement state(session);
-		state << std::format("EXEC spServerStart {}", serverId), into(serverStartTime);
-		state.execute();
+		session << "EXEC spServerStart ?",
+			use(serverId), // 강제 캐스팅
+			into(serverStartTime),  // Timestamp로 받기
+			now;
 	}
 	catch (Poco::Data::ODBC::StatementException& ex)
 	{

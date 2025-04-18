@@ -31,9 +31,15 @@ bool GameServer::Init()
 	ClientPacketHandler::GetInstance().Init();
 
 	if (_InitGameDB() == false)
+	{
+		VIEW_ERROR("GameDB Init Fail");
 		return false;
+	}
 	if (_InitClientService() == false)
+	{
+		VIEW_ERROR("ClientService Init Fail");
 		return false;
+	}
 
 	return true;
 }
@@ -44,7 +50,7 @@ bool GameServer::Update()
 	GameDBLoadBalancer::Balancer->Launch();
 	std::shared_ptr<DBData> data = PoolAlloc<DBData>();
 	data->ProtocolID = EDBProtocol::SGDB_ServerStart;
-	GameDBLoadBalancer::Balancer->Push(data);
+	GameDBLoadBalancer::Balancer->Push(std::move(data));
 	TimeUtils::WaitInit();
 
 	std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
@@ -66,10 +72,16 @@ bool GameServer::_ReadConfig()
 {
 	std::string config = "Config.json";
 	if (fs::exists(config) == false)
+	{
+		VIEW_ERROR("Not Found Config");
 		return false;
+	}
 	std::ifstream file(config, std::ios::binary);
 	if (file.fail())
+	{
+		VIEW_ERROR("Config Read Fail");
 		return false;
+	}
 	std::string json((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
 	rapidjson::Document doc;
@@ -81,10 +93,27 @@ bool GameServer::_ReadConfig()
 	_clientServiceThreadCount = mainValue["ThreadCount"].GetInt();
 	VIEW_INFO("ClientService ThreadCount : {}", _clientServiceThreadCount);
 
-	rapidjson::Value& gdbValue = doc["GameDB"];
-	_gameDBConnectionString = gdbValue["ConnectionString"].GetString();
-	_gameDBThreadCount = gdbValue["ThreadCount"].GetInt();
-	VIEW_INFO("GameDB Connection Count : {}", _gameDBThreadCount);
+	if (doc.HasMember("GameDB"))
+	{
+		rapidjson::Value& gdbValue = doc["GameDB"];
+
+		if (gdbValue.HasMember("ConnectionString"))
+		{
+			_gameDBConnectionString = gdbValue["ConnectionString"].GetString();
+		}
+		else
+		{
+			_gameDBConnectionString =
+				std::format("DRIVER=SQL SERVER;UID={};PWD={};DATABASE={};SERVER={},{};",
+					gdbValue["ID"].GetString(),
+					gdbValue["PWD"].GetString(),
+					gdbValue["DB"].GetString(),
+					gdbValue["HOST"].GetString(),
+					gdbValue["PORT"].GetString());
+		}
+		_gameDBThreadCount = gdbValue["ThreadCount"].GetInt();
+		VIEW_INFO("GameDB Connection Count : {}", _gameDBThreadCount);
+	}
 
 	xreserve<Job>(100'000, nullptr);
 	xreserve<DBQueueData>(100'000, 0, nullptr, GameDBHandler::GetInstance());
@@ -108,14 +137,14 @@ bool GameServer::_ReadConfig()
 bool GameServer::_InitGameDB()
 {
 	return GameDBLoadBalancer::Balancer->Init(
-		"Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;"
+		_gameDBConnectionString
 		, _gameDBThreadCount);
 }
 
 bool GameServer::_InitClientService()
 {
 	std::shared_ptr<ServerService> clientService = PoolAlloc<ServerService>(
-		NetAddress(L"127.0.0.1", 9999),
+		NetAddress(L"0.0.0.0", 9999),
 		PoolAlloc<IocpCore>(),
 		PoolAlloc<ClientSession>,
 		100);

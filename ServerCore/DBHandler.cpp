@@ -3,9 +3,18 @@
 #include "DBService.h"
 #include "JobQueue.h"
 
-void DBData::ProcessDBWorking()
+DBData::DBData()
+{
+	Monitor::GetInstance().IncProcessCount();
+}
+
+DBData::~DBData()
 {
 	Monitor::GetInstance().DecProcessCount();
+}
+
+void DBData::ProcessDBWorking()
+{
 	if (Owner == nullptr || ResponseJob == nullptr)
 	{
 		Owner = nullptr;

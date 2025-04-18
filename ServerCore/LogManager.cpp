@@ -11,7 +11,6 @@ LogManager::~LogManager()
 {
 	std::queue<LogStruct> logQueue;
 	{
-		WRITE_LOCKS(ConsoleLog);
 		_logs[ConsoleLog].swap(logQueue);
 	}
 	while (logQueue.empty() == false)
@@ -21,7 +20,6 @@ LogManager::~LogManager()
 		logQueue.pop();
 	}
 	{
-		WRITE_LOCKS(FileLog);
 		_logs[FileLog].swap(logQueue);
 	}
 	while (logQueue.empty() == false)

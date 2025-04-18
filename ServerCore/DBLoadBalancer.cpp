@@ -11,16 +11,24 @@ bool DBLoadBalancer::Init(const std::string& connectionString, const int32& serv
 	Poco::Data::ODBC::Connector::registerConnector();
 	_serviceList = new DBService[serviceCount]();
 	for (int32 i = 0; i < serviceCount; i++)
-		_serviceList[i].Connect(connectionString);
+	{
+		if (_serviceList[i].Connect(connectionString) == false)
+			return false;
+	}
 	_serviceCount = serviceCount;
 	return true;
+}
+
+bool DBLoadBalancer::Init(const std::string& driver, const std::string& id, const std::string& pwd, const std::string& db, const std::string& host, const std::string& port, const int32& serviceCount)
+{
+	std::string connectionString = std::format("DRIVER={};UID={};PWD={};DATABASE={};SERVER={},{};", driver, id, pwd, db, host, port);
+	return Init(connectionString, serviceCount);
 }
 
 bool DBLoadBalancer::Push(int32 workId, uint16 protocolId, std::shared_ptr<DBData> data, DBHandler& handler)
 {
 	if (_serviceList == nullptr)
 		return false;
-	Monitor::GetInstance().IncProcessCount();
 	GetDBService(workId).Push(protocolId, data, handler);
 	return true;
 }
