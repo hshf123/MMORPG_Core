@@ -18,6 +18,17 @@ bool DBService::Connect(const std::string& connectionString)
 	return true;
 }
 
+bool DBService::RedisConnect(const std::string& ip, int32 port)
+{
+	_redisContext = redisConnect(ip.c_str(), port);
+	if (_redisContext == nullptr || _redisContext->err)
+	{
+		std::cout << std::format("[Redis: {}/{}] Connect Failed Cause \n{}", _redisIP, _redisPort) << std::endl;
+		return false;
+	}
+	return true;
+}
+
 bool DBService::Push(const uint16& protocolId, std::shared_ptr<DBData> data, DBHandler& handler)
 {
 	if (data == nullptr)

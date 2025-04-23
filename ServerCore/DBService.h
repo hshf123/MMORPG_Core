@@ -27,6 +27,13 @@ public:
 	/// <returns></returns>
 	bool Connect(const std::string& connectionString);
 	/// <summary>
+	/// DB 연결 직접호출 하지 않고 로드밸런서를 통해 호출
+	/// </summary>
+	/// <param name="ip"></param>
+	/// <param name="port"></param>
+	/// <returns></returns>
+	bool RedisConnect(const std::string& ip, int32 port);
+	/// <summary>
 	/// DB 작업 Push 직접호출 하지 않고 로드밸런서를 통해 호출
 	/// </summary>
 	/// <param name="protocolId"></param>
@@ -41,9 +48,18 @@ public:
 
 	Poco::Data::Session* GetDBSession() { return _session; }
 
+	template<class Key, class Value>
+	bool SetRedisValue(Key key, Value value);
+	template<class Key, class Value>
+	bool GetRedisValue(Key key, OUT Value& value);
+
 private:
-	std::string _connectionString = "";
+	std::string _connectionString;
 	Poco::Data::Session* _session = nullptr;
+
+	std::string _redisIP;
+	int32 _redisPort = 0;
+	redisContext* _redisContext = nullptr;
 
 	std::atomic_int32_t _queueCount = 0;
 	LockQueue<DBQueueData*> _dbQueue;	// DB 작업 큐

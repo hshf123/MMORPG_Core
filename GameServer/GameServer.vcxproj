@@ -157,7 +157,9 @@
       </IgnoreSpecificDefaultLibraries>
     </Link>
     <PreBuildEvent>
-      <Command>call $(SolutionDir)GameServer\ParseProto.bat if $(ExitCode) neq 0 exit /b</Command>
+      <Command>call $(SolutionDir)GameServer\ParseProto.bat if $(ExitCode) neq 0 exit /b
+
+copy /y /d $(SolutionDir)Lib\$(Configuration)\hiredisd.dll $(OutDir)hiredisd.dll</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -184,7 +186,9 @@
       </IgnoreSpecificDefaultLibraries>
     </Link>
     <PreBuildEvent>
-      <Command>call $(SolutionDir)GameServer\ParseProto.bat if $(ExitCode) neq 0 exit /b</Command>
+      <Command>call $(SolutionDir)GameServer\ParseProto.bat if $(ExitCode) neq 0 exit /b
+
+copy /y /d $(SolutionDir)Lib\$(Configuration)\hiredis.dll $(OutDir)hiredis.dll</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

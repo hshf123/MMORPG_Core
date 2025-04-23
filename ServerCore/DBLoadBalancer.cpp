@@ -25,6 +25,18 @@ bool DBLoadBalancer::Init(const std::string& driver, const std::string& id, cons
 	return Init(connectionString, serviceCount);
 }
 
+bool DBLoadBalancer::RedisInit(const std::string& ip, int32 port)
+{
+	if (_serviceCount <= 0)
+		return false;
+	for (int32 i = 0; i < _serviceCount; i++)
+	{
+		if (_serviceList[i].RedisConnect(ip, port) == false)
+			return false;
+	}
+	return true;
+}
+
 bool DBLoadBalancer::Push(int32 workId, uint16 protocolId, std::shared_ptr<DBData> data, DBHandler& handler)
 {
 	if (_serviceList == nullptr)

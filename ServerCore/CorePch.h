@@ -1,7 +1,7 @@
 #pragma once
 
-#pragma warning(disable : 26498)	  // SPD Log
-#pragma warning(disable : 4819)		  // SPD Log
+#pragma warning(disable : 26498 4819)	  // SPD Log
+#pragma warning(disable : 4200)			// redis
 #pragma warning (push)
 #pragma warning (disable: 4244 4245 4100 4127)
 #pragma warning (disable: 4634 4635)	// XML 주석 관련
@@ -25,6 +25,12 @@
 #pragma comment(lib, "Poco\\PocoDatamd.lib")
 #pragma comment(lib, "Poco\\PocoDataODBCmd.lib")
 #pragma comment(lib, "Poco\\PocoFoundationmd.lib")
+#include <hiredis/hiredis.h>
+#ifdef DEV_TEST
+#pragma comment(lib, "hiredis\\Debug\\hiredisd.lib")
+#else
+#pragma comment(lib, "hiredis\\Release\\hiredis.lib")
+#endif
 
 #include <vector>
 #include <stack>

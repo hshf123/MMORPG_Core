@@ -53,13 +53,19 @@ void Monitor::PrintServerCounting()
 	if (_lastCountingTick + (1000 * 60) > now)
 		return;
 
+	int64 recvCount = _recvCount.load();
+	int64 recvSize = _recvSize.load() / (recvCount == 0 ? 1 : recvCount);
+
+	int64 sendCount = _sendCount.load();
+	int64 sendSize = _sendSize.load() / (sendCount == 0 ? 1 : sendCount);
+
 	VIEW_WRITE_INFO("Accept({}) Connect({}) Recv(Count({}) / Size({})) Send(Count({}) / Size({})) DB(Count({}) / Remain({}))",
 		_acceptCount.load(),
 		_connectCount.load(),
-		_recvCount.load(),
-		_recvSize.load(),
-		_sendCount.load(),
-		_sendSize.load(),
+		recvCount,
+		recvSize,
+		sendCount,
+		sendSize,
 		_processCount.load(),
 		_processingCount.load());
 
