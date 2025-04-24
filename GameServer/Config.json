@@ -7,5 +7,10 @@
   "GameDB": {
     "ConnectionString": "Driver={ODBC Driver 17 for SQL Server};Server=(LocalDB)\\MSSQLLocalDB;Database=Game;Trusted_Connection=Yes;",
     "ThreadCount": 8
+  },
+
+  "Redis": {
+    "IP": "127.0.0.1",
+    "Port": 6374
   }
 }

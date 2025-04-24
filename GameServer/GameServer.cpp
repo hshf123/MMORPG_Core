@@ -115,6 +115,13 @@ bool GameServer::_ReadConfig()
 		VIEW_INFO("GameDB Connection Count : {}", _gameDBThreadCount);
 	}
 
+	if (doc.HasMember("Redis"))
+	{
+		rapidjson::Value& redisValue = doc["Redis"];
+		_redisIP = redisValue["IP"].GetString();
+		_redisPort = redisValue["Port"].GetInt();
+	}
+
 	xreserve<Job>(100'000, nullptr);
 	xreserve<DBQueueData>(100'000, 0, nullptr, GameDBHandler::GetInstance());
 
@@ -136,9 +143,15 @@ bool GameServer::_ReadConfig()
 
 bool GameServer::_InitGameDB()
 {
-	return GameDBLoadBalancer::Balancer->Init(
+	if (GameDBLoadBalancer::Balancer->Init(
 		_gameDBConnectionString
-		, _gameDBThreadCount);
+		, _gameDBThreadCount) == false)
+		return false;
+	//if (_redisIP.empty())
+	//	return true;
+	//if (GameDBLoadBalancer::Balancer->RedisInit(_redisIP, _redisPort) == false)
+	//	return false;
+	return true;
 }
 
 bool GameServer::_InitClientService()
