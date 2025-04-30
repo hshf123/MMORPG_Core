@@ -34,6 +34,9 @@
 # protoc.exe는 제외하지 않음
 !protoc.exe
 
+!hiredisd.*
+!hiredis.*
+
 .vs
 Output
 x64
