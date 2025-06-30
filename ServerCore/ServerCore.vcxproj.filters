@@ -135,6 +135,9 @@
     <ClInclude Include="Monitor.h">
       <Filter>Monitor</Filter>
     </ClInclude>
+    <ClInclude Include="ServerConfig.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -226,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="Monitor.cpp">
       <Filter>Monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerConfig.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

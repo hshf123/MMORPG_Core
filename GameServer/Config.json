@@ -1,7 +1,8 @@
 {
   "Main": {
     "ProcessName": "GameServer",
-    "ThreadCount": 8
+    "ThreadCount": 8,
+    "UseRIO" : true
   },
 
   "GameDB": {

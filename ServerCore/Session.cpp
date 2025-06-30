@@ -11,10 +11,11 @@ Session::Session() : _recvBuffer(RECV_BUFFER_SIZE), _sendBuffer(SEND_BUFFER_SIZE
 
 Session::~Session()
 {
-#ifdef USE_RIO
-	Socket::RIOEFTable.RIODeregisterBuffer(_rioRecvBufferId);
-	Socket::RIOEFTable.RIODeregisterBuffer(_rioSendBufferId);
-#endif
+	if (ServerConfig::GetInstance().GetUseRIO())
+	{
+		Socket::RIOEFTable.RIODeregisterBuffer(_rioRecvBufferId);
+		Socket::RIOEFTable.RIODeregisterBuffer(_rioSendBufferId);
+	}
 	Socket::Close(_socket);
 	{
 		std::queue<std::shared_ptr<SendBuffer>> tq;
@@ -105,17 +106,25 @@ void Session::Dispatch(IocpEvent* iocpEvent, int32 numOfBytes /*= 0*/)
 	case EventType::Disconnect:
 		ProcessDisconnect();
 		break;
-#ifdef USE_RIO
-#else
+
 	case EventType::Recv:
-		ProcessRecv(numOfBytes);
-		Monitor::GetInstance().AddRecvCount(1, numOfBytes);
-		break;
+	{
+		if (ServerConfig::GetInstance().GetUseRIO() == false)
+		{
+			ProcessRecv(numOfBytes);
+			Monitor::GetInstance().AddRecvCount(1, numOfBytes);
+		}
+	}
+	break;
 	case EventType::Send:
-		ProcessSend(numOfBytes);
-		Monitor::GetInstance().AddSendCount(1, numOfBytes);
-		break;
-#endif
+	{
+		if (ServerConfig::GetInstance().GetUseRIO() == false)
+		{
+			ProcessSend(numOfBytes);
+			Monitor::GetInstance().AddSendCount(1, numOfBytes);
+		}
+	}
+	break;
 	default:
 		break;
 	}
@@ -196,140 +205,147 @@ void Session::RegisterRecv()
 {
 	if (IsConnected() == false)
 		return;
-#ifdef USE_RIO
-	_rioRecvEvent.Init();
-	_rioRecvEvent.owner = shared_from_this();
-
-	_rioRecvEvent.BufferId = _rioRecvBufferId;
-	_rioRecvEvent.Length = _recvBuffer.FreeSize();
-	_rioRecvEvent.Offset = static_cast<uint64>(_recvBuffer.WriteOffset());
-
-	DWORD recvbytes = 0;
-	DWORD flags = 0;
-
-	WRITE_LOCKS(RIO_RQ_LOCK);
-	if (Socket::RIOEFTable.RIOReceive(_rioRQ, static_cast<PRIO_BUF>(&_rioRecvEvent), 1, flags, &_rioRecvEvent) == false)
+	if (ServerConfig::GetInstance().GetUseRIO())
 	{
-		int32 errorCode = ::GetLastError();
-		HandleError(errorCode);
-		_rioRecvEvent.owner = nullptr;
-	}
-#else
-	_recvEvent.Init();
-	_recvEvent.owner = shared_from_this();
+		_rioRecvEvent.Init();
+		_rioRecvEvent.owner = shared_from_this();
 
-	WSABUF wsaBuf;
-	wsaBuf.buf = reinterpret_cast<char*>(_recvBuffer.WritePos());
-	wsaBuf.len = _recvBuffer.FreeSize();
+		_rioRecvEvent.BufferId = _rioRecvBufferId;
+		_rioRecvEvent.Length = _recvBuffer.FreeSize();
+		_rioRecvEvent.Offset = static_cast<uint64>(_recvBuffer.WriteOffset());
 
-	DWORD numOfBytes = 0;
-	DWORD flags = 0;
-	if (::WSARecv(_socket, &wsaBuf, 1, OUT & numOfBytes, OUT & flags, &_recvEvent, nullptr) == SOCKET_ERROR)
-	{
-		int32 errorCode = ::WSAGetLastError();
-		if (errorCode != WSA_IO_PENDING)
+		DWORD recvbytes = 0;
+		DWORD flags = 0;
+
+		WRITE_LOCKS(RIO_RQ_LOCK);
+		if (Socket::RIOEFTable.RIOReceive(_rioRQ, static_cast<PRIO_BUF>(&_rioRecvEvent), 1, flags, &_rioRecvEvent) == false)
 		{
+			int32 errorCode = ::GetLastError();
 			HandleError(errorCode);
-			_recvEvent.owner = nullptr;
+			_rioRecvEvent.owner = nullptr;
 		}
 	}
-#endif
+	else
+	{
+		_recvEvent.Init();
+		_recvEvent.owner = shared_from_this();
+
+		WSABUF wsaBuf;
+		wsaBuf.buf = reinterpret_cast<char*>(_recvBuffer.WritePos());
+		wsaBuf.len = _recvBuffer.FreeSize();
+
+		DWORD numOfBytes = 0;
+		DWORD flags = 0;
+		if (::WSARecv(_socket, &wsaBuf, 1, OUT & numOfBytes, OUT & flags, &_recvEvent, nullptr) == SOCKET_ERROR)
+		{
+			int32 errorCode = ::WSAGetLastError();
+			if (errorCode != WSA_IO_PENDING)
+			{
+				HandleError(errorCode);
+				_recvEvent.owner = nullptr;
+			}
+		}
+	}
 }
 
 void Session::RegisterSend()
 {
 	if (IsConnected() == false)
 		return;
-	
-#ifdef USE_RIO
-	std::queue<std::shared_ptr<SendBuffer>> sendQueue;
+
+	if (ServerConfig::GetInstance().GetUseRIO())
 	{
-		WRITE_LOCKS(SEND_QUEUE_LOCK);
-		sendQueue.swap(_sendQueue);
-	}
-	_rioSendEvent.Init();
-	_rioSendEvent.owner = shared_from_this();
-	_rioSendEvent.BufferId = _rioSendBufferId;
-	_rioSendEvent.Offset = _sendBuffer.WriteOffset();
-	while (sendQueue.empty() == false)
-	{
-		std::shared_ptr<SendBuffer> sendBuffer = sendQueue.front();
-		if (_sendBuffer.FreeSize() < sendBuffer->WriteSize())
+		std::queue<std::shared_ptr<SendBuffer>> sendQueue;
 		{
-			VIEW_WRITE_ERROR("There's no FreeSize Session({})", _workId);
-			Disconnect(L"SendBuffer Over");
-			return;
+			WRITE_LOCKS(SEND_QUEUE_LOCK);
+			sendQueue.swap(_sendQueue);
 		}
-
-		sendQueue.pop();
-		::memcpy_s(_sendBuffer.WritePos(), sendBuffer->WriteSize(), sendBuffer->Buffer(), sendBuffer->WriteSize());
-
-		_rioSendEvent.Length += sendBuffer->WriteSize();
-		_sendBuffer.OnWrite(sendBuffer->WriteSize());
-	}
-	DWORD sendbytes = 0;
-	DWORD flags = 0;
-	WRITE_LOCKS(RIO_RQ_LOCK);
-	if (Socket::RIOEFTable.RIOSend(_rioRQ, &_rioSendEvent, 1, flags, &_rioSendEvent) == false)
-	{
-		int32 errorCode = ::WSAGetLastError();
-		if (errorCode != WSA_IO_PENDING)
+		_rioSendEvent.Init();
+		_rioSendEvent.owner = shared_from_this();
+		_rioSendEvent.BufferId = _rioSendBufferId;
+		_rioSendEvent.Offset = _sendBuffer.WriteOffset();
+		while (sendQueue.empty() == false)
 		{
-			HandleError(errorCode);
-			_rioSendEvent.owner = nullptr;
-			_sendRegistered.store(false);
+			std::shared_ptr<SendBuffer> sendBuffer = sendQueue.front();
+			if (_sendBuffer.FreeSize() < sendBuffer->WriteSize())
+			{
+				VIEW_WRITE_ERROR("There's no FreeSize Session({})", _workId);
+				Disconnect(L"SendBuffer Over");
+				return;
+			}
+
+			sendQueue.pop();
+			::memcpy_s(_sendBuffer.WritePos(), sendBuffer->WriteSize(), sendBuffer->Buffer(), sendBuffer->WriteSize());
+
+			_rioSendEvent.Length += sendBuffer->WriteSize();
+			_sendBuffer.OnWrite(sendBuffer->WriteSize());
 		}
-	}
-#else
-	_sendEvent.Init();
-	_sendEvent.owner = shared_from_this();
-
-	{
-		WRITE_LOCKS(SEND_QUEUE_LOCK);
-
-		int32 writeSize = 0;
-		while (_sendQueue.empty() == false)
+		DWORD sendbytes = 0;
+		DWORD flags = 0;
+		WRITE_LOCKS(RIO_RQ_LOCK);
+		if (Socket::RIOEFTable.RIOSend(_rioRQ, &_rioSendEvent, 1, flags, &_rioSendEvent) == false)
 		{
-			std::shared_ptr<SendBuffer> sendBuffer = _sendQueue.front();
-			writeSize += sendBuffer->WriteSize();
-			_sendQueue.pop();
-			_sendEvent.SendBuffers.push_back(sendBuffer);
+			int32 errorCode = ::WSAGetLastError();
+			if (errorCode != WSA_IO_PENDING)
+			{
+				HandleError(errorCode);
+				_rioSendEvent.owner = nullptr;
+				_sendRegistered.store(false);
+			}
 		}
 	}
-
-	std::vector<WSABUF> wsaBufs;
-	wsaBufs.reserve(_sendEvent.SendBuffers.size());
-	for (std::shared_ptr<SendBuffer> sendBuffer : _sendEvent.SendBuffers)
+	else
 	{
-		WSABUF wsaBuf;
-		wsaBuf.buf = reinterpret_cast<char*>(sendBuffer->Buffer());
-		wsaBuf.len = static_cast<LONG>(sendBuffer->WriteSize());
-		wsaBufs.push_back(wsaBuf);
-	}
+		_sendEvent.Init();
+		_sendEvent.owner = shared_from_this();
 
-	DWORD numOfBytes = 0;
-	if (::WSASend(_socket, wsaBufs.data(), static_cast<DWORD>(wsaBufs.size()), OUT & numOfBytes, 0, &_sendEvent, nullptr) == SOCKET_ERROR)
-	{
-		int32 errorCode = ::WSAGetLastError();
-		if (errorCode != WSA_IO_PENDING)
 		{
-			HandleError(errorCode);
-			_sendEvent.owner = nullptr;
-			_sendEvent.SendBuffers.clear();
-			_sendRegistered.store(false);
+			WRITE_LOCKS(SEND_QUEUE_LOCK);
+
+			int32 writeSize = 0;
+			while (_sendQueue.empty() == false)
+			{
+				std::shared_ptr<SendBuffer> sendBuffer = _sendQueue.front();
+				writeSize += sendBuffer->WriteSize();
+				_sendQueue.pop();
+				_sendEvent.SendBuffers.push_back(sendBuffer);
+			}
+		}
+
+		std::vector<WSABUF> wsaBufs;
+		wsaBufs.reserve(_sendEvent.SendBuffers.size());
+		for (std::shared_ptr<SendBuffer> sendBuffer : _sendEvent.SendBuffers)
+		{
+			WSABUF wsaBuf;
+			wsaBuf.buf = reinterpret_cast<char*>(sendBuffer->Buffer());
+			wsaBuf.len = static_cast<LONG>(sendBuffer->WriteSize());
+			wsaBufs.push_back(wsaBuf);
+		}
+
+		DWORD numOfBytes = 0;
+		if (::WSASend(_socket, wsaBufs.data(), static_cast<DWORD>(wsaBufs.size()), OUT & numOfBytes, 0, &_sendEvent, nullptr) == SOCKET_ERROR)
+		{
+			int32 errorCode = ::WSAGetLastError();
+			if (errorCode != WSA_IO_PENDING)
+			{
+				HandleError(errorCode);
+				_sendEvent.owner = nullptr;
+				_sendEvent.SendBuffers.clear();
+				_sendRegistered.store(false);
+			}
 		}
 	}
-#endif
 }
 
 void Session::ProcessConnect()
 {
 	_connected.store(true);
 	GetService()->AddSession(GetSession());
-#ifdef USE_RIO
-	RegisterRIOBuffer();
-	CreateRIORQ();
-#endif
+	if (ServerConfig::GetInstance().GetUseRIO())
+	{
+		RegisterRIOBuffer();
+		CreateRIORQ();
+	}
 	SetWorkId();
 	OnConnected(GetService()->GetNetAddress());
 	RegisterRecv();
@@ -346,11 +362,11 @@ void Session::ProcessDisconnect()
 
 void Session::ProcessRecv(int32 numOfBytes)
 {
-#ifdef USE_RIO
-	_rioRecvEvent.owner = nullptr;
-#else
-	_recvEvent.owner = nullptr;
-#endif
+	if (ServerConfig::GetInstance().GetUseRIO())
+		_rioRecvEvent.owner = nullptr;
+	else
+		_recvEvent.owner = nullptr;
+
 	if (numOfBytes == 0)
 	{
 		Disconnect(L"0 Bytes Recv");
@@ -377,14 +393,17 @@ void Session::ProcessRecv(int32 numOfBytes)
 
 void Session::ProcessSend(int32 numOfBytes)
 {
-#ifdef USE_RIO
-	_sendBuffer.OnRead(numOfBytes);
-	_sendBuffer.Clean();
-	_rioSendEvent.owner = nullptr;
-#else
-	_sendEvent.owner = nullptr;
-	_sendEvent.SendBuffers.clear();
-#endif
+	if (ServerConfig::GetInstance().GetUseRIO())
+	{
+		_sendBuffer.OnRead(numOfBytes);
+		_sendBuffer.Clean();
+		_rioSendEvent.owner = nullptr;
+	}
+	else
+	{
+		_sendEvent.owner = nullptr;
+		_sendEvent.SendBuffers.clear();
+	}
 	if (numOfBytes == 0)
 	{
 		Disconnect(L"0 Bytes Send");

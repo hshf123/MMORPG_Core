@@ -27,14 +27,15 @@ bool IocpCore::Dispatch(uint32 timeoutMs /*= INFINITE*/)
 
 	if (::GetQueuedCompletionStatus(_iocpHandle, OUT & numOfBytes, OUT & key, OUT reinterpret_cast<LPOVERLAPPED*>(&iocpEvent), timeoutMs))
 	{
-#ifdef USE_RIO
-		if (key == RIO_IOCP_COMPLETION)
+		if (ServerConfig::GetInstance().GetUseRIO())
 		{
-			std::shared_ptr<Service> service = iocpEvent->ownerService;
-			service->Dispatch(static_cast<RIONotifyEvent*>(iocpEvent));
-			return true;
+			if (key == RIO_IOCP_COMPLETION)
+			{
+				std::shared_ptr<Service> service = iocpEvent->ownerService;
+				service->Dispatch(static_cast<RIONotifyEvent*>(iocpEvent));
+				return true;
+			}
 		}
-#endif
 		std::shared_ptr<IocpObject> iocpObject = iocpEvent->owner;
 		iocpObject->Dispatch(iocpEvent, numOfBytes);
 	}
@@ -47,14 +48,15 @@ bool IocpCore::Dispatch(uint32 timeoutMs /*= INFINITE*/)
 			return false;
 		default:
 		{
-#ifdef USE_RIO
-			if (key == RIO_IOCP_COMPLETION)
+			if (ServerConfig::GetInstance().GetUseRIO())
 			{
-				std::shared_ptr<Service> service = iocpEvent->ownerService;
-				service->Dispatch(static_cast<RIONotifyEvent*>(iocpEvent));
-				return true;
+				if (key == RIO_IOCP_COMPLETION)
+				{
+					std::shared_ptr<Service> service = iocpEvent->ownerService;
+					service->Dispatch(static_cast<RIONotifyEvent*>(iocpEvent));
+					return true;
+				}
 			}
-#endif
 			std::shared_ptr<IocpObject> iocpObject = iocpEvent->owner;
 			iocpObject->Dispatch(iocpEvent, numOfBytes);
 		}

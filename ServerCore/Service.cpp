@@ -12,10 +12,11 @@ Service::Service(ServiceType type, NetAddress address, std::shared_ptr<IocpCore>
 
 Service::~Service()
 {
-#ifdef USE_RIO
-	for (const RIONotifyEvent* event : _rioCQEventList)
-		Socket::RIOEFTable.RIOCloseCompletionQueue(event->rioCQ);
-#endif
+	if (ServerConfig::GetInstance().GetUseRIO())
+	{
+		for (const RIONotifyEvent* event : _rioCQEventList)
+			Socket::RIOEFTable.RIOCloseCompletionQueue(event->rioCQ);
+	}
 }
 
 void Service::CloseService()

@@ -7,10 +7,6 @@
 #include "Service.h"
 #include "ClientSession.h"
 #include "ThreadManager.h"
-#include <filesystem>
-#include <fstream>
-
-namespace fs = std::filesystem;
 
 void TimerJobQueue::UpdateTime()
 {
@@ -26,7 +22,7 @@ bool GameServer::Init()
 		return false;
 
 	Socket::Init();
-	LogManager::GetInstance().Initialize(_processName);
+	LogManager::GetInstance().Initialize(ServerConfig::GetInstance().GetProcessName());
 	GameDBHandler::GetInstance().Init();
 	ClientPacketHandler::GetInstance().Init();
 
@@ -70,82 +66,19 @@ bool GameServer::Update()
 
 bool GameServer::_ReadConfig()
 {
-	std::string config = "Config.json";
-	if (fs::exists(config) == false)
-	{
-		VIEW_ERROR("Not Found Config");
+	if (ServerConfig::GetInstance().ReadConfig("Config.json") == false)
 		return false;
-	}
-	std::ifstream file(config, std::ios::binary);
-	if (file.fail())
-	{
-		VIEW_ERROR("Config Read Fail");
-		return false;
-	}
-	std::string json((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-
-	rapidjson::Document doc;
-	doc.Parse(json.c_str());
-
-	rapidjson::Value& mainValue = doc["Main"];
-	_processName = mainValue["ProcessName"].GetString();
-	VIEW_INFO("{}", _processName);
-	_clientServiceThreadCount = mainValue["ThreadCount"].GetInt();
-	VIEW_INFO("ClientService ThreadCount : {}", _clientServiceThreadCount);
-
-	if (doc.HasMember("GameDB"))
-	{
-		rapidjson::Value& gdbValue = doc["GameDB"];
-
-		if (gdbValue.HasMember("ConnectionString"))
-		{
-			_gameDBConnectionString = gdbValue["ConnectionString"].GetString();
-		}
-		else
-		{
-			_gameDBConnectionString =
-				std::format("DRIVER=SQL SERVER;UID={};PWD={};DATABASE={};SERVER={},{};",
-					gdbValue["ID"].GetString(),
-					gdbValue["PWD"].GetString(),
-					gdbValue["DB"].GetString(),
-					gdbValue["HOST"].GetString(),
-					gdbValue["PORT"].GetString());
-		}
-		_gameDBThreadCount = gdbValue["ThreadCount"].GetInt();
-		VIEW_INFO("GameDB Connection Count : {}", _gameDBThreadCount);
-	}
-
-	if (doc.HasMember("Redis"))
-	{
-		rapidjson::Value& redisValue = doc["Redis"];
-		_redisIP = redisValue["IP"].GetString();
-		_redisPort = redisValue["Port"].GetInt();
-	}
 
 	xreserve<Job>(100'000, nullptr);
 	xreserve<DBQueueData>(100'000, 0, nullptr, GameDBHandler::GetInstance());
-
-	//{
-	//	// 쓰기 테스트
-	//	const std::string json = "{\"project\":\"rapidjson\",\"stars\":10}";
-	//	rapidjson::Document d;
-	//	d.Parse(json.c_str());
-	//	rapidjson::Value& s = d["stars"];
-	//	s.SetInt(s.GetInt() + 1);
-	//	rapidjson::StringBuffer buffer;
-	//	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-	//	d.Accept(writer);
-	//	std::string str = buffer.GetString();
-	//}
-
 	return true;
 }
 
 bool GameServer::_InitGameDB()
 {
 	if (GameDBLoadBalancer::Balancer->Init(
-		_gameDBConnectionString
-		, _gameDBThreadCount) == false)
+		ServerConfig::GetInstance().GetDBConnectionString()
+		, ServerConfig::GetInstance().GetGameDBThreadCount()) == false)
 		return false;
 	//if (_redisIP.empty())
 	//	return true;
@@ -162,20 +95,21 @@ bool GameServer::_InitClientService()
 		PoolAlloc<ClientSession>,
 		100);
 	ASSERT_CRASH(clientService->Start());
-#ifdef USE_RIO
-	for (int32 i = 0; i < _clientServiceThreadCount; i++)
+	if (ServerConfig::GetInstance().GetUseRIO())
 	{
-		if (clientService->CreateRIOCQ() == false)
-			return false;
+		for (int32 i = 0; i < ServerConfig::GetInstance().GetClientServiceCount(); i++)
+		{
+			if (clientService->CreateRIOCQ() == false)
+				return false;
+		}
 	}
-#endif
 	_InitWorkerThread(clientService);
 	return true;
 }
 
 void GameServer::_InitWorkerThread(std::shared_ptr<ServerService> service)
 {
-	for (int32 i = 0; i < _clientServiceThreadCount; i++)
+	for (int32 i = 0; i < ServerConfig::GetInstance().GetClientServiceCount(); i++)
 	{
 		ThreadManager::GetInstance().Launch([service]()
 			{
