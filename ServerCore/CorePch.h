@@ -44,6 +44,7 @@
 #include <atomic>
 #include <span>
 #include <ranges>
+#include <coroutine>
 
 #include "Macro.h"
 #include "Types.h"

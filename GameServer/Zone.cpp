@@ -34,6 +34,11 @@ std::shared_ptr<ClientSession> Zone::GetClient(int32 workId)
 	return findIt->second;
 }
 
+int32 Zone::GetZoneID() const
+{
+	return _zoneId;
+}
+
 void Zone::OnSCChatResponse(std::shared_ptr<spChatRequest> res)
 {
 	if (res == nullptr)

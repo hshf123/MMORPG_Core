@@ -31,6 +31,9 @@
     <Filter Include="Monitor">
       <UniqueIdentifier>{58390f8b-a673-4995-b3f0-5bbb7f9b144f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{5820a8b6-e98e-4189-b7ba-e4ffe710cbe6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -138,6 +141,9 @@
     <ClInclude Include="ServerConfig.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="Awaiter.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -232,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="ServerConfig.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Awaiter.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

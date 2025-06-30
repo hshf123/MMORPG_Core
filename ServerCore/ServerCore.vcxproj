@@ -182,6 +182,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Awaiter.h" />
     <ClInclude Include="MathUtil.h" />
     <ClInclude Include="CorePch.h" />
     <ClInclude Include="DBHandler.h" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Awaiter.cpp" />
     <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="CorePch.cpp" />
     <ClCompile Include="DBHandler.cpp" />
