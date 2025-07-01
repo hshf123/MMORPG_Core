@@ -7,12 +7,23 @@
 #include "Service.h"
 #include "ClientSession.h"
 #include "ThreadManager.h"
+#include "ZoneManager.h"
 
 void TimerJobQueue::UpdateTime()
 {
 	VIEW_WRITE_INFO("CPU ({:.2f}), MEOMORY ({:.2f})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
 	Monitor::GetInstance().PrintServerCounting();
-	DoTimer(TimeUtils::OneMin, &TimerJobQueue::UpdateTime);
+	//DoTimer(TimeUtils::OneMin, &TimerJobQueue::UpdateTime);
+}
+
+void TimerJobQueue::UpdateActor()
+{
+	DoAsyncToss([]()
+		{
+			Task t = ZoneManager::GetInstance().ActorTest();
+			t.handle().resume();
+		});
+	DoTimer(TimeUtils::OneSec * 3, &TimerJobQueue::UpdateActor);
 }
 
 bool GameServer::Init()
@@ -26,11 +37,11 @@ bool GameServer::Init()
 	GameDBHandler::GetInstance().Init();
 	ClientPacketHandler::GetInstance().Init();
 
-	if (_InitGameDB() == false)
-	{
-		VIEW_ERROR("GameDB Init Fail");
-		return false;
-	}
+	//if (_InitGameDB() == false)
+	//{
+	//	VIEW_ERROR("GameDB Init Fail");
+	//	return false;
+	//}
 	if (_InitClientService() == false)
 	{
 		VIEW_ERROR("ClientService Init Fail");
@@ -119,6 +130,9 @@ void GameServer::_InitWorkerThread(std::shared_ptr<ServerService> service)
 					service->GetIocpCore()->Dispatch(10);
 					ThreadManager::GetInstance().DistributeReservedJobs();
 					ThreadManager::GetInstance().DoGlobalQueueWork();
+
+					std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
+					jobQueue->UpdateActor();
 
 					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 				}

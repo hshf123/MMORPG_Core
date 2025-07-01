@@ -16,6 +16,11 @@ public:
 		Push(PoolAlloc<Job>(std::move(callback)));
 	}
 
+	void DoAsyncToss(CallbackType&& callback)
+	{
+		Push(PoolAlloc<Job>(std::move(callback)), true);
+	}
+
 	template<typename T, typename Ret, typename... Args>
 	void DoAsync(Ret(T::* memFunc)(Args...), Args... args)
 	{

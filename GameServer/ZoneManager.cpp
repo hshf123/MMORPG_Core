@@ -14,19 +14,30 @@ std::shared_ptr<Zone> ZoneManager::GetZone(int32 workId)
 	return _zoneList[workId % 50];
 }
 
-void ZoneManager::ActorTest()
+Task ZoneManager::ActorTest()
 {
 	// 내가 하고 싶은게
-	VIEW_INFO("테스트 시작");
 	// 1번 Zone 컨텍스트 스위칭
+	uint32 startThreadId = LThreadId;
 	std::shared_ptr<Zone> zone = GetZone(1);
 	co_await Awaiter(*zone).PostAwait();
 	// 여기서 부터
-	VIEW_INFO("{}번 Context", LThreadId);
+	uint32 midThreadId = LThreadId;
 	// 여기까지 1번 존 구간
 	// 2번 Zone 컨텍스트 스위칭
 	zone = GetZone(2);
 	co_await Awaiter(*zone).PostAwait();
-	VIEW_INFO("{}번 Context", LThreadId);
-	VIEW_INFO("테스트 끝");
+	uint32 endThreadId = LThreadId;
+
+
+	if (startThreadId == midThreadId && midThreadId == endThreadId)
+	{
+		//VIEW_ERROR("ZoneManager::ActorTest - Thread ID is same: {} {} {}", startThreadId, midThreadId, endThreadId);
+	}
+	else
+	{
+		VIEW_INFO("ZoneManager::ActorTest - Thread ID changed: {} -> {} -> {}", startThreadId, midThreadId, endThreadId);
+	}
+
+	co_return;
 }

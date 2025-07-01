@@ -5,6 +5,7 @@ class TimerJobQueue : public JobQueue
 {
 public:
 	void UpdateTime();
+	void UpdateActor();
 };
 
 class GameServer

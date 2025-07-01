@@ -9,7 +9,7 @@ public:
 
 	std::shared_ptr<Zone> GetZone(int32 workId);
 
-	void ActorTest();
+	Task ActorTest();
 
 private:
 	std::vector<std::shared_ptr<Zone>> _zoneList;
