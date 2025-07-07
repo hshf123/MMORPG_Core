@@ -214,6 +214,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="StrUtils.h" />
+    <ClInclude Include="Task.h" />
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="TLS.h" />
@@ -254,6 +255,7 @@
     <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="StrUtils.cpp" />
+    <ClCompile Include="Task.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="TLS.cpp" />

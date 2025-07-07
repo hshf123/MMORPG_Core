@@ -20,8 +20,7 @@ void TimerJobQueue::UpdateActor()
 {
 	DoAsyncToss([]()
 		{
-			Task t = ZoneManager::GetInstance().ActorTest();
-			t.handle().resume();
+			ZoneManager::GetInstance().ActorTest();
 		});
 	DoTimer(TimeUtils::OneSec * 3, &TimerJobQueue::UpdateActor);
 }

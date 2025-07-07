@@ -144,6 +144,9 @@
     <ClInclude Include="Awaiter.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Task.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -240,6 +243,9 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Awaiter.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
