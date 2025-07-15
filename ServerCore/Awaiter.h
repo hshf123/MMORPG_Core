@@ -3,34 +3,28 @@
 
 struct Post
 {
-	Post(const JobQueue& jobQueue);
-
+	Post(std::shared_ptr<JobQueue> jobQueue);
 	_NODISCARD constexpr bool await_ready() const noexcept { return false; }
-	constexpr void await_suspend(std::coroutine_handle<> handle) const noexcept
+	void await_suspend(std::coroutine_handle<> handle) const noexcept
 	{
-		if (_jobQueue == nullptr)
+		std::shared_ptr<JobQueue> jobQueue = _jobQueue.lock();
+		if (jobQueue == nullptr)
 			return;
-
-#pragma message("TODO const_cast ªË¡¶ ø‰∏¡")
-		const_cast<JobQueue*>(_jobQueue)->DoAsync([handle]()
-			{
-				handle.resume();
-			});
+		jobQueue->DoAsync([handle]() { handle.resume(); });
 	}
 	constexpr void await_resume() const noexcept {}
 
 private:
-	const JobQueue* _jobQueue = nullptr;
+	std::weak_ptr<JobQueue> _jobQueue;
 };
 
 class Awaiter
 {
 public:
-	Awaiter(const JobQueue& jobQueue);
+	Awaiter(std::shared_ptr<JobQueue> jobQueue);
 
 	Post PostAwait() const;
 
 private:
-	const JobQueue* _jobQueue = nullptr;
+	std::weak_ptr<JobQueue> _jobQueue;
 };
-
