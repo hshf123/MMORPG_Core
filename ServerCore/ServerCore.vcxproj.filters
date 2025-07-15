@@ -34,6 +34,9 @@
     <Filter Include="Actor">
       <UniqueIdentifier>{5820a8b6-e98e-4189-b7ba-e4ffe710cbe6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CallBack">
+      <UniqueIdentifier>{36a58885-4b2a-42e5-9f22-478795e07753}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="Task.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="ChainFunc.h">
+      <Filter>CallBack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -247,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="Task.cpp">
       <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ChainFunc.cpp">
+      <Filter>CallBack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
