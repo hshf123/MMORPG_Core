@@ -203,6 +203,7 @@ copy /y /d $(SolutionDir)Lib\$(Configuration)\hiredis.dll $(OutDir)hiredis.dll</
     </ClCompile>
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PC.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
@@ -237,6 +238,7 @@ copy /y /d $(SolutionDir)Lib\$(Configuration)\hiredis.dll $(OutDir)hiredis.dll</
     <ClInclude Include="Enum.pb.h" />
     <ClInclude Include="GameDBData.h" />
     <ClInclude Include="GameServer.h" />
+    <ClInclude Include="PC.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Protocol.pb.h" />
     <ClInclude Include="Struct.pb.h" />

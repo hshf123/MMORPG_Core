@@ -22,6 +22,12 @@
     <Filter Include="Contents">
       <UniqueIdentifier>{e83a4ce7-5ec9-45e0-aec4-bb6cd2235b0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Zone">
+      <UniqueIdentifier>{b062b5a6-4c65-41f9-99f6-d43811c564a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\PC">
+      <UniqueIdentifier>{970a3d51-7bd4-4de8-a1b0-40da31fe7213}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -54,14 +60,17 @@
     <ClCompile Include="GameDBLoadBalancer.cpp">
       <Filter>DB\GameDB</Filter>
     </ClCompile>
-    <ClCompile Include="Zone.cpp">
-      <Filter>Contents</Filter>
-    </ClCompile>
-    <ClCompile Include="ZoneManager.cpp">
-      <Filter>Contents</Filter>
-    </ClCompile>
     <ClCompile Include="GameServer.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Zone.cpp">
+      <Filter>Contents\Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager.cpp">
+      <Filter>Contents\Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="PC.cpp">
+      <Filter>Contents\PC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,14 +104,17 @@
     <ClInclude Include="GameDBData.h">
       <Filter>DB\GameDB</Filter>
     </ClInclude>
-    <ClInclude Include="Zone.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="ZoneManager.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
     <ClInclude Include="GameServer.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone.h">
+      <Filter>Contents\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager.h">
+      <Filter>Contents\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="PC.h">
+      <Filter>Contents\PC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,5 +23,6 @@ public:
 	SyncTask ActorTest();
 
 private:
+	USE_LOCK;
 	std::vector<std::shared_ptr<Zone>> _zoneList;
 };

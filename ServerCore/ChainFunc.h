@@ -8,34 +8,48 @@ class ChainFunc : public JobQueue
 public:
 	~ChainFunc() { VIEW_INFO("DELETE CHAIN"); }
 
-	std::shared_ptr<ChainFunc> Chain(std::function<void(std::shared_ptr<T>)>&& fn);
-	std::shared_ptr<ChainFunc> ChainAsync(std::function<void(std::shared_ptr<T>)>&& fn);
-	void Return(std::shared_ptr<T>&& value) { _returnValue = value; }
+	template <class F, std::enable_if_t<std::is_same_v<void, std::invoke_result_t<F, T>>, int> = true>
+	std::shared_ptr<ChainFunc<T>> Chain(F&& fn)
+	{
+		DoAsync([=]()
+			{
+				fn(*this->_returnValue);
+			});
+		return static_pointer_cast<ChainFunc<T>>(shared_from_this());
+	}
+	template <class F, std::enable_if_t<!std::is_same_v<void, std::invoke_result_t<F, T>>, int> = true>
+	std::shared_ptr<ChainFunc<T>> Chain(F&& fn)
+	{
+		DoAsync([=]()
+			{
+				*this->_returnValue = fn(*this->_returnValue);
+			});
+		return static_pointer_cast<ChainFunc<T>>(shared_from_this());
+	}
+	template <class F, std::enable_if_t<std::is_same_v<void, std::invoke_result_t<F, T>>, int> = true>
+	std::shared_ptr<ChainFunc<T>> ChainAsync(F&& fn)
+	{
+		DoAsyncToss([=]()
+			{
+				fn(*this->_returnValue);
+			});
+		return static_pointer_cast<ChainFunc<T>>(shared_from_this());
+	}
+	template <class F, std::enable_if_t<!std::is_same_v<void, std::invoke_result_t<F, T>>, int> = true>
+	std::shared_ptr<ChainFunc<T>> ChainAsync(F&& fn)
+	{
+		DoAsyncToss([=]()
+			{
+				*this->_returnValue = fn(*this->_returnValue);
+			});
+		return static_pointer_cast<ChainFunc<T>>(shared_from_this());
+	}
 
+	void Return(std::shared_ptr<T>&& value) { _returnValue = value; }
 
 private:
 	std::shared_ptr<T> _returnValue;
 };
-
-template<class T>
-inline std::shared_ptr<ChainFunc<T>> ChainFunc<T>::Chain(std::function<void(std::shared_ptr<T>)>&& fn)
-{
-	DoAsync([=]()
-		{
-			fn(this->_returnValue);
-		});
-	return static_pointer_cast<ChainFunc<T>>(shared_from_this());
-}
-
-template<class T>
-inline std::shared_ptr<ChainFunc<T>> ChainFunc<T>::ChainAsync(std::function<void(std::shared_ptr<T>)>&& fn)
-{
-	DoAsyncToss([=]()
-		{
-			fn(this->_returnValue);
-		});
-	return static_pointer_cast<ChainFunc<T>>(shared_from_this());
-}
 
 class ChainFuncMaker : public RefSingleton<ChainFuncMaker>
 {
