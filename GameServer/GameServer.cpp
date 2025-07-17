@@ -13,7 +13,7 @@ void TimerJobQueue::UpdateTime()
 {
 	VIEW_WRITE_INFO("CPU ({:.2f}), MEOMORY ({:.2f})MB", Monitor::GetInstance().GetCPUUsage(), Monitor::GetInstance().GetMemoryUsage_MB());
 	Monitor::GetInstance().PrintServerCounting();
-	//DoTimer(TimeUtils::OneMin, &TimerJobQueue::UpdateTime);
+	DoTimer(TimeUtils::OneMin, &TimerJobQueue::UpdateTime);
 }
 
 void TimerJobQueue::UpdateActor()
@@ -36,11 +36,11 @@ bool GameServer::Init()
 	GameDBHandler::GetInstance().Init();
 	ClientPacketHandler::GetInstance().Init();
 
-	//if (_InitGameDB() == false)
-	//{
-	//	VIEW_ERROR("GameDB Init Fail");
-	//	return false;
-	//}
+	if (_InitGameDB() == false)
+	{
+		VIEW_ERROR("GameDB Init Fail");
+		return false;
+	}
 	if (_InitClientService() == false)
 	{
 		VIEW_ERROR("ClientService Init Fail");
@@ -130,8 +130,8 @@ void GameServer::_InitWorkerThread(std::shared_ptr<ServerService> service)
 					ThreadManager::GetInstance().DistributeReservedJobs();
 					ThreadManager::GetInstance().DoGlobalQueueWork();
 
-					std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
-					jobQueue->UpdateActor();
+					//std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
+					//jobQueue->UpdateActor();
 
 					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 				}

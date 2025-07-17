@@ -39,7 +39,7 @@ public:
 		}
 	}
 
-	void PopCount(OUT std::vector<T>& items, const int32& count)
+	void PopCount(OUT std::vector<T>& items, const int32 count)
 	{
 		for (int32 i = 0; i < count; i++)
 		{

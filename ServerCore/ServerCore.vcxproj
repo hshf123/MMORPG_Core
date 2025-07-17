@@ -204,6 +204,7 @@
     <ClInclude Include="MathPch.h" />
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="Monitor.h" />
+    <ClInclude Include="MSPCLockFreeQueue.h" />
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RecvBuffer.h" />

@@ -153,6 +153,9 @@
     <ClInclude Include="ChainFunc.h">
       <Filter>CallBack</Filter>
     </ClInclude>
+    <ClInclude Include="MSPCLockFreeQueue.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

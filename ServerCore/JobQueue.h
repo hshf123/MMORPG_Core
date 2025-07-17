@@ -1,6 +1,7 @@
 #pragma once
 #include "Job.h"
 #include "LockQueue.h"
+#include "MSPCLockFreeQueue.h"
 #include "JobTimer.h"
 
 /// <summary>
@@ -68,6 +69,7 @@ public:
 	void Execute();
 
 protected:
-	LockQueue<std::shared_ptr<Job>>		_jobs;
+	//LockQueue<std::shared_ptr<Job>>		_jobs;
+	MSPCLockFreeQueue<std::shared_ptr<Job>>		_jobs;
 	std::atomic_int32_t					_jobCount = 0;
 };
