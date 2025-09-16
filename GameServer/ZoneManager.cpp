@@ -36,25 +36,21 @@ SyncTask ZoneManager::ActorTest()
 	// 코루틴을 사용할거면 이런식으로 사용해라~ 임
 
 	// 1번 Zone 컨텍스트 스위칭
-	uint32 startThreadId = LThreadId;
 	std::shared_ptr<Zone> zone = GetZone(1);
 	co_await Awaiter(zone).PostAwait();
+	assert(zone->CheckSync());
+	zone = nullptr;
 
 	// 여기서 부터
-	uint32 midThreadId = LThreadId;
 	// 여기까지 1번 존 구간
 
 	// 2번 Zone 컨텍스트 스위칭
 	zone = GetZone(2);
 	co_await Awaiter(zone).PostAwait();
+	assert(zone->CheckSync());
 
-	uint32 endThreadId = LThreadId;
 	// 스레드 아이디가 바뀌었는지 확인
 	// 함수 하나 안에서 스레드 아이디가 바뀐다
-	if (startThreadId != midThreadId || midThreadId != endThreadId)
-	{
-		// VIEW_INFO("ZoneManager::ActorTest - Thread ID changed: {} -> {} -> {}", startThreadId, midThreadId, endThreadId);
-	}
 
 	// 1번 2번 3번을 모두 비동기로 처리하려면 여기에 JobQueue를 섞으면 됨 -> 섞음
 	// 그러면 언젠가 1번이 실행되고 이어서 바로 2번 실행이 아니라
@@ -79,22 +75,22 @@ SyncTask ZoneManager::ActorTest()
 					// 비동기로 가게되면 std::future::get 마냥 건드려도 되는지 확인하고 꺼내오는게 필요함 그냥 체이닝 함수 안에서만 건드리게끔 설계하는게 좋을듯
 				});
 
-	ChainFuncMaker::GetInstance().Make<std::shared_ptr<PC>>([zone]() 
-		{
-			// ex) PC 인증절차 다 거치고 뭐 DB 호출할거 다 하고 여기서 이제 PC를 만든다.
-			return PoolAlloc<PC>(zone);
-		})->Chain([](std::shared_ptr<PC> pc)
-			{
-				// 만들어진 PC를 PCManager에 둬도 되고 PCManager에 안둘거면 Zone에라도 등록 시킨다 치자 (생명유지를 위해)
-				// zone->DoAsync(&Zone::EnterPC, pc);
+			ChainFuncMaker::GetInstance().Make<std::shared_ptr<PC>>([zone]()
+				{
+					// ex) PC 인증절차 다 거치고 뭐 DB 호출할거 다 하고 여기서 이제 PC를 만든다.
+					return PoolAlloc<PC>(zone);
+				})->Chain([](std::shared_ptr<PC> pc)
+					{
+						// 만들어진 PC를 PCManager에 둬도 되고 PCManager에 안둘거면 Zone에라도 등록 시킨다 치자 (생명유지를 위해)
+						// zone->DoAsync(&Zone::EnterPC, pc);
 
-				// 여기서 함정은 ChainFunc, Zone, PC 다 Actor임...
-				// 그래서 서로 건드릴 때 마다 스위칭이 필요한데...
+						// 여기서 함정은 ChainFunc, Zone, PC 다 Actor임...
+						// 그래서 서로 건드릴 때 마다 스위칭이 필요한데...
 
-				// 방법 1. ChainFunc를 JobQueue 상속 받지 말고 생성자를 JobQueue 받는 버전 안받는 버전 만들어서 1번이라도 스위칭 줄일 수 있도록?
-				// 방법 2. 그냥 코루틴만 써.... 솔직히 코루틴 없으면 이거 개량시켜서 쓸만한데 코루틴 있으면 이거 없어도 상관 없어보이는데...
-				VIEW_INFO("My Zone ID : {}", pc->GetZoneID());
-			});
+						// 방법 1. ChainFunc를 JobQueue 상속 받지 말고 생성자를 JobQueue 받는 버전 안받는 버전 만들어서 1번이라도 스위칭 줄일 수 있도록?
+						// 방법 2. 그냥 코루틴만 써.... 솔직히 코루틴 없으면 이거 개량시켜서 쓸만한데 코루틴 있으면 이거 없어도 상관 없어보이는데...
+						VIEW_INFO("My Zone ID : {}", pc->GetZoneID());
+					});
 
-	co_return;
+				co_return;
 }

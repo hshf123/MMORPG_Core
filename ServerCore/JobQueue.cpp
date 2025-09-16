@@ -2,6 +2,11 @@
 #include "JobQueue.h"
 #include "GlobalQueue.h"
 
+bool JobQueue::CheckSync() const
+{
+	return LCurrentJobQueue == this;
+}
+
 void JobQueue::Push(std::shared_ptr<Job> job, bool pushOnly /*= false*/)
 {
 	const int32 prevCount = _jobCount.fetch_add(1);

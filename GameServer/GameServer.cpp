@@ -123,6 +123,7 @@ void GameServer::_InitWorkerThread(std::shared_ptr<ServerService> service)
 	{
 		ThreadManager::GetInstance().Launch([service]()
 			{
+				std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
 				while (true)
 				{
 					LEndTickCount = TimeUtils::GetTick64() + 64;
@@ -130,8 +131,7 @@ void GameServer::_InitWorkerThread(std::shared_ptr<ServerService> service)
 					ThreadManager::GetInstance().DistributeReservedJobs();
 					ThreadManager::GetInstance().DoGlobalQueueWork();
 
-					//std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
-					//jobQueue->UpdateActor();
+					jobQueue->UpdateActor();
 
 					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 				}

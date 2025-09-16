@@ -57,6 +57,8 @@ public:
 
 	void ClearJobs() { _jobs.Clear(); }
 
+	bool CheckSync() const;
+
 public:
 	/// <summary>
 	/// 작업 큐에 일감 Push
