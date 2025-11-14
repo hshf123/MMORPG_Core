@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Singleton.h"
 #include "LockQueue.h"
 
@@ -6,8 +6,8 @@ class JobQueue;
 class DBData;
 
 /// <summary>
-/// DBÀÛ¾÷ Á¦¿Ü, ·ÎÁ÷ ¹× ³×Æ®¿öÅ© ÆÐÅ¶ ÀÛ¾÷ Å¥
-/// ÇÑ ½º·¹µå¿¡ ³Ê¹« ¸¹Àº ÀÛ¾÷ÀÌ ¸ô¸± °æ¿ì¸¦ À§ÇÑ Å¥, DB´Â ·Îµå¹ë·±¼­°¡ ¼öÇà
+/// DBìž‘ì—… ì œì™¸, ë¡œì§ ë° ë„¤íŠ¸ì›Œí¬ íŒ¨í‚· ìž‘ì—… í
+/// í•œ ìŠ¤ë ˆë“œì— ë„ˆë¬´ ë§Žì€ ìž‘ì—…ì´ ëª°ë¦´ ê²½ìš°ë¥¼ ìœ„í•œ í, DBëŠ” ë¡œë“œë°¸ëŸ°ì„œê°€ ìˆ˜í–‰
 /// </summary>
 class GlobalQueue : public RefSingleton<GlobalQueue>
 {

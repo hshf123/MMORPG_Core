@@ -1,13 +1,9 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameServer.h"
 #include "Socket.h"
-#include "ClientPacketHandler.h"
-#include "GameDBLoadBalancer.h"
-#include "GameDBHandler.h"
 #include "Service.h"
-#include "ClientSession.h"
 #include "ThreadManager.h"
-#include "ZoneManager.h"
+#include "ClientSession.h"
 
 void TimerJobQueue::UpdateTime()
 {
@@ -20,21 +16,18 @@ void TimerJobQueue::UpdateActor()
 {
 	DoAsyncToss([]()
 		{
-			ZoneManager::GetInstance().ActorTest();
 		});
 	DoTimer(TimeUtils::OneSec * 3, &TimerJobQueue::UpdateActor);
 }
 
 bool GameServer::Init()
 {
-	ThreadManager::GetInstance();	// ¸ÞÀÎ½º·¹µå ID »ý¼º À§ÇØ
+	ThreadManager::GetInstance();	// ë©”ì¸ìŠ¤ë ˆë“œ ID ìƒì„± ìœ„í•´
 	if (_ReadConfig() == false)
 		return false;
 
 	Socket::Init();
 	LogManager::GetInstance().Initialize(ServerConfig::GetInstance().GetProcessName());
-	GameDBHandler::GetInstance().Init();
-	ClientPacketHandler::GetInstance().Init();
 
 	if (_InitGameDB() == false)
 	{
@@ -53,10 +46,6 @@ bool GameServer::Init()
 bool GameServer::Update()
 {
 	LogManager::GetInstance().Launch();
-	GameDBLoadBalancer::Balancer->Launch();
-	std::shared_ptr<DBData> data = PoolAlloc<DBData>();
-	data->ProtocolID = EDBProtocol::SGDB_ServerStart;
-	GameDBLoadBalancer::Balancer->Push(std::move(data));
 	TimeUtils::WaitInit();
 
 	std::shared_ptr<TimerJobQueue> jobQueue = std::make_shared<TimerJobQueue>();
@@ -80,16 +69,11 @@ bool GameServer::_ReadConfig()
 		return false;
 
 	xreserve<Job>(100'000, nullptr);
-	xreserve<DBQueueData>(100'000, 0, nullptr, GameDBHandler::GetInstance());
 	return true;
 }
 
 bool GameServer::_InitGameDB()
 {
-	if (GameDBLoadBalancer::Balancer->Init(
-		ServerConfig::GetInstance().GetDBConnectionString()
-		, ServerConfig::GetInstance().GetGameDBThreadCount()) == false)
-		return false;
 	//if (_redisIP.empty())
 	//	return true;
 	//if (GameDBLoadBalancer::Balancer->RedisInit(_redisIP, _redisPort) == false)

@@ -186,8 +186,6 @@
     <ClInclude Include="ChainFunc.h" />
     <ClInclude Include="MathUtil.h" />
     <ClInclude Include="CorePch.h" />
-    <ClInclude Include="DBHandler.h" />
-    <ClInclude Include="DBLoadBalancer.h" />
     <ClInclude Include="DBService.h" />
     <ClInclude Include="DeadLockProfiler.h" />
     <ClInclude Include="GlobalQueue.h" />
@@ -227,8 +225,6 @@
     <ClCompile Include="ChainFunc.cpp" />
     <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="CorePch.cpp" />
-    <ClCompile Include="DBHandler.cpp" />
-    <ClCompile Include="DBLoadBalancer.cpp" />
     <ClCompile Include="DBService.cpp" />
     <ClCompile Include="DeadLockProfiler.cpp" />
     <ClCompile Include="GlobalQueue.cpp" />

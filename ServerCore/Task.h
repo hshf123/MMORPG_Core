@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class SyncTask
 {
@@ -13,6 +13,13 @@ public:
 		void return_void() {}
 		void unhandled_exception() {}
 	};
+
+	static void RunAsync(std::function<void()> func)
+	{
+		[func]() -> SyncTask {
+			func();
+		}();
+	}
 };
 
 template<class T, class... Args>

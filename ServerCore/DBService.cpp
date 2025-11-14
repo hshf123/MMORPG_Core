@@ -1,4 +1,4 @@
-#include "pch.h"
+癤�#include "pch.h"
 #include "DBService.h"
 
 bool DBService::Connect(const std::string& connectionString)
@@ -29,36 +29,3 @@ bool DBService::RedisConnect(const std::string& ip, int32 port)
 	return true;
 }
 
-bool DBService::Push(const uint16& protocolId, std::shared_ptr<DBData> data, DBHandler& handler)
-{
-	if (data == nullptr)
-		return false;
-
-	_queueCount.fetch_add(1);
-	_dbQueue.Push(xnew<DBQueueData>(protocolId, data, handler));
-	return true;
-}
-
-void DBService::Execute()
-{
-	while (true)
-	{
-		if (_queueCount == 0)
-			return;
-
-		std::vector<DBQueueData*> jobs;
-		_dbQueue.PopAll(OUT jobs);
-
-		const int32 queueCount = static_cast<int32>(jobs.size());
-		for (int32 i = 0; i < queueCount; i++)
-		{
-			jobs[i]->handler.HandleData(jobs[i]->ProtocolId, jobs[i]->data);
-			jobs[i]->data = nullptr;
-			xdelete(jobs[i]);
-		}
-
-		// 남은 일감이 0개라면 종료
-		if (_queueCount.fetch_sub(queueCount) == queueCount)
-			return;
-	}
-}

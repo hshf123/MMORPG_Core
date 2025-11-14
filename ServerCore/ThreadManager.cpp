@@ -1,9 +1,8 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ThreadManager.h"
 #include "TLS.h"
 #include "GlobalQueue.h"
 #include "JobQueue.h"
-#include "DBHandler.h"
 
 ThreadManager::ThreadManager()
 {

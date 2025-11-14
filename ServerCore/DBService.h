@@ -1,6 +1,5 @@
-#pragma once
+ï»¿#pragma once
 #include "LockQueue.h"
-#include "DBHandler.h"
 #include "TimeUtils.h"
 
 #include <Poco/Data/RecordSet.h>
@@ -10,41 +9,22 @@
 #pragma comment (lib, "iphlpapi.lib")	// GetAdaptersInfo()
 using namespace Poco::Data::Keywords;		// in() out()
 
-struct DBQueueData 
-{
-	uint16 ProtocolId = 0;
-	std::shared_ptr<DBData> data = nullptr;
-	DBHandler& handler;
-};
-
 class DBService
 {
 public:
 	/// <summary>
-	/// DB ¿¬°á Á÷Á¢È£Ãâ ÇÏÁö ¾Ê°í ·Îµå¹ë·±¼­¸¦ ÅëÇØ È£Ãâ
+	/// DB ì—°ê²° ì§ì ‘í˜¸ì¶œ í•˜ì§€ ì•Šê³  ë¡œë“œë°¸ëŸ°ì„œë¥¼ í†µí•´ í˜¸ì¶œ
 	/// </summary>
 	/// <param name="connectionString"></param>
 	/// <returns></returns>
 	bool Connect(const std::string& connectionString);
 	/// <summary>
-	/// DB ¿¬°á Á÷Á¢È£Ãâ ÇÏÁö ¾Ê°í ·Îµå¹ë·±¼­¸¦ ÅëÇØ È£Ãâ
+	/// DB ì—°ê²° ì§ì ‘í˜¸ì¶œ í•˜ì§€ ì•Šê³  ë¡œë“œë°¸ëŸ°ì„œë¥¼ í†µí•´ í˜¸ì¶œ
 	/// </summary>
 	/// <param name="ip"></param>
 	/// <param name="port"></param>
 	/// <returns></returns>
 	bool RedisConnect(const std::string& ip, int32 port);
-	/// <summary>
-	/// DB ÀÛ¾÷ Push Á÷Á¢È£Ãâ ÇÏÁö ¾Ê°í ·Îµå¹ë·±¼­¸¦ ÅëÇØ È£Ãâ
-	/// </summary>
-	/// <param name="protocolId"></param>
-	/// <param name="data"></param>
-	/// <param name="handler"></param>
-	/// <returns></returns>
-	bool Push(const uint16& protocolId, std::shared_ptr<DBData> data, DBHandler& handler);
-	/// <summary>
-	/// ÇØ´ç ½º·¹µå¿¡ ¹èÁ¤µÈ DB ÀÛ¾÷À» Ã³¸®
-	/// </summary>
-	void Execute();
 
 	Poco::Data::Session* GetDBSession() { return _session; }
 
@@ -60,7 +40,4 @@ private:
 	std::string _redisIP;
 	int32 _redisPort = 0;
 	redisContext* _redisContext = nullptr;
-
-	std::atomic_int32_t _queueCount = 0;
-	LockQueue<DBQueueData*> _dbQueue;	// DB ÀÛ¾÷ Å¥
 };

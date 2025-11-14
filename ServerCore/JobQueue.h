@@ -1,17 +1,13 @@
-#pragma once
+ï»¿#pragma once
 #include "Job.h"
 #include "LockQueue.h"
 #include "MSPCLockFreeQueue.h"
 #include "JobTimer.h"
 
-/// <summary>
-/// ±âº»ÀûÀ¸·Î »ó¼Ó ¹Ş¾Æ¼­ »ç¿ë.
-/// Å¥¿¡ ³Ö¾î¼­ ½Ã°£ÀÌ µô·¹ÀÌ µÇ´Â °ÍÀ» ¸·°í ½ÍÀ» ¶§´Â ¶ô °É·Î ¹Ù·Î È£ÃâÇÏ¸é µÊ
-/// ²À »ó¼Ó¹Ş¾Ò´Ù°í ÇØ¼­ ¹«Á¶°Ç »ç¿ëÇØ¾ßÇÏ´Â °ÍÀº ¾Æ´Ô.
-/// </summary>
 class JobQueue : public std::enable_shared_from_this<JobQueue>
 {
 public:
+	static void DoTask(std::shared_ptr<JobQueue> jobQueue, CallbackType&& callback);
 	void DoAsync(CallbackType&& callback)
 	{
 		Push(PoolAlloc<Job>(std::move(callback)));
@@ -61,12 +57,12 @@ public:
 
 public:
 	/// <summary>
-	/// ÀÛ¾÷ Å¥¿¡ ÀÏ°¨ Push
-	/// ¸ÖÆ¼½º·¹µå È¯°æ¿¡¼­µµ Å¥ÀÇ ÀÏ°¨À» Ã³¸®ÇÒ ¼ö ÀÖ´Â°Ç ÇÑ ½º·¹µå »Ó
-	/// ÀÌ¹Ì ´Ù¸¥ ½º·¹µå°¡ Ã³¸® ÁßÀÌ¶ó¸é GlobalQueue·Î ³Ñ¾î°¨
+	/// ì‘ì—… íì— ì¼ê° Push
+	/// ë©€í‹°ìŠ¤ë ˆë“œ í™˜ê²½ì—ì„œë„ íì˜ ì¼ê°ì„ ì²˜ë¦¬í•  ìˆ˜ ìˆëŠ”ê±´ í•œ ìŠ¤ë ˆë“œ ë¿
+	/// ì´ë¯¸ ë‹¤ë¥¸ ìŠ¤ë ˆë“œê°€ ì²˜ë¦¬ ì¤‘ì´ë¼ë©´ GlobalQueueë¡œ ë„˜ì–´ê°
 	/// </summary>
-	/// <param name="job">ÀÏ°¨</param>
-	/// <param name="pushOnly">true : ÀÏ°¨À» Ã³¸®ÇÏ´Â ½º·¹µå°¡ ¾ø¾îµµ ¹«Á¶°Ç GlobalQueue¿¡ »ğÀÔ</param>
+	/// <param name="job">ì¼ê°</param>
+	/// <param name="pushOnly">true : ì¼ê°ì„ ì²˜ë¦¬í•˜ëŠ” ìŠ¤ë ˆë“œê°€ ì—†ì–´ë„ ë¬´ì¡°ê±´ GlobalQueueì— ì‚½ì…</param>
 	void Push(std::shared_ptr<Job> job, bool pushOnly = false);
 	void Execute();
 

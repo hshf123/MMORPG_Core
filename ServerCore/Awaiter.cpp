@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Awaiter.h"
 
 Awaiter::Awaiter(std::shared_ptr<JobQueue> jobQueue) : _jobQueue(jobQueue)
@@ -8,7 +8,7 @@ Awaiter::Awaiter(std::shared_ptr<JobQueue> jobQueue) : _jobQueue(jobQueue)
 
 Post Awaiter::PostAwait() const
 {
-	return Post(_jobQueue.lock());
+	return Post(_jobQueue);
 }
 
 Post::Post(std::shared_ptr<JobQueue> jobQueue) : _jobQueue(jobQueue)

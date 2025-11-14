@@ -1,19 +1,16 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ClientSession.h"
 #include "ClientPacketHandler.h"
 #include "ClientSessionManager.h"
-#include "ZoneManager.h"
 
 void ClientSession::OnConnected(NetAddress netAddr)
 {
 	ClientSessionManager::GetInstance().OnConnected(GetPacketSession());
-	ZoneManager::GetInstance().GetZone(GetWorkId())->DoAsync(&Zone::Enter, std::static_pointer_cast<ClientSession>(shared_from_this()));
 }
 
 void ClientSession::OnDisconnected()
 {
 	ClientSessionManager::GetInstance().OnDisconnected(GetPacketSession());
-	ZoneManager::GetInstance().GetZone(GetWorkId())->DoAsync(&Zone::Leave, std::static_pointer_cast<ClientSession>(shared_from_this()));
 }
 
 void ClientSession::OnRecvPacket(BYTE* buffer, int32 len)
@@ -22,7 +19,7 @@ void ClientSession::OnRecvPacket(BYTE* buffer, int32 len)
 	PacketHeader header = *reinterpret_cast<PacketHeader*>(buffer);
 	if (ClientPacketHandler::GetInstance().HandlePacket(session, buffer, len) == false)
 	{
-		// ·Î±×¶óµµ Âï¾î¾ß ÇÏ³ª?
+		// ë¡œê·¸ë¼ë„ ì°ì–´ì•¼ í•˜ë‚˜?
 	}
 }
 
